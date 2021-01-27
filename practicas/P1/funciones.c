@@ -7,8 +7,6 @@
 *	@date: 25/01/2021
 */
 #include "misDefiniciones.h"
-#define True 1
-#define False 0
 
 /*
 *	@brief: Función que revisa si string entrada es un número binario, regresa un booleano
@@ -94,7 +92,7 @@ int parseEntradas(char *arg1, char *arg2, int *operador1, int *operador2){
 	
 	else{
 		printf("Las entradas numéricas no son correctas\n");
-		exit(1);
+		exit(0);
 	}
 	
 	return 0;

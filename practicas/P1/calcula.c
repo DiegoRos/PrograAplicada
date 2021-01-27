@@ -6,8 +6,6 @@
 *	@date: 25/01/2021
 */
 #include "misDefiniciones.h"
-#define True 1
-#define False 0
 
 extern int parseEntradas(char *arg1, char *arg2, int *operador1, int *operador2);
 extern int esBinario(char *arg);
@@ -63,7 +61,7 @@ int main(int argc, char *argv[]){
 
 		default:
 			printf("No se metió un operador válido\n");
-			exit(1);
+			exit(0);
 			break;
 	}
 
