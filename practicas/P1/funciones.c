@@ -92,7 +92,8 @@ int parseEntradas(char *arg1, char *arg2, int *operador1, int *operador2){
 	
 	else{
 		printf("Las entradas numéricas no son correctas\n");
-		exit(0);
+		free(operador1);
+		free(opearador2);
 	}
 	
 	return 0;
