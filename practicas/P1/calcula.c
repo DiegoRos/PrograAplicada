@@ -19,7 +19,8 @@ int main(int argc, char *argv[]){
 	}
 	
 	else{
-		int i, resultado, print = True;
+		float resultado;
+		int i, print = True;
 		int *operador1 = (int *)malloc(sizeof(int)), *operador2 = (int *)malloc(sizeof(int));
 		char operacion;
 
@@ -59,7 +60,7 @@ int main(int argc, char *argv[]){
 					break;
 
 				case '/':
-					resultado =(*operador1) / (*operador2);
+					resultado = (float)(*operador1) / (float)(*operador2);
 					break;
 
 				default:
@@ -73,8 +74,8 @@ int main(int argc, char *argv[]){
 			
 
 			if(print){
-				printf("Resultado en Decimal: %d\n", resultado);
-				printf("Resultado en Octal: %d\n", decimalAOctal(resultado));
+				printf("Resultado en Decimal: %f\n", resultado);
+				printf("Resultado en Octal: %d\n", decimalAOctal((int) resultado));
 			}
 		}
 	}

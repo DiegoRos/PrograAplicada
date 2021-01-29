@@ -1,5 +1,5 @@
 #Esta línea tiene como objetivo crear el ejecutable calcula.exe 
-calcula.exe: calcula.o
+calcula.exe: calcula.o funciones.o
 	gcc calcula.o funciones.o -o calcula.exe -lm
 
 #Crear objeto de main file calcula.c
