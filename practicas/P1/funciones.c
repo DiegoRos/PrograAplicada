@@ -6,9 +6,8 @@
 *	@author: Equipo 3
 *	@date: 25/01/2021
 */
+
 #include "misDefiniciones.h"
-#define True 1
-#define False 0
 
 /*
 *	@brief: Función que revisa si string entrada es un número binario, regresa un booleano
@@ -88,13 +87,12 @@ int parseEntradas(char *arg1, char *arg2, int *operador1, int *operador2){
 	}
 
 	else if ((esBinario(arg2)) && (esHexadecimal(arg1))){
-		*operador1 = binarioADecimal(arg2);
-		sscanf(arg1, "%x", operador2);
+		*operador2 = binarioADecimal(arg2);
+		sscanf(arg1, "%x", operador1);
 	}
 	
 	else{
 		printf("Las entradas numéricas no son correctas\n");
-		exit(1);
 	}
 	
 	return 0;
