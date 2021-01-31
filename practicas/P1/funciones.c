@@ -18,10 +18,21 @@
 
 int esBinario(char *arg){
 	int i;
-	for(i = 0; i < strlen(arg); i++){
-		if(!((arg[i] == '0') || (arg[i] == '1'))){
-			return False;
-		}		
+
+	if ((arg[0] == '0') && (arg[1] == 'b')){
+		for(i = 2; i < strlen(arg); i++){
+			if(!((arg[i] == '0') || (arg[i] == '1'))){
+				return False;
+			}
+		}	
+	} 
+	
+	else{
+		for(i = 0; i < strlen(arg); i++){
+			if(!((arg[i] == '0') || (arg[i] == '1'))){
+				return False;
+			}		
+		}
 	}
 	
 	return True;
