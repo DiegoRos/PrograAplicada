@@ -8,10 +8,8 @@
 #include "misDefiniciones.h"
 
 extern int encontrarOperacion(int argc, char *argv[], char *operacion, int *error_operacion);
-extern float hacerOperacion(int *operador1, int *opeardor2, char operacion, int *error_val);
 extern int parseEntradas(char *arg1, char *arg2, int *operador1, int *operador2, int *error_val);
-extern int esBinario(char *arg);
-extern int binarioADecimal(char *arg);
+extern float hacerOperacion(int *operador1, int *opeardor2, char operacion, int *error_val);
 extern int decimalAOctal(int valor_decimal);
 
 int main(int argc, char *argv[]){
