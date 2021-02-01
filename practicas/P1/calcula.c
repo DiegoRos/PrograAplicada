@@ -25,7 +25,7 @@ int main(int argc, char *argv[]){
 		char *operacion = (char *)malloc(sizeof(char));
 		*error_val = 0;
 		
-		encontrarOperacion(argc, argv, operacion, error_val);
+		i = encontrarOperacion(argc, argv, operacion, error_val);
 		if (*error_val == 0){
 			if (i == 1){
 				parseEntradas(argv[2], argv[3], operador1, operador2, error_val);
