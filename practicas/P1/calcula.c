@@ -21,6 +21,7 @@ int main(int argc, char *argv[]){
 	
 	else{
 		float resultado;
+		int i;
 		int *operador1 = (int *)malloc(sizeof(int)), *operador2 = (int *)malloc(sizeof(int));
 		char *operacion = (char *)malloc(sizeof(char));
 		*error_val = 0;

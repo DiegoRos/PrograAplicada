@@ -23,7 +23,7 @@ int encontrarOperacion(int argc, char *argv[], char *operacion, int *error_val){
 	int condicion_longitud, condicion_operador;
 	for(i = 1; i < argc; i++){
 		condicion_longitud = strlen(argv[i]) == 1;
-		condicion_operador = (*argv[i] == 'x') || (*argv[i] == '/') || (*argv[i] == '+') || (*argv[i] == '-');	
+		condicion_operador = (*argv[i] == 'x') || (*argv[i] == '/') || (*argv[i] == '+') || (*argv[i] == '-') || (*argv[i] == '^');	
 
 		if(condicion_longitud && condicion_operador){
 			*operacion = argv[i][0];
@@ -177,6 +177,10 @@ float hacerOperacion(int *operador1, int *operador2, char operacion, int *error_
 
 		case '/':
 			resultado = (float)(*operador1) / (float)(*operador2);
+			break;
+
+		case '^':
+			resultado = pow((*operador1), (*operador2));
 			break;
 		}
 
