@@ -9,15 +9,20 @@
 
 int capturar(Paciente p[], int num);
 int edadPaciente(Paciente *p);
+int imprimir(Paciente *p);
+int guardarArchTxt(Paciente *p);
 
 int main(int argc, char *argv[]){
-	Paciente expedientes[1];
+	Paciente expedientes[MAX];
 	
-	capturar(expedientes, 1);
+	capturar(expedientes, MAX);
 	
 	int edad = edadPaciente(&expedientes[1]);	
-		
+	
+	for(int i = 0; i < MAX; i++){
+		imprimir(expedientes + i);
+		guardarArchTxt(expedientes + i);
+	}
 
 	return 0;
 }
-

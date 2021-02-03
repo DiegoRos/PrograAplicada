@@ -5,6 +5,7 @@
 
 #define True 1
 #define False 0
+#define MAX 1
 
 typedef struct{
 	int dia;

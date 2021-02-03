@@ -66,3 +66,54 @@ int edadPaciente(Paciente *p){
 	
 	return edad;
 }
+
+/*
+*	@brief: Función que imprime la edad de varios pacientes
+*	@author: Clase Guillermo Gómez Abascal
+*	@param Pacientes *p: puntero a un paciente
+*	@return
+*/
+int imprimir(Paciente *p){	
+	printf("\nPaciente:\n");
+	printf("Nombre y Apellido: %s\n", p -> nombre);
+	printf("Fecha de Nacimiento: %d/%d/%d\n", p -> fecha_nacimiento.dia, p -> fecha_nacimiento.mes, p -> fecha_nacimiento.anio);
+	printf("Sexo (M/F): %c\n", p -> sexo);
+	printf("Peso: %f kg\n", p -> peso);
+	printf("Estatura: %f m\n", p -> estatura);
+	printf("Padecimientos del paciente (S si tiene el padecimiento o N si no):\n");
+	printf("\tObesidad: [%c]\n", p -> padecimientos[0] ? 'S':'N');
+	printf("\tDiabetes: [%c]\n", p -> padecimientos[1] ? 'S':'N');
+	printf("\tHipertensión: [%c]\n", p -> padecimientos[2] ? 'S':'N');
+
+	return 1;
+}
+
+
+/*
+*	@brief: Función que imprime a un file la edad de varios pacientes
+*	@author: Clase Guillermo Gómez Abascal
+*	@param Pacientes *p: puntero a un paciente
+*	@return
+*/
+int guardarArchTxt(Paciente *p){
+	FILE *fp;
+
+	fp = fopen("pacientes.txt", "a");
+	if (fp == NULL){
+		printf("\nFile no se puede abrir\n");
+		return 0;
+	}
+	fprintf(fp, "%s\n", p -> nombre);
+	fprintf(fp, "%d/%d/%d\n", p -> fecha_nacimiento.dia, p -> fecha_nacimiento.mes, p -> fecha_nacimiento.anio);
+	fprintf(fp, "%c\n", p -> sexo);
+	fprintf(fp, "%f\n", p -> peso);
+	fprintf(fp, "%f\n", p -> estatura);
+	fprintf(fp, "\tObesidad: %d\n", p -> padecimientos[0]);
+	fprintf(fp, "\tDiabetes: %d\n", p -> padecimientos[1]);
+	fprintf(fp, "\tHipertensión: %d\n", p -> padecimientos[2]);
+	fprintf(fp, "%c", '\n');
+	
+	fclose(fp);
+	return 1;
+}
+
