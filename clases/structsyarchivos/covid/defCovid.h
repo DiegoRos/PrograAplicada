@@ -5,7 +5,7 @@
 
 #define True 1
 #define False 0
-#define MAX 1
+#define MAX 2
 
 typedef struct{
 	int dia;
@@ -20,6 +20,5 @@ typedef struct{
 	float peso;
 	float estatura;
 	int padecimientos[3]; //obesidad, diabetes o hipertensión.
-	char *zona;
 }Paciente;
 

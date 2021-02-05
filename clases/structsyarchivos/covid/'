@@ -163,9 +163,17 @@ extern int leerArchTxt(Paciente *p){
 	while(fgets(linea, 80, fp)){
 		if (block_number == 0){
 			int len = strlen(linea);
-			if (linea[len-1] == '\n') linea[len-1] = '\0';
-			strcpy(p[i].nombre, linea);
+			for(int j = 0; j < len; j++){
+				if(linea[j] == '\n'){
+					p[i].nombre[j] == '\0';
+					break;
+				}
+				else
+					p[i].nombre[j] = linea[j];
+			}
+			printf("len: %li", strlen(p[i].nombre));
 			block_number++;
+			printf("\n");
 		}
 		else if(block_number == 1){
 			sscanf(linea, "%d/%d/%d", &p[i].fecha_nacimiento.dia, &p[i].fecha_nacimiento.mes, &p[i].fecha_nacimiento.anio);
