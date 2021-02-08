@@ -158,41 +158,28 @@ extern int leerArchTxt(Paciente *p){
 	fp = fopen("pacientes.txt", "r");
 
 	char linea[80];
-	int block_number = 0;
 	int i = 0;
 	while(fgets(linea, 80, fp)){
-		if (block_number == 0){
-			int len = strlen(linea);
-			if (linea[len-1] == '\n') linea[len-1] = '\0';
-			strcpy(p[i].nombre, linea);
-			block_number++;
-		}
-		else if(block_number == 1){
-			sscanf(linea, "%d/%d/%d", &p[i].fecha_nacimiento.dia, &p[i].fecha_nacimiento.mes, &p[i].fecha_nacimiento.anio);
-			block_number++;
-		}
+		sscanf(linea, "%[^\n]", p[i].nombre);
 
-		else if(block_number == 2){
-			sscanf(linea, "%c", &p[i].sexo);
-			block_number++;
-		}
-		else if(block_number == 3){
-			sscanf(linea, "%f", &p[i].peso);
-			block_number++;
-		}
-		else if(block_number == 4){
-			sscanf(linea, "%f", &p[i].estatura);
-			block_number++;
-		}
-		else if(block_number == 5){
-			sscanf(linea, "%d\t%d\t%d", &p[i].padecimientos[0], &p[i].padecimientos[1], &p[i].padecimientos[2]);
-			block_number++;
-		}
-		else{
-			i++;
-			block_number = 0;
-		}
+		fgets(linea, 80, fp);
+		sscanf(linea, "%d/%d/%d", &p[i].fecha_nacimiento.dia, &p[i].fecha_nacimiento.mes, &p[i].fecha_nacimiento.anio);
+
+		fgets(linea, 80, fp);
+		sscanf(linea, "%c", &p[i].sexo);
+
+		fgets(linea, 80, fp);
+		sscanf(linea, "%f", &p[i].peso);
+
+		fgets(linea, 80, fp);
+		sscanf(linea, "%f", &p[i].estatura);
 		
+		fgets(linea, 80, fp);
+		sscanf(linea, "%d\t%d\t%d", &p[i].padecimientos[0], &p[i].padecimientos[1], &p[i].padecimientos[2]);
+
+		fgets(linea, 80, fp);
+
+		i++;
 	}
 	
 	return 1;
