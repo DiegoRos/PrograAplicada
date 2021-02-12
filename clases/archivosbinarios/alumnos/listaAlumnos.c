@@ -13,13 +13,15 @@
 int darAltaAlumnos(Alumno dat, char *nom_arch);
 int imprimirLista(char *nom_arch);
 Alumno mostrarAlumno(int num, char *nom_arch);
+int numAlumnos(char *nom_arch); 
+int modificarAlumno(int num, char *nom_arch);
 
 int main(int argc, char *argv[]){
 	
 	Alumno datos;
 	int i = 1, posicion;
 	char opcion;
-
+	/*
 	do {
 	printf("\nDame la cuenta del alumno %i: ", i);
 	scanf(" %i", &datos.cuenta);
@@ -39,21 +41,13 @@ int main(int argc, char *argv[]){
 	scanf(" %c", &opcion);
 
 	}while(opcion == 's');
+	*/
 	imprimirLista(argv[1]);
 	
-	printf("\nEntra el número de alumno que deseas reviasr: ");
+	printf("\nEntra el número de alumno que deseas reviasr y cambiar: (VALOR MAXIMO = %d)", numAlumnos(argv[1]));
 	scanf(" %d", &posicion);
-	mostrarAlumno(posicion, argv[1]);
-	
+	//mostrarAlumno(posicion, argv[1]);
+
+	modificarAlumno(posicion, argv[1]);
 	return 0;
 }
-
-// Para las funciones
-
-/*
-*	@brief:
-*	@author:
-*	@param 
-*	@param
-*	@return
-*/

@@ -84,3 +84,71 @@ extern Alumno mostrarAlumno(int num, char *nom_arch){
 
 	return dat;
 }
+
+/*
+*	@brief: Obtiene el tamaño de un file que contiene n Alumnos
+*	@author: Clase Guillermo Gómez Abascal
+*	@param char nom_arch
+*	@return int
+*/
+extern int numAlumnos(char *nom_arch){
+	FILE *fp;
+	int num, tamano_bytes;
+	
+	fp = fopen(nom_arch, "rb+");
+	if (fp == NULL){
+		printf("\n\tArchivo no disponible\n");
+		exit(1);
+	}
+	fseek(fp,0,SEEK_END);
+
+	tamano_bytes = ftell(fp);
+	num = (int) tamano_bytes / sizeof(Alumno);
+
+	printf("El archivo es de tamaño %i\n", tamano_bytes);
+	printf("Y contiene %i alumnos.\n", num);
+	
+	fclose(fp);
+
+	return num;
+}
+
+/*
+*	@brief: Cambia un alumno en una posición dada.
+*	@author: Clase Guillermo Gómez Abascal
+*	@param char nom_arch
+*	@return int
+*/
+extern int modificarAlumno(int num, char *nom_arch){
+	FILE *fp;
+	int total_alumnos = numAlumnos(nom_arch);
+	Alumno datos;
+
+	fp = fopen(nom_arch, "rb+");
+	if (fp == NULL){
+		printf("\n\tArchivo no disponible\n");
+		exit(1);
+	}
+	
+	if (num < total_alumnos){
+		datos = mostrarAlumno(num, nom_arch);
+		 
+		printf("\nDame la cuenta del alumno %i: ", num);
+		scanf(" %i", &datos.cuenta);
+
+		printf("Dame su nombre: ");
+		scanf(" %[^\n]", datos.nombre);
+		
+		printf("Dame su carrera: ");
+		scanf(" %[^\n]", datos.carrera);
+
+		printf("Dame su promedio: ");
+		scanf(" %f", &datos.promedio);
+		
+		fseek(fp, num * sizeof(Alumno), SEEK_SET);
+		fwrite(&datos, sizeof(Alumno), 1, fp);
+	}
+
+	fclose(fp);
+	return 1;
+}
