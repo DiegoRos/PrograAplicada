@@ -9,36 +9,36 @@ struct LinkedList{
 
 // Estructura de Lista FIfo (First In First Out aka Queue)
 typedef struct Queue{
-	int num; // Puede ser lo que sea char, char[], float, etc.
+	char val; // Puede ser lo que sea char, char[], float, etc.
 	struct Queue *next;
 }Queue;
 
-Queue * enqueue(Queue *q, int val){
+Queue * enQueue(char val, Queue *q){
 	Queue *aux;
 	aux = q;
 
 	Queue *nodo_nuevo = (Queue *)malloc(sizeof(Queue));
-	nodo_nuevo->num = val;
+	nodo_nuevo->val = val;
 	nodo_nuevo->next = NULL;
 	if (aux == NULL){
 		return nodo_nuevo;
 	}	
 
-	while (aux != NULL){
-		aux = aux-> next;
+	while (aux->next != NULL){
+		aux = aux->next;
 	}
 	aux->next = nodo_nuevo;
 	
 	return q;	
 }
 
-Queue * dequeue(Queue *q){
-	int val;
-	if (s == NULL)
-		return NULL;
-
-	val = q->letra;
-	q = q->next;
+Queue * deQueue(Queue *q){
+	if (q == NULL){
+		printf("Lista vacía\n");
+	}
+	else{
+		q = q->next;
+	}
 	return q;
 }
 
@@ -71,12 +71,12 @@ Stack * push(char letra, struct Stack *s){
 *	@return Stack *
 */
 Stack * pop(Stack *s){
-	char val;
-	if (s == NULL)
-		return NULL;
-
-	val = s->letra;
-	s = s->next;
+	if (s == NULL){
+		printf("Lista vacía\n");
+	}
+	else{
+		s = s->next;
+	}
 	return s;
 }
 

@@ -31,15 +31,15 @@ Stack * push(char letra, struct Stack *s){
 */
 Stack * pop(struct Stack *s){
 	Stack *aux;
-	aux = s;
 
-	char val;
-	if (s == NULL)
-		return NULL;
-		
-	val = s->letra;
-	s = s->next;
-	free(aux);
+	if (s == NULL){
+		printf("La lista esta vacía");
+	}
+	else{	
+		aux = s;
+		s = s->next;
+		free(aux);
+	}
 	return s;
 }
 
