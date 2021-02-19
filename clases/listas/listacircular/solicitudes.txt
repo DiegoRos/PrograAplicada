@@ -1,0 +1,9 @@
+daniel	1
+juan	3
+diana	2
+pedro	1
+eliza	3
+el beto	1
+personaq	2
+persona1	1
+person2	1

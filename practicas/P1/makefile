@@ -1,4 +1,4 @@
-#Esta lÃ­nea tiene como objetivo crear el ejecutable calcula.exe 
+#Esta línea tiene como objetivo crear el ejecutable calcula.exe 
 calcula.exe: calcula.o funciones.o
 	gcc calcula.o funciones.o -o calcula.exe -lm
 
