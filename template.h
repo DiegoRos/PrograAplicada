@@ -33,11 +33,14 @@ Queue * enQueue(char val, Queue *q){
 }
 
 Queue * deQueue(Queue *q){
+	Queue *aux;
 	if (q == NULL){
 		printf("Lista vacía\n");
 	}
 	else{
+		aux = q;
 		q = q->next;
+		free(aux);
 	}
 	return q;
 }
@@ -71,11 +74,14 @@ Stack * push(char letra, struct Stack *s){
 *	@return Stack *
 */
 Stack * pop(Stack *s){
+	Stack *aux;
 	if (s == NULL){
 		printf("Lista vacía\n");
 	}
 	else{
+		aux = s;
 		s = s->next;
+		free(aux);
 	}
 	return s;
 }

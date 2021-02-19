@@ -1,0 +1,6 @@
+daniel	1
+juan	3
+diana	2
+pedro	1
+eliza	3
+el beto	2
