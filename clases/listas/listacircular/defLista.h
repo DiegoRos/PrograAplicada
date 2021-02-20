@@ -39,11 +39,7 @@ ListaCircular * borrarNodo(ListaCircular *pt){
 	ListaCircular *nodo_final = pt;
 
 	if (pt == NULL){
-<<<<<<< HEAD
-		printf("Lista vac�a\n");
-=======
 		printf("Lista vacía\n");
->>>>>>> 995fffc4516d45b1fdbe16eaf9dba67ceb0dfb8b
 	}
 	else if(pt == pt->next){
 		pt = NULL;
@@ -66,23 +62,15 @@ ListaCircular * borrarNodoPrioridad(int prioridad, ListaCircular *pt){
 		printf("Lista Vacía\n");
 	}
 	else{
-<<<<<<< HEAD
 		do{
 			if (pt->solicitud.prioridad == prioridad){
 				if(pt == nodo_inicial){
 					nodo_inicial = pt->next;
 				}
-=======
-		while (pt->next != nodo_inicial){
-			if (pt->solicitud.prioridad == prioridad){
-				if(pt == nodo_inicial)
-					nodo_inicial = pt->next;
->>>>>>> 995fffc4516d45b1fdbe16eaf9dba67ceb0dfb8b
 				pt = borrarNodo(pt);
 			}
 			else{
 				pt = pt->next;
-<<<<<<< HEAD
 			}
 			printf("\tNombre: %s \tP:%i\n", pt->solicitud.nombre, pt->solicitud.prioridad);
 			printf("\t\tSiguiente: %s\tInicial: %s\n",pt->next->solicitud.nombre,nodo_inicial->solicitud.nombre);
@@ -96,11 +84,6 @@ ListaCircular * borrarNodoPrioridad(int prioridad, ListaCircular *pt){
 		pt = pt->next;
 	}
 	printf("\n");
-=======
-			}	
-		}
-	}
->>>>>>> 995fffc4516d45b1fdbe16eaf9dba67ceb0dfb8b
 	return pt;
 }
 
