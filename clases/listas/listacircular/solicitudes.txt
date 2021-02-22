@@ -3,11 +3,8 @@ juan	3
 diana	2
 pedro	1
 eliza	3
-<<<<<<< HEAD
 el beto	1
 personaq	2
 persona1	1
 person2	1
-=======
 el beto	2
->>>>>>> 995fffc4516d45b1fdbe16eaf9dba67ceb0dfb8b
