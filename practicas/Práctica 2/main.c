@@ -13,7 +13,7 @@ ListaCircular * leerBinario(char nombre_file[], ListaCircular *pt); //-> lee un 
 int imprimirPaciente(ListaCircular *pt);
 int modificarPaciente(ListaCircular *pt);
 int imprimirPacientesCovid(ListaCircular *pt); // Intentar juntar imprimirPacientesCovid e imprimirPacientes
-int guardarDatosTxt(ListaCiruclar *pt);
+int guardarDatosTxt(ListaCircular *pt);
 int guardarDatosBin(ListaCircular *pt);
 
 
@@ -25,18 +25,17 @@ int main(int argc, char *argv[]){
 	
 	char opcion;
 	ListaCircular *inicio = NULL, *aux;
-
-	if (argv[1] == "-t"){
+	if (strcmp(argv[1], "-t") == 0){
 		inicio = leerTxt("pacientes.txt", inicio);
 	}
-	else if(argv[1] == "-b"){
+	else if(strcmp(argv[1], "-b") == 0){
 		inicio = leerBinario("pacientes.bin", inicio);
 	}
 	else{
 		printf("Opción no válida.\n");
 		exit(1);
 	}
-
+	/*
 	aux = inicio;
 	if (inicio != NULL){
 		do{
@@ -45,7 +44,7 @@ int main(int argc, char *argv[]){
 
 			switch(opcion){
 				case 'r':
-					imprimirPacientes(aux);	
+					imprimirPaciente(aux);	
 					aux = aux->next;
 					break;
 
@@ -68,7 +67,7 @@ int main(int argc, char *argv[]){
 		guardarDatosTxt(inicio);
 		guardarDatosBin(inicio);
 	}	
-
+	*/
 	return 0;
 }
 
