@@ -38,11 +38,10 @@ int main(int argc, char *argv[]){
 	fclose(fp);
 
 	printf("\nImpresión de la cola creada:\n");
-	imprimirCola(inicio);
+	imprimirConPrioridad(inicio);
 
-	printf("\nBorrar Prioridad 1.\n");
-	int prioridad = 1;
-	inicio = borrarNodoPrioridad(prioridad, inicio);
+	printf("\nBorrar por prioridad.\n");
+	inicio = borrarNodoPrioridad(inicio);
 	imprimirCola(inicio);
 	
 	/*
@@ -54,5 +53,6 @@ int main(int argc, char *argv[]){
 		imprimirCola(inicio);
 	}
 	*/
+
 	return 0;
 }

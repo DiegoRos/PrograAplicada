@@ -7,4 +7,3 @@ el beto	1
 personaq	2
 persona1	1
 person2	1
-el beto	2

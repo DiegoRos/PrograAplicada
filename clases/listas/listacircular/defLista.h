@@ -34,7 +34,6 @@ ListaCircular * anexarNodo(Info dato, ListaCircular *pt){
 }
 
 ListaCircular * borrarNodo(ListaCircular *pt){
-	ListaCircular *nodo_inicial = pt->next;
 	ListaCircular *aux = pt;
 	ListaCircular *nodo_final = pt;
 
@@ -49,46 +48,51 @@ ListaCircular * borrarNodo(ListaCircular *pt){
 		while(nodo_final->next != pt){
 			nodo_final = nodo_final->next;
 		}
-		nodo_final->next = nodo_inicial;
-		pt = nodo_inicial;
+		nodo_final->next = pt->next;
+		pt = pt->next;
 		free(aux);
 	}
 	return pt;
 }
 
-ListaCircular * borrarNodoPrioridad(int prioridad, ListaCircular *pt){
+ListaCircular * borrarNodoPrioridad(ListaCircular *pt){
 	ListaCircular *aux = pt, *nodo_inicial = pt;
+
+	int prioridad;
+
 	if (pt == NULL){
 		printf("Lista Vacía\n");
 	}
 	else{
-		do{
-			if (pt->solicitud.prioridad == prioridad){
-				if(pt == nodo_inicial){
-					nodo_inicial = pt->next;
+		for(prioridad = 1; prioridad <= 4; prioridad++){
+			do{
+				if (pt->solicitud.prioridad == prioridad){
+					if(pt == nodo_inicial){
+						nodo_inicial = pt->next;
+					}
+					printf("\tNombre: %s \tPrioridad: %i\n", pt->solicitud.nombre, pt->solicitud.prioridad);
+					pt = borrarNodo(pt);
 				}
+				else{
+					pt = pt->next;
+				}
+					
+			}while(pt->next != nodo_inicial);
+			if(pt->solicitud.prioridad == prioridad){
 				pt = borrarNodo(pt);
 			}
 			else{
 				pt = pt->next;
 			}
-			printf("\tNombre: %s \tP:%i\n", pt->solicitud.nombre, pt->solicitud.prioridad);
-			printf("\t\tSiguiente: %s\tInicial: %s\n",pt->next->solicitud.nombre,nodo_inicial->solicitud.nombre);
-		}while(pt->next != nodo_inicial);
+		aux = nodo_inicial;
+		}
 	}
 
-	if(pt->solicitud.prioridad == prioridad){
-		pt = borrarNodo(pt);
-	}
-	else{
-		pt = pt->next;
-	}
-	printf("\n");
 	return pt;
 }
 
 /*
-*	@brief: Esta función imprime un stack entero
+*	@brief: Esta función imprime una lista circulare entera.
 *	@author: Diego Rosenberg de Angoitia
 *	@param ListaCircular *pt
 *	@return int
@@ -109,3 +113,22 @@ int imprimirCola(ListaCircular *pt){
 	return 1;
 }
 
+int imprimirConPrioridad(ListaCircular *pt){
+	ListaCircular *aux = pt;
+	int prioridad;
+
+	if (pt == NULL){
+		printf("La lista está vacía.\n");
+	}
+	else{
+		for (prioridad = 1; prioridad <= 4; prioridad++){
+			do{
+				if (aux->solicitud.prioridad == prioridad)
+					printf("\tNombre: %s \tPrioridad: %i\n", aux->solicitud.nombre, aux->solicitud.prioridad);
+				aux = aux->next;
+			}while(aux != pt);
+		}
+	}
+	
+	return 1;
+}
