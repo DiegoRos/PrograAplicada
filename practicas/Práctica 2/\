@@ -95,7 +95,7 @@ ListaCircular * leerTxt(char nombre_file[], ListaCircular *pt){
 */
 ListaCircular * leerBinario(char nombre_file[], ListaCircular *pt){
 	FILE *fp;
-	fp = fopen(nombre_file, "rb");
+	fopen(nombre_file, "rb");
 	if (fp == NULL){
 		printf("File no encontrado\n");
 		exit(1);
@@ -187,8 +187,8 @@ ListaCircular * borrarNodo(ListaCircular *pt){
 ListaCircular * modificarPaciente(ListaCircular *pt){
 	Paciente nuevo;
 	
-	printf("\nInformación de Paciente a cambiar:\n");
-	printf("Nombre: %s\tDireccion: %s\tTel: %i\tCovid: %c\n\n", pt->solicitud.nombre, pt->solicitud.direccion, pt->solicitud.telefono, pt->solicitud.covid);
+	printf("Información de Paciente a cambiar:\n");
+	printf("Nombre:%s\tDireccion:%s\tTel:%i\tCovid:%c\n", aux->solicitud.nombre, aux->solicitud.direccion, aux->solicitud.telefono, aux->solicitud.covid);
 	pt = borrarNodo(pt);
 	
 	printf("Ingrese los datos del paciente:\n");
@@ -242,21 +242,7 @@ int imprimirPacientesCovid(ListaCircular *pt){
 *	@return
 */
 int guardarDatosTxt(ListaCircular *pt){
-	ListaCircular *aux = pt;
 
-	FILE *fp;
-	fp = fopen("pacientes.txt", "w");
-	if (fp == NULL){
-		printf("File no disponible.\n");
-		exit(1);
-	}
-	
-	do{
-		fprintf(fp, "%s\t%s\t%i\t%c\n", aux->solicitud.nombre, aux->solicitud.direccion, aux->solicitud.telefono, aux->solicitud.covid);
-		aux = aux->next;	
-	}while(aux != pt);
-
-	return 1;
 }
 
 /*
@@ -267,21 +253,6 @@ int guardarDatosTxt(ListaCircular *pt){
 *	@return
 */
 int guardarDatosBin(ListaCircular *pt){
-	ListaCircular *aux = pt;
 
-	FILE *fp;
-	fp = fopen("pacientes.bin", "wb+");
-	if (fp == NULL){
-		printf("File no disponible.\n");
-		exit(1);
-	}
-	
-	do{
-		fwrite(&aux->solicitud, sizeof(Paciente), 1, fp);
-		aux = aux->next;	
-	}while(aux != pt);
-
-	return 1;
-	
 }
 

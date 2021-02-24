@@ -11,7 +11,8 @@
 ListaCircular * leerTxt(char nombre_file[], ListaCircular *pt); //-> lee un paciente -> acomodaLista() ret -> lista
 ListaCircular * leerBinario(char nombre_file[], ListaCircular *pt); //-> lee un paciente -> acomodaLista() ret-> lista
 int imprimirPaciente(ListaCircular *pt);
-int modificarPaciente(ListaCircular *pt);
+int imprimirLista(ListaCircular *pt);
+ListaCircular * modificarPaciente(ListaCircular *pt);
 int imprimirPacientesCovid(ListaCircular *pt); // Intentar juntar imprimirPacientesCovid e imprimirPacientes
 int guardarDatosTxt(ListaCircular *pt);
 int guardarDatosBin(ListaCircular *pt);
@@ -23,6 +24,7 @@ int main(int argc, char *argv[]){
 		exit(1);
 	}
 	
+	int es_nodo_inicio = 0;
 	char opcion;
 	ListaCircular *inicio = NULL, *aux;
 	if (strcmp(argv[1], "-t") == 0){
@@ -35,13 +37,15 @@ int main(int argc, char *argv[]){
 		printf("Opción no válida.\n");
 		exit(1);
 	}
-	/*
+	
+	imprimirLista(inicio);
+
 	aux = inicio;
 	if (inicio != NULL){
 		do{
-			printf("Opciones:\n\tr: Imprimir todos los pacientes\n\tm: Modificar algún paciente\n\tc: Imprimir Pacientes con COVID.\n");
+			printf("\nOpciones:\n\tr: Imprimir todos los pacientes\n\tm: Modificar algún paciente\n\tc: Imprimir Pacientes con COVID.\n\ts: Salir del programa.\n");
 			scanf(" %c", &opcion);
-
+			es_nodo_inicio = 0;
 			switch(opcion){
 				case 'r':
 					imprimirPaciente(aux);	
@@ -49,12 +53,25 @@ int main(int argc, char *argv[]){
 					break;
 
 				case 'm':
-					modificarPaciente(aux);
-					aux = aux->next;
+					if (aux == inicio){
+						es_nodo_inicio = 1;
+					}
+					aux = modificarPaciente(aux);
+					if (es_nodo_inicio){
+						inicio = aux;
+					}
+					//aux = aux->next;
 					break;
 
 				case 'c':
 					imprimirPacientesCovid(inicio);
+					break;
+				
+				case 't':
+					imprimirLista(inicio);
+					break;
+				
+				case 's':
 					break;
 
 				default:
@@ -63,11 +80,11 @@ int main(int argc, char *argv[]){
 			}
 
 		}while(opcion != 's');
-
+			
+		printf("\nGracias, sus datos están siendo guardados.\n");
 		guardarDatosTxt(inicio);
 		guardarDatosBin(inicio);
 	}	
-	*/
 	return 0;
 }
 
