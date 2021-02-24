@@ -12,7 +12,7 @@ ListaCircular * leerTxt(char nombre_file[], ListaCircular *pt); //-> lee un paci
 ListaCircular * leerBinario(char nombre_file[], ListaCircular *pt); //-> lee un paciente -> acomodaLista() ret-> lista
 int imprimirPaciente(ListaCircular *pt);
 int imprimirLista(ListaCircular *pt);
-ListaCircular * modificarPaciente(ListaCircular *pt);
+ListaCircular * modificarPaciente(ListaCircular *aux, ListaCircular *pt);
 int imprimirPacientesCovid(ListaCircular *pt); // Intentar juntar imprimirPacientesCovid e imprimirPacientes
 int guardarDatosTxt(ListaCircular *pt);
 int guardarDatosBin(ListaCircular *pt);
@@ -43,7 +43,7 @@ int main(int argc, char *argv[]){
 	aux = inicio;
 	if (inicio != NULL){
 		do{
-			printf("\nOpciones:\n\tr: Imprimir todos los pacientes\n\tm: Modificar algún paciente\n\tc: Imprimir Pacientes con COVID.\n\ts: Salir del programa.\n");
+			printf("\nOpciones:\n\tr: Imprimir paciente\n\tm: Modificar algún paciente\n\tc: Imprimir Pacientes con COVID.\n\ts: Salir del programa.\n");
 			scanf(" %c", &opcion);
 			es_nodo_inicio = 0;
 			switch(opcion){
@@ -53,13 +53,11 @@ int main(int argc, char *argv[]){
 					break;
 
 				case 'm':
-					if (aux == inicio){
-						es_nodo_inicio = 1;
-					}
-					aux = modificarPaciente(aux);
-					if (es_nodo_inicio){
-						inicio = aux;
-					}
+					aux = modificarPaciente(aux, inicio);
+					printf("Lista modificada de pacientes\n");
+					imprimirLista(inicio);
+					printf("\n");
+					
 					//aux = aux->next;
 					break;
 

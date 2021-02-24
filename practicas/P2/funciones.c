@@ -184,30 +184,40 @@ ListaCircular * borrarNodo(ListaCircular *pt){
 *	@param 
 *	@return
 */
-ListaCircular * modificarPaciente(ListaCircular *pt){
+ListaCircular * modificarPaciente(ListaCircular *aux, ListaCircular *pt){
 	Paciente nuevo;
+	char opcion;
 	
 	printf("\nInformación de Paciente a cambiar:\n");
-	printf("Nombre: %s\tDireccion: %s\tTel: %i\tCovid: %c\n\n", pt->solicitud.nombre, pt->solicitud.direccion, pt->solicitud.telefono, pt->solicitud.covid);
-	pt = borrarNodo(pt);
+	printf("Nombre: %s\tDireccion: %s\tTel: %i\tCovid: %c\n", aux->solicitud.nombre, aux->solicitud.direccion, aux->solicitud.telefono, aux->solicitud.covid);
 	
-	printf("Ingrese los datos del paciente:\n");
-	printf("Nombre: ");
-	scanf(" %[^\n]", nuevo.nombre);
+	printf("¿Desea modificar los datos de este paciente? [s/n] ");
+	scanf(" %c", &opcion);
 	
-	printf("Dirección: ");
-	scanf(" %[^\n]", nuevo.direccion);
+	if (opcion == 's'){
+		if (aux == pt)
+			pt = pt->next;
 
-	printf("Teléfono: ");
-	scanf(" %i", &nuevo.telefono);
+		aux = borrarNodo(aux);
+	
+		printf("Ingrese los datos del paciente:\n");
+		printf("Nombre: ");
+		scanf(" %[^\n]", nuevo.nombre);
+	
+		printf("Dirección: ");
+		scanf(" %[^\n]", nuevo.direccion);
 
-	printf("Tiene COVID [s/n]: ");
-	scanf(" %c", &nuevo.covid);
+		printf("Teléfono: ");
+		scanf(" %i", &nuevo.telefono);
+
+		printf("Tiene COVID [s/n]: ");
+		scanf(" %c", &nuevo.covid);
 
 	
-	pt = acomodarLista(nuevo, pt);
-	
-	return pt;
+		pt = acomodarLista(nuevo, pt);
+		aux = pt;
+	}
+	return aux;
 }
 
 /*
