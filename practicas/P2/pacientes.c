@@ -8,12 +8,12 @@
 
 #include "defP2.h"
 
-ListaCircular * leerTxt(char nombre_file[], ListaCircular *pt); //-> lee un paciente -> acomodaLista() ret -> lista
-ListaCircular * leerBinario(char nombre_file[], ListaCircular *pt); //-> lee un paciente -> acomodaLista() ret-> lista
+ListaCircular * leerTxt(char nombre_file[], ListaCircular *pt); 
+ListaCircular * leerBinario(char nombre_file[], ListaCircular *pt);
 int imprimirPaciente(ListaCircular *pt);
 int imprimirLista(ListaCircular *pt);
 ListaCircular * modificarPaciente(ListaCircular *aux, ListaCircular *pt);
-int imprimirPacientesCovid(ListaCircular *pt); // Intentar juntar imprimirPacientesCovid e imprimirPacientes
+int imprimirPacientesCovid(ListaCircular *pt);
 int guardarDatosTxt(ListaCircular *pt);
 int guardarDatosBin(ListaCircular *pt);
 
@@ -24,7 +24,6 @@ int main(int argc, char *argv[]){
 		exit(1);
 	}
 	
-	int es_nodo_inicio = 0;
 	char opcion;
 	ListaCircular *inicio = NULL, *aux;
 	if (strcmp(argv[1], "-t") == 0){
@@ -43,9 +42,12 @@ int main(int argc, char *argv[]){
 	aux = inicio;
 	if (inicio != NULL){
 		do{
-			printf("\nOpciones:\n\tr: Imprimir paciente\n\tm: Modificar algún paciente\n\tc: Imprimir Pacientes con COVID.\n\ts: Salir del programa.\n");
+			printf("\n=====================================================\n");
+			printf("Opciones:\n\tr: Imprimir paciente\n\tm: Modificar algún paciente\n\tc: Imprimir Pacientes con COVID.\n\tt: Imprimir lista en orden alfabética.\n");
+			printf("\ts: Salir del programa\n");
+			printf("=====================================================\n");
+			printf("\t\tOpcion: ");	
 			scanf(" %c", &opcion);
-			es_nodo_inicio = 0;
 			switch(opcion){
 				case 'r':
 					imprimirPaciente(aux);	
@@ -57,8 +59,6 @@ int main(int argc, char *argv[]){
 					printf("Lista modificada de pacientes\n");
 					imprimirLista(inicio);
 					printf("\n");
-					
-					//aux = aux->next;
 					break;
 
 				case 'c':
