@@ -112,17 +112,17 @@ ListaCircular * leerBinario(char nombre_file[], ListaCircular *pt){
 }
 
 /*
-*	@brief: 
-*	@autor:
-*	@param:  
-*	@return
+*	@brief: Función que imprime la información de la direeción actual de la ListaCircular 
+*	@autor: Equipo <3
+*	@param ListaCircular *pt
+*	@return int
 */
 int imprimirPaciente(ListaCircular *pt){
 	
 	if (pt == NULL)
 		printf("No hay información disponible.\n");
 	else
-		printf("Nombre:%s\tDireccion:%s\tTel:%i\tCovid:%c\n", pt->solicitud.nombre, pt->solicitud.direccion, pt->solicitud.telefono, pt->solicitud.covid);
+		printf("Nombre: %s\tDirección: %s\tTel: %i\tCovid: %c\n", pt->solicitud.nombre, pt->solicitud.direccion, pt->solicitud.telefono, pt->solicitud.covid);
 	
 	return 1;
 }
@@ -150,10 +150,9 @@ int imprimirLista(ListaCircular *pt){
 }
 
 /*
-*	@brief: 
-*	@autor:
-*	@param 
-*	@param
+*	@brief: Función que borra el nodo actual de la lista circular
+*	@autor: Equipo <3
+*	@param ListaCircular *pt
 *	@return
 */
 ListaCircular * borrarNodo(ListaCircular *pt){
@@ -179,10 +178,12 @@ ListaCircular * borrarNodo(ListaCircular *pt){
 }
 
 /*
-*	@brief: 
-*	@autor:
-*	@param 
-*	@return
+*	@brief: Función que modifica un nodo de la Lista Circular y los 
+			reacomoda en orden alfabético y regresa la dirección del primer nombre.
+*	@autor: Equipo <3
+*	@param ListaCiruclar *aux: Posición actual de la lista circular 
+*	@param ListaCircular *pt: Nodo inicial de la lista circular
+*	@return ListaCircular *
 */
 ListaCircular * modificarPaciente(ListaCircular *aux, ListaCircular *pt){
 	Paciente nuevo;
@@ -221,11 +222,11 @@ ListaCircular * modificarPaciente(ListaCircular *aux, ListaCircular *pt){
 }
 
 /*
-*	@brief: 
-*	@autor:
-*	@param 
-*	@param
-*	@return
+*	@brief: Imprmime todos los pacientes, en orden alfabético, con covid de la ListaCircular
+				Nota: Solamente los imprime en orden alfabético si el primer nodo es enviado.
+*	@autor: Equipo <3
+*	@param ListaCircular *pt
+*	@return int
 */
 int imprimirPacientesCovid(ListaCircular *pt){
 	ListaCircular *aux = pt;
@@ -245,11 +246,11 @@ int imprimirPacientesCovid(ListaCircular *pt){
 }
 
 /*
-*	@brief: 
-*	@autor:
-*	@param 
-*	@param
-*	@return
+*	@brief: Guarda los datos de la lista circular en orden alfabético en un archivo txt
+				Nota: estos datos solo son guardados en orden alfabético si el nodo iniciales enviado.
+*	@autor: Equipo <3
+*	@param ListaCircular *pt
+*	@return int
 */
 int guardarDatosTxt(ListaCircular *pt){
 	ListaCircular *aux = pt;
@@ -270,11 +271,11 @@ int guardarDatosTxt(ListaCircular *pt){
 }
 
 /*
-*	@brief: 
-*	@autor:
-*	@param 
-*	@param
-*	@return
+*	@brief: Guarda los datos de la lista circular en orden alfabético en un archivo binario
+				Nota: estos datos solo son guardados en orden alfabético si el nodo iniciales enviado.
+*	@autor: Equipo <3
+*	@param ListaCircular *pt
+*	@return int
 */
 int guardarDatosBin(ListaCircular *pt){
 	ListaCircular *aux = pt;
