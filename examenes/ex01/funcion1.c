@@ -12,7 +12,23 @@
 *	@return: inicio2 que es un apuntador de tipo Lista
 */
 
+#include "defLista.h"
 
+/*
+*	@brief: Inserta un nuevo nodo en la lista LIFO circular con un Ciudadano 
+*	@author: 
+*	@param Ciudadano nuevo
+*	@param Lista *s
+*	@return Lista *
+*/
+Lista * push(Ciudadano nuevo, Lista *pt){
+	Lista *aux = (Lista *)malloc(sizeof(Lista));
+
+	aux->solicitud = nuevo;
+	aux->next = pt;
+	pt = aux;
+	return pt;
+}
 Lista *fifoCodyMes(Lista *pt)
 {
 int codPostal = 0;
@@ -22,14 +38,9 @@ Lista *inicio2,*inicio,*aux,*nuevo;
 aux = pt;
 nuevo = pt;
 
-inicio = (Lista *)malloc(sizeof(Lista);
 
-if(inicio == NULL)
- {
-  printf("memoria no disponible");
-  exit(1);
- }
 inicio = NULL;
+inicio2 = NULL;
 
 if(pt != NULL)
  {
@@ -38,15 +49,13 @@ if(pt != NULL)
   printf("\nFavor de ingresar mes: :\n");
   scanf(" %[^\n]",Mes);
 
-while(pt != NULL)
+while(aux != NULL)
  {
-  if((aux->solicitud.cp == codPostal) && (aux->solicitud.mes == Mes)
+  if((aux->solicitud.cp == codPostal) && (strcmp(aux->solicitud.mes, Mes)))
    {
-    nuevo->solicitud = pt->solicitud;
-    nuevo->next = inicio;
-    inicio = nuevo;
-    inicio2 = inicio;
+    inicio2 = push(aux->solicitud, inicio2);
    }
+  aux = aux->next;
  }
 }else{
   printf("lista vacia");

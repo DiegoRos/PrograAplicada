@@ -89,7 +89,7 @@ Lista * deQueue(Lista *q){
 *	@param Stack *q
 *	@return Stack *q
 */
-int imprimirQueue(Lista *q){
+int imprimirLista(Lista *q){
 	while (q != NULL){
 		printf("Ciudadano:\n\tNombre: %s\t Código Postal: %i\t Edad: %i\t Mes Vacunación: %s\n", q->solicitud.nombre, q->solicitud.cp, q->solicitud.edad, q->solicitud.mes);
 		q = q->next;
@@ -140,7 +140,7 @@ int imprimirStackCirc(Lista *pt){
 		do{
 			printf("Ciudadano:\n\tNombre: %s\t Código Postal: %i\t Edad: %i\t Mes Vacunación: %s\n", aux->solicitud.nombre, aux->solicitud.cp, aux->solicitud.edad, aux->solicitud.mes);
 			aux = aux->next;
-		}while (aux->next != pt);
+		}while (aux != pt);
 	}
 	return 1;
 }
@@ -170,13 +170,12 @@ Lista * reducirEdades(Lista *inicio1, Lista *inicio4){
 				opcion = 'n';
 			}
 		}while(opcion != 's');
-
 		do{
 			if ((aux->solicitud.edad > edad1) && (aux->solicitud.edad < edad2)){
 				inicio4 = pushCirc(aux->solicitud, inicio4);
 			}
 			aux = aux->next;
-		}while(aux->next != inicio1);
+		}while(aux != NULL);
 	}
 
 	

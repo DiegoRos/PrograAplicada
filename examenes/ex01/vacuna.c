@@ -8,9 +8,10 @@
 #include "defLista.h"
 
 Lista * leerTxt(char nombre_archivo[], Lista *pt);
-int imprimirQueue(Lista *q);
+int imprimirLista(Lista *q);
 Lista * reducirEdades(Lista *inicio1, Lista *inicio4);
 int imprimirStackCirc(Lista *pt);
+Lista * fifoCodyMes(Lista *pt);
 
 int main(int argc, char *argv[]){
 	if (argc != 2){
@@ -20,7 +21,9 @@ int main(int argc, char *argv[]){
 
 	Lista *inicio1 = NULL, *inicio2 = NULL, *inicio3 = NULL, *inicio4 = NULL;
 	inicio1 = leerTxt(argv[1], inicio1);
-	imprimirQueue(inicio1);
+	printf("Lista completa de pacientes\n");
+	imprimirLista(inicio1);
+	printf("\n");
 
 	int opcion;
 	printf("Ingrese opción deseada:\n");
@@ -30,7 +33,8 @@ int main(int argc, char *argv[]){
 	scanf(" %i", &opcion);
 	switch(opcion){
 		case 1:
-			//Función
+			inicio2 = fifoCodyMes(inicio1);
+			imprimirLista(inicio2);	
 			break;
 
 		case 2:
