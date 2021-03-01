@@ -9,10 +9,10 @@ typedef struct Persona{
 	char mes[20];
 }Ciudadano;
 
-// Estructura de Lista FIfo (First In First Out aka Queue)
+// Estructura de Lista Genérica (Puede ser FIFO o LIFO)
 typedef struct Lista{
 	Ciudadano solicitud;
 	struct Lista *next;
-};
+}Lista;
 
 
