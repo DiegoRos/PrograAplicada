@@ -1,0 +1,4 @@
+López Alberto	3100	25
+Abad Sara	8100	63
+Lucio Rodrigo	9000	42
+
