@@ -12,6 +12,7 @@ int imprimirLista(Lista *q);
 Lista * reducirEdades(Lista *inicio1, Lista *inicio4);
 int imprimirStackCirc(Lista *pt);
 Lista * fifoCodyMes(Lista *pt);
+Lista * funcion2(Lista *inicio1);
 
 int main(int argc, char *argv[]){
 	if (argc != 2){
@@ -38,7 +39,8 @@ int main(int argc, char *argv[]){
 			break;
 
 		case 2:
-			//Función
+			inicio3 = funcion2(inicio1);
+			imprimirLista(inicio3);
 			break;
 
 		case 3:

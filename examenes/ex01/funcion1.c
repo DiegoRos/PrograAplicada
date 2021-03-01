@@ -31,7 +31,7 @@ Lista * push(Ciudadano nuevo, Lista *pt){
 }
 Lista *fifoCodyMes(Lista *pt)
 {
-int codPostal = 0;
+int codPostal;
 char Mes[20];
 
 Lista *inicio2,*inicio,*aux,*nuevo;
@@ -44,14 +44,14 @@ inicio2 = NULL;
 
 if(pt != NULL)
  {
-  printf("\nFavor de ingresar codigo postal:\n");
-  scanf("%i",&codPostal);
-  printf("\nFavor de ingresar mes: :\n");
-  scanf(" %[^\n]",Mes);
+  printf("\nFavor de ingresar codigo postal: ");
+  scanf(" %i",&codPostal);
+  printf("\nFavor de ingresar mes: ");
+  scanf(" %s",Mes);
 
 while(aux != NULL)
  {
-  if((aux->solicitud.cp == codPostal) && (strcmp(aux->solicitud.mes, Mes)))
+  if((aux->solicitud.cp == codPostal) && (strcmp(aux->solicitud.mes, Mes) == 0))
    {
     inicio2 = push(aux->solicitud, inicio2);
    }
