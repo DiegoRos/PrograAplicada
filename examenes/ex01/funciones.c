@@ -106,21 +106,24 @@ int imprimirLista(Lista *q){
 *	@return Lista *
 */
 Lista * pushCirc(Ciudadano nuevo, Lista *pt){
-	Lista *aux = (Lista *)malloc(sizeof(Lista));
-	aux->solicitud = nuevo;
-
+	Lista *aux1 = (Lista *)malloc(sizeof(Lista));
+	aux1->solicitud = nuevo;
 	if (pt == NULL){
-		aux->next = aux;
+		aux1->next = aux1;
 	}
+	else if (pt->next == pt){
+		aux1->next = pt;
+		pt->next = aux1;
+	} 
 	else{
-		aux->next = pt;
 		while(pt->next != pt){
 			pt = pt->next;
 		}
-		pt->next = aux;
+		aux1->next = pt;
+		pt->next = aux1;
 	}
 
-	pt = aux;
+	pt = aux1;
 	return pt;
 }
 
