@@ -1,6 +1,6 @@
-Rosenberg Diego	432121	19
+Rosenberg Diego	2100	19
 López Alberto	3100	25
 Abad Sara	8100	63
+Cuevas Abdiel	2100	20
 Lucio Rodrigo	9000	42
-Cuesta Santiago	42121	23
-
+Cuesta Santiago	2100	23

@@ -106,6 +106,7 @@ int imprimirLista(Lista *q){
 *	@return Lista *
 */
 Lista * pushCirc(Ciudadano nuevo, Lista *pt){
+	Lista *aux = pt;
 	Lista *aux1 = (Lista *)malloc(sizeof(Lista));
 	aux1->solicitud = nuevo;
 	if (pt == NULL){
@@ -116,11 +117,11 @@ Lista * pushCirc(Ciudadano nuevo, Lista *pt){
 		pt->next = aux1;
 	} 
 	else{
-		while(pt->next != pt){
-			pt = pt->next;
+		while(aux->next != pt){
+			aux = aux->next;
 		}
 		aux1->next = pt;
-		pt->next = aux1;
+		aux->next = aux1;
 	}
 
 	pt = aux1;
@@ -174,7 +175,7 @@ Lista * reducirEdades(Lista *inicio1, Lista *inicio4){
 			}
 		}while(opcion != 's');
 		do{
-			if ((aux->solicitud.edad > edad1) && (aux->solicitud.edad < edad2)){
+			if ((aux->solicitud.edad >= edad1) && (aux->solicitud.edad <= edad2)){
 				inicio4 = pushCirc(aux->solicitud, inicio4);
 			}
 			aux = aux->next;
