@@ -4,5 +4,3 @@ Abad Sara	8100	63
 Cuevas Abdiel	2100	20
 Lucio Rodrigo	9000	42
 Cuesta Santiago	2100	23
-
-

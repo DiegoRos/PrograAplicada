@@ -1,17 +1,10 @@
-#include <stdio.h>
-#include <stdlib.h>
-
-typedef struct ListaDoble{
-	int val;
-	struct ListaDoble *next;
-	struct ListaDoble *prev;
-}ListaDoble;
+#include "defLista.h"
 
 //Esto de aqui es para una lista dobre CIRCULAR
-ListaDoble * enQueueLD(int val, ListaDoble *pt){
+ListaDoble * enQueueLD(char val[], ListaDoble *pt){
 	ListaDoble *nuevo; 
 	nuevo = (ListaDoble *)malloc(sizeof(ListaDoble));
-	nuevo->val = val;
+	strcpy(nuevo->val, val);
 
 	if (pt == NULL){
 		nuevo->prev = nuevo;
@@ -21,6 +14,7 @@ ListaDoble * enQueueLD(int val, ListaDoble *pt){
 
 	else{
 		nuevo->prev = pt->prev;
+        pt->prev->next = nuevo;
 		nuevo->next = pt;
 		pt->prev = nuevo;
 	}
@@ -28,10 +22,10 @@ ListaDoble * enQueueLD(int val, ListaDoble *pt){
 	return pt;
 }
 
-ListaDoble * pushLD(int val, ListaDoble *pt){
+ListaDoble * pushLD(char val[], ListaDoble *pt){
 	ListaDoble *nuevo;
 	nuevo = (ListaDoble *)malloc(sizeof(ListaDoble));
-	nuevo->val = val;
+	strcpy(nuevo->val, val);
 	if (pt == NULL){
 		nuevo->prev = nuevo;
 		nuevo->next = nuevo;
@@ -64,7 +58,6 @@ ListaDoble * popLD(ListaDoble *pt){
 	return pt;
 }
 
-
 int imprimeLD(ListaDoble *pt){
 	ListaDoble *aux = pt;
 	if(pt == NULL){
@@ -72,7 +65,7 @@ int imprimeLD(ListaDoble *pt){
 	}
 	else{
 		do{
-			printf("Val: %d", aux->val);
+			printf("En la dirección %p está la palabra: %s\n", aux, aux->val);
 			aux = aux->next;
 		}while(aux != pt);
 	}
