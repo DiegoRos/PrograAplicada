@@ -1,8 +1,8 @@
-reporteAlumnos.exe: main.o funciones.o
-	gcc main.o funciones.o -o reporteAlumons.exe
+reporteAlumnos.exe: reporteAlumnos.o funciones.o
+	gcc reporteAlumnos.o funciones.o -o reporteAlumons.exe
 
-main.o: main.c
-	gcc -c main.c
+reporteAlumnos.o: reporteAlumnos.c
+	gcc -c reporteAlumnos.c
 
 funciones.o: funciones.c
 	gcc -c funciones.c
