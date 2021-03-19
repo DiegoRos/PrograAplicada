@@ -8,8 +8,8 @@
 #include "P3def.h"
 
 ListaDoble * readTxt(char file_name[]);
-int imprimirAlumno(Stack *pt);
-int imprimirCarrera(Stack *pt);
+int imprimirAlumno(Queue *pt);
+int imprimirCarrera(Queue *pt);
 int generarTxt(ListaDoble *pt);
 
 
@@ -37,11 +37,11 @@ int main(int argc, char *argv[]){
 
 		switch(opcion){
 			case 'i':
-
+				aux = aux->prev;	
 				break;
 
 			case 'd':
-
+				aux = aux->next;
 				break;
 
 			case 'm':

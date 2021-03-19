@@ -1,7 +1,8 @@
 Aba	Reforma	352423	n
+Alejandro	Xoco 10	7856	s
 Ana	Reforma	352423	n
 Diego	Reforma	352423	n
-Jim	Reforma	352423	n
+Memo	Xoco 12	896789	s
 Persona	Reforma2	52342	n
 Ximena	Ubicación 2	42131421	s
 Yamaha	Otro Lugar	5341232	s

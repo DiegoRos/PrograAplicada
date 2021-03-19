@@ -1,5 +1,5 @@
 12343	Diego Rosenberg	Ingeniería Física	91.2
-53242	Alejandro Cuevas	Ingeniería Alguna 100
+53242	Alejandro Cuevas	Ingeniería Alguna	100
 6435223	Santiago Cuesta	Arquitectura	97.2
 52131	Persona Otra	Diseño	86.2
 53242	Ricardo Persona	Ingeniería Física	78.3
