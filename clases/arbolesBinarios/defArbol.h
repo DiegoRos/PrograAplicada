@@ -74,7 +74,7 @@ int buscarNumero(Arbol *pt, int num){
 }
 
 void encontrarPares(Arbol *pt){
-
+	
 }
 
 int buscarDiercto(Arbol *pt, int num){
