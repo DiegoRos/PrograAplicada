@@ -45,11 +45,13 @@ int main(int argc, char *argv[]){
 				break;
 
 			case 'm':
-
+				printf("\n");
+				imprimirCarrera(aux->alumnos);
+				printf("\n");
 				break;
 
 			case 's':
-
+				printf("Saliendo...\n");
 				break;
 
 			default:

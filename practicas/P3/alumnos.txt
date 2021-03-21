@@ -3,3 +3,4 @@
 6435223	Santiago Cuesta	Arquitectura	97.2
 52131	Persona Otra	Diseño	86.2
 53242	Ricardo Persona	Ingeniería Física	78.3
+684243	Alejandra Apellido	Arquitectura	87.21

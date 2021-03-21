@@ -164,24 +164,20 @@ extern ListaDoble * readTxt(char file_name[]){
 *	@param
 *	@return
 */
-extern int imprimirAlumno(Queue *pt){
-
-	return 0;
-}
-
-
-/*
-*	@brief:
-*	@author:
-*	@param 
-*	@param
-*	@return
-*/
 extern int imprimirCarrera(Queue *pt){
-	
+	Queue *aux = pt;
+	int i = 1;
+	printf("\tLista de alumnos en carrera %s:\n", pt->val.carrera);
+
+	if (aux == NULL) printf("La lista está vacía.\n");
+
+	while (aux != NULL){
+		printf("\tAlumno %d:\n\t\tNo. de Cuenta: %i\n\t\tNombre: %s\n\t\tPromedio: %f\n", i, pt->val.num_cuenta, pt->val.nombre, pt->val.promedio);
+		aux = aux->next;
+		++i;
+	}
 	return 0;
 }
-
 
 /*
 *	@brief:
@@ -191,6 +187,23 @@ extern int imprimirCarrera(Queue *pt){
 *	@return
 */
 extern int generarTxt(ListaDoble *pt){
+	ListaDoble *aux = pt;
+	Queue *alumnos = pt->alumnos;
+	char nombre_file[] = "listas.txt";
+	FILE *fp;
+
+	fp = fopen(nombre_file, "w");
+	do{
+		fprintf(fp, "%s\t%d\t%f\t%s\n", aux->carrera, aux->num_alumnos, aux->promedio,aux->mejor_alumno.nombre);
+		while(alumnos != NULL){
+			fprintf(fp, "\t%i\t%s\t%f\n", alumnos->val.num_cuenta, alumnos->val.nombre, alumnos->val.promedio);
+			alumnos = alumnos->next;
+		}
+		aux = aux->next;
+		alumnos = aux->alumnos;
+	}while(aux != pt);
+	
+	fclose(fp);	
 
 	return 0;
 }
