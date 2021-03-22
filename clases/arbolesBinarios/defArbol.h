@@ -39,6 +39,18 @@ int depthTree(Arbol *pt){
 		return right_depth + 1;
 }
 
+void imprimirAFile(int val, char nombre_archivo[]){
+	FILE *fp;
+	fp = fopen(nombre_archivo, "a");
+	if (fp == NULL){
+		printf("File no se pudo abrir\nSaliendo del programa...");
+		exit(1);
+	}
+	fprintf(fp, "%d\n", val);
+
+	fclose(fp);
+}
+
 
 void recorrer(Arbol *pt){
 	if(pt == NULL) return;
@@ -59,7 +71,7 @@ int buscarNumero(Arbol *pt, int num){
 		(pt->left != NULL) ? sprintf(num1, "%d", pt->left->val) : sprintf(num1,"NULL");
 		(pt->right != NULL) ? sprintf(num2, "%d", pt->right->val) : sprintf(num2,"NULL");
 		
-		printf("Nodo: %d \t Hijos: %s, %s\n", pt->val, num1, num2);
+		printf("Nodo encontrado: %d \t Hijos: %s, %s\n", pt->val, num1, num2);
 		return 0;
 	}
 	
@@ -74,11 +86,14 @@ int buscarNumero(Arbol *pt, int num){
 }
 
 void encontrarPares(Arbol *pt){
-	
-}
+	if (pt == NULL) return;
 
-int buscarDiercto(Arbol *pt, int num){
-
+	encontrarPares(pt->left);
+	if((pt->val % 2) == 0){
+		printf("Valor par encontrado: %d\n", pt->val);
+		imprimirAFile(pt->val, "pares.txt");
+	}
+	encontrarPares(pt->right);
 }
 
 int recorrerDescendente(Arbol *pt){

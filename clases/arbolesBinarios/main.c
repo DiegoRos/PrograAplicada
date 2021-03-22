@@ -17,6 +17,10 @@ int main(int argc, char *argv[]){
 	recorrer(root);
 	
 	int val = 9;
-	buscarNumero(root, val);	
+	buscarNumero(root, val);
+
+	remove("pares.txt");
+	encontrarPares(root);
+	
 	return 0;
 }
