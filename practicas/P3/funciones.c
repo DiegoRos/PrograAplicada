@@ -1,12 +1,19 @@
 /*
 *	@file: funciones.c	
-*	@brief: Cotine las funciones que se van a correr en el main.c
+*	@brief: Cotine las funciones que se van a correr en reporteAlumnos.c
 *	@author: Equipo 3
 *	@date: 16/03/2021
 */
 
 #include "P3def.h"
 
+/*
+*	@brief: Función que agrega un nodo a una lista FIFO
+*	@author: Equipo 3
+*	@param Alumno temp: alumno a agregar al queue
+*	@param Queue *q: Lista LIFO existente (o NULL)
+*	@return Queue *
+*/
 Queue * enQueue(Alumno temp, Queue *q){
 	Queue *aux = q;
 	Queue *nuevo = (Queue *)malloc(sizeof(Queue));
@@ -29,11 +36,11 @@ Queue * enQueue(Alumno temp, Queue *q){
 }
 
 /*
-*	@brief:
-*	@author:
-*	@param 
-*	@param
-*	@return
+*	@brief: Agrega un nuevo nodo a la lista doble
+*	@author: Equipo 3
+*	@param ListaDoble *nuevo: Nuevo elemento a agregar de la ListaDoble
+*	@param ListaDoble *pt: Lista doble existente o NULL
+*	@return ListaDoble *
 */
 ListaDoble *pushLD(ListaDoble *nuevo, ListaDoble *pt){
 	ListaDoble *aux = pt;
@@ -74,10 +81,10 @@ ListaDoble *pushLD(ListaDoble *nuevo, ListaDoble *pt){
 }
 
 /*
-*	@brief:
-*	@author:
-*	@param 
-*	@param
+*	@brief: Revisa si la carrera ya existe dentro de la lista doble
+*	@author: Equipo 3
+*	@param char carrera[]: String conteniendo nombre de carrera a revisar
+*	@param ListaDoble *pt: Lista Doble existente o NULL
 *	@return bool
 */
 int carreraExistente(char carrera[], ListaDoble *pt){
@@ -98,11 +105,11 @@ int carreraExistente(char carrera[], ListaDoble *pt){
 }
 
 /*
-*	@brief:
-*	@author:
-*	@param 
-*	@param
-*	@return
+*	@brief: Función que coloca a un alumno dentro de la lista doble (crea un nuevo nodo o lo coloca en uno existente)
+*	@author: Equipo 3
+*	@param Alumno temp: Alumno a colocar
+*	@param ListaDoble *pt: Lista doble existente o null
+*	@return ListaDoble *
 */
 ListaDoble * colocarListaDoble(Alumno temp, ListaDoble *pt){
 	ListaDoble *aux = pt;
@@ -137,11 +144,10 @@ ListaDoble * colocarListaDoble(Alumno temp, ListaDoble *pt){
 
 
 /*
-*	@brief:
-*	@author:
-*	@param 
-*	@param
-*	@return
+*	@brief: Función que lee file de estudiantes y los coloca en una lista doble.
+*	@author: Equipo 3
+*	@param char file_name[]: nombre de archivo
+*	@return ListaDoble *
 */
 extern ListaDoble * readTxt(char file_name[]){
 	ListaDoble *pt = NULL;
@@ -158,11 +164,10 @@ extern ListaDoble * readTxt(char file_name[]){
 
 
 /*
-*	@brief:
-*	@author:
-*	@param 
-*	@param
-*	@return
+*	@brief: Imprmie lista FIFO entera conteniendo a todos los estudiantes de una carrea.
+*	@author: Equipo 3
+*	@param Queue *pt: Lista FIFO de alumnos a imprmir
+*	@return int
 */
 extern int imprimirCarrera(Queue *pt){
 	Queue *aux = pt;
@@ -180,11 +185,10 @@ extern int imprimirCarrera(Queue *pt){
 }
 
 /*
-*	@brief:
-*	@author:
-*	@param 
-*	@param
-*	@return
+*	@brief: Función que genera archivo de texto de los estudiantes final.
+*	@author: Equipo 3
+*	@param ListaDoble *pt: Lista doble contendieno a todas las carreras y estudiantes.
+*	@return int
 */
 extern int generarTxt(ListaDoble *pt){
 	ListaDoble *aux = pt;

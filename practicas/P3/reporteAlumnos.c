@@ -1,6 +1,11 @@
 /*
 *	@file: main.c	
-*	@brief: Cotine el código principal para correr la práctica
+*	@brief: Cotine el código principal, puede abrir un archivo de n estudiantes
+*			organizarlos por carrera y colocar a cada estudiante en su carrera correspondiente.
+*			Como resultado se puede visualizar el mejor estudiante de cada carrera,
+*			cambiar de carrera y visualizar todos los estudiantes. Se puede imprimir
+*			un archivo final que contiene a todos los estudiantes (Nota: este no se 
+*			puede leer al volver a correr el código).
 *	@author: Equipo 3
 *	@date: 16/03/2021
 */
@@ -72,6 +77,7 @@ int main(int argc, char *argv[]){
 	if (guardar == 's'){
 		printf("\nGuardando Archivo...\n");
 		generarTxt(inicio);
+		printf("Listo.\n");
 	}
 
 	return 0;
