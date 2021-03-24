@@ -159,6 +159,7 @@ extern ListaDoble * readTxt(char file_name[]){
 	while(fscanf(fp, "%i\t%[^\t]\t%[^\t]\t%f\n", &temp.num_cuenta, temp.nombre, temp.carrera, &temp.promedio) > 1){
 		pt = colocarListaDoble(temp, pt);
 	}
+	fclose(fp);
 	return pt;
 }
 
