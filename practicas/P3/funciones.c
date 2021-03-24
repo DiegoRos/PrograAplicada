@@ -172,15 +172,17 @@ extern ListaDoble * readTxt(char file_name[]){
 extern int imprimirCarrera(Queue *pt){
 	Queue *aux = pt;
 	int i = 1;
-	printf("\tLista de alumnos en carrera %s:\n", pt->val.carrera);
 
 	if (aux == NULL) printf("La lista está vacía.\n");
-
-	while (aux != NULL){
-		printf("\tAlumno %d:\n\t\tNo. de Cuenta: %i\n\t\tNombre: %s\n\t\tPromedio: %f\n", i, pt->val.num_cuenta, pt->val.nombre, pt->val.promedio);
-		aux = aux->next;
-		++i;
+	else{
+		printf("\tLista de alumnos en carrera %s:\n", pt->val.carrera);
+		while (aux != NULL){
+			printf("\tAlumno %d:\n\t\tNo. de Cuenta: %i\n\t\tNombre: %s\n\t\tPromedio: %f\n", i, pt->val.num_cuenta, pt->val.nombre, pt->val.promedio);
+			aux = aux->next;
+			++i;
+		}
 	}
+	
 	return 0;
 }
 

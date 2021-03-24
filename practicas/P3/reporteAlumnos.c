@@ -1,5 +1,5 @@
 /*
-*	@file: main.c	
+*	@file: reporteAlumnos.c	
 *	@brief: Cotine el código principal, puede abrir un archivo de n estudiantes
 *			organizarlos por carrera y colocar a cada estudiante en su carrera correspondiente.
 *			Como resultado se puede visualizar el mejor estudiante de cada carrera,
