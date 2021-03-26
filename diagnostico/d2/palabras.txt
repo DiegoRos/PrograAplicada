@@ -1,0 +1,6 @@
+perro guillermo
+casa
+zorro
+gato guillermo
+casa perro
+loro
