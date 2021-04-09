@@ -15,8 +15,7 @@ void bubbleSort(int arr[], int n){
 				swap(arr + j, arr + j + 1);
 			}
 		}
-	}
-	
+	}	
 }
 
 void printArray(int arr[], int n){

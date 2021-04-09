@@ -1,0 +1,5 @@
+Francisco Pérez	S	S	N	Cdmx
+Laura Campos	S	S	S	Leon
+Arturo Ríos	N	S	N	Oaxaca
+Raúl Lagos	S	S	S	Leon
+Leonel Díaz	S	S	N	Puebla
