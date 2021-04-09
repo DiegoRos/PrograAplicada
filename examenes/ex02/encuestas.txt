@@ -4,3 +4,4 @@ Arturo Ríos	N	S	N	Oaxaca
 Raúl Lagos	S	S	S	Leon
 Leonel Díaz	S	S	N	Puebla
 Persona Dos	S	S	N	Hidalgo
+Persona Tres	S	S	N	Cdmx
