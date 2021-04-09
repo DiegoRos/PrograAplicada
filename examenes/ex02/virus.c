@@ -45,12 +45,8 @@ int main(int argc, char *argv[]){
 		}
 		else{
 			aux = ciudadEnArbol(root, argv[2]);
-			if (aux != NULL){
-				imprimirCiudad(aux);
-			}
-			else{
+			if (aux == NULL){
 				printf("Ciudad no encontrada\n");
-				// Limpiar archivo covid.txt
 			}
 			
 		}

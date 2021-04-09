@@ -284,50 +284,8 @@ extern void imprimirPacientes(ListaPacientes *start, char file_name[]){
     
 }
 
-extern void imprimirCiudad(ArbolCiudad *aux){
-
-}
-
-
-// ListaPacientes * enListaPacientes(char val, ListaPacientes *q){
-// 	ListaPacientes *aux;
-// 	aux = q;
-
-// 	ListaPacientes *nodo_nuevo = (ListaPacientes *)malloc(sizeof(ListaPacientes));
-// 	nodo_nuevo->val = val;
-// 	nodo_nuevo->next = NULL;
-// 	if (aux == NULL){
-// 		return nodo_nuevo;
-// 	}	
-
-// 	while (aux->next != NULL){
-// 		aux = aux->next;
-// 	}
-// 	aux->next = nodo_nuevo;
-	
-// 	return q;	
-// }
-
-
-/*
-*	@brief: Esta función imprime un ListaPacientes entero
-*	@author: Equipo 3
-*	@param Stack *q
-*	@return Stack *q
-*/
-// int imprimirListaPacientes(ListaPacientes *q){
-// 	while (q != NULL){
-// 		printf("La letra es: %c\n", );
-// 		q = q->next;
-// 	}
-
-// 	return 1;
-// }
-
-extern ArbolCiudad * ciudadEnArbol(ArbolCiudad *root, char ciudad[])
-{
-
-ArbolCiudad *aux;
+extern ArbolCiudad * ciudadEnArbol(ArbolCiudad *root, char ciudad[]){
+    ArbolCiudad *aux;
 
 if(root != NULL)
 {
@@ -335,6 +293,10 @@ if(root != NULL)
  if (strcmp(ciudad, root->ciudad) == 0)
   {
    aux = root;
+   if (aux->pacientes_covid != NULL)
+    imprimirPacientes(aux->pacientes_covid, "covid.txt");
+   else
+    printf("Ciudad encontrada, pero no contiene pacientes con covid.\n");
   }
  aux = ciudadEnArbol(root->right, ciudad);
 }
