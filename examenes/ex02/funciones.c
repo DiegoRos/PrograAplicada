@@ -38,6 +38,17 @@ ArbolCiudad * insertar(ArbolCiudad *pt, Paciente temp){
         nuevo->pacientes_covid = NULL;
         nuevo->pacientes_gripa = NULL;
         nuevo->pacientes_resfriado = NULL;
+        if ((temp.fiebre == 'S') && (temp.tos == 'S') && (temp.moco == 'N')){
+            pt->pacientes_covid = pushPaciente(pt->pacientes_covid, temp);
+        }
+
+        else if ((temp.fiebre == 'S') && (temp.tos == 'S') && (temp.moco == 'S')){
+            pt->pacientes_gripa = pushPaciente(pt->pacientes_gripa, temp);
+        }
+
+        else if ((temp.fiebre == 'N') && (temp.tos == 'S') && (temp.moco == 'N')){
+            pt->pacientes_resfriado = pushPaciente(pt->pacientes_resfriado, temp);
+        }
 
 		return nuevo;
 	}
