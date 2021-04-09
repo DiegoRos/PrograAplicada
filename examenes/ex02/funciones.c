@@ -178,6 +178,7 @@ ListaPacientes * unirListas(ListaPacientes *pt, ListaPacientes *nueva){
 }
 extern ListaPacientes * unirPacientesGripe(ArbolCiudad *root, ListaPacientes *pt){
     if (root == NULL){
+        return pt;
     }
     else{
         pt = unirListas(root->pacientes_gripa, pt);
