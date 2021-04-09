@@ -41,7 +41,7 @@ extern ArbolCiudad * leerTxt(char nombre_file[]){
     Paciente temp;
     FILE *fp;
     fp = fopen(nombre_file, "r");
-    if (fp = NULL){
+    if (fp == NULL){
         printf("No se pudo abrir el file.\n");
         exit(1);
     }
