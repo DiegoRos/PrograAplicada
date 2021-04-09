@@ -1,7 +1,5 @@
 #include "defex02.h"
 
-extern void imprimirPacientes(ListaPacientes *start);
-
 int tieneCovid(Paciente temp){
     if ((temp.fiebre == 'S') && (temp.tos == 'S') && (temp.moco == 'N')) 
         return True;
@@ -26,6 +24,13 @@ ListaPacientes * pushPaciente(ListaPacientes *pt, Paciente temp){
 	return pt;
 }
 
+/*
+*	@brief: Inserta un nuevo nodo en un arbol
+*	@author: Equipo 3
+*	@param ListaPacientes *pt
+*	@param Paciente temp
+*	@return ListaCiudad*
+*/
 ArbolCiudad * insertar(ArbolCiudad *pt, Paciente temp){
 	
 	if (pt == NULL){
@@ -79,6 +84,13 @@ ArbolCiudad * insertar(ArbolCiudad *pt, Paciente temp){
 	return pt;
 }
 
+/*
+*	@brief: Lee archivo de txt y agrega los nodos del árbol
+*	@author: Equipo 3
+*	@param ListaPacientes *pt
+*	@param Paciente temp
+*	@return ListaCiudad*
+*/
 extern ArbolCiudad * leerTxt(char nombre_file[]){
     ArbolCiudad *root = NULL;
     Paciente temp;
@@ -193,9 +205,10 @@ extern ListaPacientes * unirPacientesGripe(ArbolCiudad *root, ListaPacientes *pt
 
 extern ListaPacientes * unirPacientesResfriado(ArbolCiudad *root, ListaPacientes *pt){
     if (root == NULL){
+        return pt;
     }
     else{
-        pt = unirListas(root->pacientes_gripa, pt);
+        pt = unirListas(root->pacientes_resfriado, pt);
 
         pt = unirPacientesResfriado(root->left, pt);
         pt = unirPacientesResfriado(root->right, pt);
@@ -206,13 +219,13 @@ extern ListaPacientes * unirPacientesResfriado(ArbolCiudad *root, ListaPacientes
 
 
 void swap(ListaPacientes *a, ListaPacientes *b){
-    char temp[80];
-    strcpy(temp, a->val.nombre);
-    strcpy(a->val.nombre, b->val.nombre);
-    strcpy(b->val.nombre, temp);
+    Paciente temp;
+    temp = a->val;
+    a->val = b->val;
+    b->val = temp;
 }
 
-extern void bubbleSort(ListaPacientes *start){
+extern void bubbleSortNombre(ListaPacientes *start){
     int swapped, i;
     ListaPacientes *ptr1;
     ListaPacientes *lptr = NULL;
@@ -235,13 +248,40 @@ extern void bubbleSort(ListaPacientes *start){
     }while (swapped);
 }
 
-extern void imprimirPacientes(ListaPacientes *start){
+extern void bubbleSortCiudad(ListaPacientes *start){
+    int swapped, i;
+    ListaPacientes *ptr1;
+    ListaPacientes *lptr = NULL;
+  
+    if (start == NULL)
+        return;
+  
+    do{
+        swapped = 0;
+        ptr1 = start;
+  
+        while (ptr1->next != lptr){
+            if (strcmp(ptr1->val.ciudad, ptr1->next->val.ciudad) > 0){ 
+                swap(ptr1, ptr1->next);
+                swapped = 1;
+            }
+            ptr1 = ptr1->next;
+        }
+        lptr = ptr1;
+    }while (swapped);
+}
+
+extern void imprimirPacientes(ListaPacientes *start, char file_name[]){
+    FILE *fp;
+    fp = fopen(file_name, "w");
     ListaPacientes *aux = start;
     while (aux != NULL){
-        printf("Nombre: %s", aux->val.nombre);
+        printf("Nombre: %s\tCiudad: %s\n", aux->val.nombre, aux->val.ciudad);
+        fprintf(fp,"%s\t%s\n", aux->val.nombre, aux->val.ciudad);
         aux = aux->next;
     }
-
+    fclose(fp);
+    
 }
 
 extern void imprimirCiudad(ArbolCiudad *aux){
