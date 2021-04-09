@@ -8,23 +8,23 @@
 #include "defex02.h"
 
 ArbolCiudad * leerTxt(char nombre_file[]);
-ListaCiudad * generarContagiosTodas(ArbolCiudad *root);
+ListaCiudad * generarContagiosTodas(ArbolCiudad *root, ListaCiudad *pt);
 void imprimirListaCiudades(ListaCiudad *pt);
-Queue * unirPacientesGripe(ArbolCiudad *root);
-Queue * unirPacientesResfriado(ArbolCiudad *root);
-void bubbleSort(Queue *start);
-void imprimirPacientes(Queue *start);
+ListaPacientes * unirPacientesGripe(ArbolCiudad *root);
+ListaPacientes * unirPacientesResfriado(ArbolCiudad *root);
+void bubbleSort(ListaPacientes *start);
+void imprimirPacientes(ListaPacientes *start);
 void imprimirCiudad(ArbolCiudad *aux);
 ArbolCiudad * ciudadEnArbol(ArbolCiudad *root, char ciudad[]);
 
 int main(int argc, char *argv[]){
 	ArbolCiudad *root = NULL, *aux;
-	ListaCiudad *pt;
-	Queue *pacientes_gripe = NULL, *pacientes_resfriado = NULL;
+	ListaCiudad *pt = NULL;
+	ListaPacientes *pacientes_gripe = NULL, *pacientes_resfriado = NULL;
 	if (argc == 2){
 		root = leerTxt(argv[1]);
 		
-		pt = generarContagiosTodas(root);
+		pt = generarContagiosTodas(root, pt);
 		imprimirListaCiudades(pt);
 	}
 

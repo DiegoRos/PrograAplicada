@@ -1,0 +1,4 @@
+Cdmx	1
+Puebla	1
+Leon	0
+Oaxaca	0

@@ -11,17 +11,17 @@ typedef struct Persona{
     char ciudad[80];
 }Paciente;
 
-typedef struct Queue{
+typedef struct ListaPacientes{
     Paciente val;
-    struct Queue *next;
-}Queue;
+    struct ListaPacientes *next;
+}ListaPacientes;
 
 typedef struct ArbolCiudad{
 	char ciudad[80];
     int num_covid;
-    Queue pacientes_covid;
-    Queue paceintes_gripa;
-    Queue pacientes_resfriado;
+    ListaPacientes *pacientes_covid;
+    ListaPacientes *pacientes_gripa;
+    ListaPacientes *pacientes_resfriado;
 	struct ArbolCiudad *left, *right;
 }ArbolCiudad;
 

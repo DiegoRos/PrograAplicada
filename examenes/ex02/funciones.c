@@ -1,10 +1,29 @@
 #include "defex02.h"
 
+extern void imprimirPacientes(ListaPacientes *start);
+
 int tieneCovid(Paciente temp){
-    if ((temp.fiebre == 'S') && (temp.tos == 'S')) 
+    if ((temp.fiebre == 'S') && (temp.tos == 'S') && (temp.moco == 'N')) 
         return True;
 
     return False;
+}
+
+/*
+*	@brief: Inserta un nuevo nodo en la lista
+*	@author: Equipo 3
+*	@param ListaPacientes *pt
+*	@param Paciente temp
+*	@return ListaCiudad*
+*/
+ListaPacientes * pushPaciente(ListaPacientes *pt, Paciente temp){
+	ListaPacientes *aux = (ListaPacientes *)malloc(sizeof(ListaPacientes));
+    aux->val = temp;
+
+    aux->next = pt;
+    pt = aux;
+	
+	return pt;
 }
 
 ArbolCiudad * insertar(ArbolCiudad *pt, Paciente temp){
@@ -16,15 +35,28 @@ ArbolCiudad * insertar(ArbolCiudad *pt, Paciente temp){
 		nuevo->left = NULL;
 		nuevo->right = NULL;
         nuevo->num_covid = tieneCovid(temp);
+        nuevo->pacientes_covid = NULL;
+        nuevo->pacientes_gripa = NULL;
+        nuevo->pacientes_resfriado = NULL;
 
-        //Agregar a listas generales
 		return nuevo;
 	}
 
     if (strcmp(pt->ciudad, temp.ciudad) == 0){
         pt->num_covid += tieneCovid(temp);
-        
-        //Agregar a listas generales
+
+        if ((temp.fiebre == 'S') && (temp.tos == 'S') && (temp.moco == 'N')){
+            pt->pacientes_covid = pushPaciente(pt->pacientes_covid, temp);
+        }
+
+        else if ((temp.fiebre == 'S') && (temp.tos == 'S') && (temp.moco == 'S')){
+            pt->pacientes_gripa = pushPaciente(pt->pacientes_gripa, temp);
+        }
+
+        else if ((temp.fiebre == 'N') && (temp.tos == 'S') && (temp.moco == 'N')){
+            pt->pacientes_resfriado = pushPaciente(pt->pacientes_resfriado, temp);
+        }
+    
     }
 	else if (strcmp(pt->ciudad, temp.ciudad) < 0){
 		pt->right = insertar(pt->right, temp);
@@ -45,12 +77,11 @@ extern ArbolCiudad * leerTxt(char nombre_file[]){
         printf("No se pudo abrir el file.\n");
         exit(1);
     }
-    fscanf(fp, " %[^\t]\t%c\t%c\t%c\t %[^\n]", temp.nombre, &temp.fiebre, &temp.tos, &temp.moco, temp.ciudad);
-    printf("%s\n", temp.nombre);
+    
     while(fscanf(fp, " %[^\t]\t%c\t%c\t%c\t %[^\n]", temp.nombre, &temp.fiebre, &temp.tos, &temp.moco, temp.ciudad) > 1){
 		root = insertar(root, temp);
 	}
-
+    
     fclose(fp);
     return root;
 }
@@ -63,56 +94,111 @@ extern ArbolCiudad * leerTxt(char nombre_file[]){
 *	@return ListaCiudad*
 */
 ListaCiudad * push(ArbolCiudad *root, ListaCiudad *pt){
+    ListaCiudad *mover = pt, *prev = NULL;
 	ListaCiudad *aux = (ListaCiudad *)malloc(sizeof(ListaCiudad));
-	
-	aux->num_covid = root->num_covid;
+    aux->num_covid = root->num_covid;
     strcpy(aux->ciudad, root->ciudad);
-	aux->next = pt;
-	pt = aux;
+
+    if(mover == NULL){
+        aux->next = mover;
+        pt = aux;
+    }
+    else{
+        while(mover != NULL){
+            if (aux->num_covid > mover->num_covid){
+                if (prev != NULL)
+                    prev->next = aux;
+                aux->next = mover;
+                break;
+            }
+            if (mover->next == NULL){
+                mover->next = aux;
+                aux->next = NULL;
+            }
+            prev = mover;
+            mover = mover->next;
+        }
+    }
+	
 	return pt;
 }
 
 
 extern ListaCiudad * generarContagiosTodas(ArbolCiudad *root, ListaCiudad *pt){
-    if (root == NULL) return NULL;
+    if (root == NULL){
+    }
+    else{
+        pt = push(root, pt);
 
-    pt = push(root, pt);
-
-    pt = generarContagiosTodas(root->left, pt);
-	pt = generarContagiosTodas(root->right, pt);
+        pt = generarContagiosTodas(root->left, pt);
+        pt = generarContagiosTodas(root->right, pt);
+    }
     return pt;
 }
 
 extern void imprimirListaCiudades(ListaCiudad *pt){
+    FILE *fp;
+    fp = fopen("ciudades.txt", "w");
     ListaCiudad *aux = pt;
-    while (aux != NULL){
-        printf("Ciudad: %s \t Contagiados: %i", aux->ciudad, aux->num_covid);
+    do{
+        printf("Ciudad: %s\tContagiados: %i\n", aux->ciudad, aux->num_covid);
+        fprintf(fp,"%s\t%i\n", aux->ciudad, aux->num_covid);
+        aux = aux->next;
+    }while (aux != NULL);
+
+    fclose(fp);
+}
+
+ListaPacientes * unirListas(ListaPacientes *pt, ListaPacientes *nueva){
+    ListaPacientes *aux = pt;
+    if (nueva == NULL){
+        nueva = pt;
+    }
+    else{
+        while(aux->next != NULL)
+            aux = aux->next;
+        aux->next = nueva;
+        nueva = aux;
+    }
+    
+    return nueva;
+}
+extern ListaPacientes * unirPacientesGripe(ArbolCiudad *root, ListaPacientes *pt){
+    if (root == NULL){
+    }
+    else{
+        pt = unirListas(root->pacientes_gripa, pt);
+
+        pt = unirPacientesGripe(root->left, pt);
+        pt = unirPacientesGripe(root->right, pt);
+    }
+}
+
+extern ListaPacientes * unirPacientesResfriado(ArbolCiudad *root, ListaPacientes *pt){
+    if (root == NULL){
+    }
+    else{
+        pt = unirListas(root->pacientes_gripa, pt);
+
+        pt = unirPacientesResfriado(root->left, pt);
+        pt = unirPacientesResfriado(root->right, pt);
     }
 
 }
-extern Queue * unirPacientesGripe(ArbolCiudad *root){
-
-
-}
-
-extern Queue * unirPacientesResfriado(ArbolCiudad *root){
-
-
-}
 
 
 
-void swap(Queue *a, Queue *b){
+void swap(ListaPacientes *a, ListaPacientes *b){
     char temp[80];
     strcpy(temp, a->val.nombre);
     strcpy(a->val.nombre, b->val.nombre);
     strcpy(b->val.nombre, temp);
 }
 
-extern void bubbleSort(Queue *start){
+extern void bubbleSort(ListaPacientes *start){
     int swapped, i;
-    Queue *ptr1;
-    Queue *lptr = NULL;
+    ListaPacientes *ptr1;
+    ListaPacientes *lptr = NULL;
   
     if (start == NULL)
         return;
@@ -132,13 +218,12 @@ extern void bubbleSort(Queue *start){
     }while (swapped);
 }
 
-extern void imprimirPacientes(Queue *start){
-
-
-}
-
-extern ArbolCiudad * ciudadEnArbol(ArbolCiudad *root, char ciudad[]){
-
+extern void imprimirPacientes(ListaPacientes *start){
+    ListaPacientes *aux = start;
+    while (aux != NULL){
+        printf("Nombre: %s", aux->val.nombre);
+        aux = aux->next;
+    }
 
 }
 
@@ -147,11 +232,11 @@ extern void imprimirCiudad(ArbolCiudad *aux){
 }
 
 
-// Queue * enQueue(char val, Queue *q){
-// 	Queue *aux;
+// ListaPacientes * enListaPacientes(char val, ListaPacientes *q){
+// 	ListaPacientes *aux;
 // 	aux = q;
 
-// 	Queue *nodo_nuevo = (Queue *)malloc(sizeof(Queue));
+// 	ListaPacientes *nodo_nuevo = (ListaPacientes *)malloc(sizeof(ListaPacientes));
 // 	nodo_nuevo->val = val;
 // 	nodo_nuevo->next = NULL;
 // 	if (aux == NULL){
@@ -168,12 +253,12 @@ extern void imprimirCiudad(ArbolCiudad *aux){
 
 
 /*
-*	@brief: Esta función imprime un queue entero
+*	@brief: Esta función imprime un ListaPacientes entero
 *	@author: Equipo 3
 *	@param Stack *q
 *	@return Stack *q
 */
-// int imprimirQueue(Queue *q){
+// int imprimirListaPacientes(ListaPacientes *q){
 // 	while (q != NULL){
 // 		printf("La letra es: %c\n", );
 // 		q = q->next;
@@ -181,3 +266,21 @@ extern void imprimirCiudad(ArbolCiudad *aux){
 
 // 	return 1;
 // }
+
+extern ArbolCiudad * ciudadEnArbol(ArbolCiudad *root, char ciudad[])
+{
+
+ArbolCiudad *aux;
+
+if(root != NULL)
+{
+ aux = ciudadEnArbol(root->left,ciudad);
+ if (strcmp(ciudad, root->ciudad) == 0)
+  {
+   aux = root;
+  }
+ aux = ciudadEnArbol(root->right, ciudad);
+}
+
+return aux;
+}
