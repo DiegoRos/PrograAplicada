@@ -162,26 +162,29 @@ extern void imprimirListaCiudades(ListaCiudad *pt){
     fclose(fp);
 }
 
-ListaPacientes * unirListas(ListaPacientes *pt, ListaPacientes *nueva){
+ListaPacientes * unirListas(ListaPacientes *pt, ListaPacientes *existente){
     ListaPacientes *aux = pt;
-    if (nueva == NULL){
-        nueva = pt;
+    if (existente == NULL){
+        return pt;
+    }
+    if(pt == NULL){
+        pt = existente;
     }
     else{
         while(aux->next != NULL)
             aux = aux->next;
-        aux->next = nueva;
-        nueva = aux;
+        aux->next = existente;
+        pt = aux;
     }
     
-    return nueva;
+    return pt;
 }
 extern ListaPacientes * unirPacientesGripe(ArbolCiudad *root, ListaPacientes *pt){
     if (root == NULL){
         return pt;
     }
     else{
-        pt = unirListas(root->pacientes_gripa, pt);
+        pt = unirListas(pt, root->pacientes_gripa);
 
         pt = unirPacientesGripe(root->left, pt);
         pt = unirPacientesGripe(root->right, pt);
