@@ -80,6 +80,8 @@ extern ArbolCiudad * leerTxt(char nombre_file[]){
     
     while(fscanf(fp, " %[^\t]\t%c\t%c\t%c\t %[^\n]", temp.nombre, &temp.fiebre, &temp.tos, &temp.moco, temp.ciudad) > 1){
 		root = insertar(root, temp);
+        memset(temp.nomre, 0, 80);
+        memset(temp.ciudad, 0, 80);
 	}
     
     fclose(fp);
