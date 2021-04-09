@@ -10,8 +10,8 @@
 ArbolCiudad * leerTxt(char nombre_file[]);
 ListaCiudad * generarContagiosTodas(ArbolCiudad *root, ListaCiudad *pt);
 void imprimirListaCiudades(ListaCiudad *pt);
-ListaPacientes * unirPacientesGripe(ArbolCiudad *root);
-ListaPacientes * unirPacientesResfriado(ArbolCiudad *root);
+ListaPacientes * unirPacientesGripe(ArbolCiudad *root, ListaPacientes *pt);
+ListaPacientes * unirPacientesResfriado(ArbolCiudad *root, ListaPacientes *pt);
 void bubbleSort(ListaPacientes *start);
 void imprimirPacientes(ListaPacientes *start);
 void imprimirCiudad(ArbolCiudad *aux);
@@ -31,13 +31,13 @@ int main(int argc, char *argv[]){
 	else if (argc == 3){
 		root = leerTxt(argv[1]);
 		if (strcmp(argv[2], "-g") == 0){
-			pacientes_gripe = unirPacientesGripe(root);
+			pacientes_gripe = unirPacientesGripe(root, pacientes_gripe);
 			bubbleSort(pacientes_gripe);
 
 			imprimirPacientes(pacientes_gripe);
 		}
 		else if (strcmp(argv[2], "-r") == 0){
-			pacientes_resfriado = unirPacientesResfriado(root);
+			pacientes_resfriado = unirPacientesResfriado(root, pacientes_resfriado);
 			bubbleSort(pacientes_resfriado);
 
 			imprimirPacientes(pacientes_resfriado);
