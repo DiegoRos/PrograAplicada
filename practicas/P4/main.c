@@ -1,51 +1,45 @@
-/*
-*	@file: main.c
-*	@brief: Contiene el código principal de la práctica 4
-*	@author: Equipo 3
-*	@date: 07/04/2021
-*/
+#include "def.h"
 
-#include "defP4.h"
+void generarTxtNums(int n);
+nodo *crearLista(nodo *pt, char nomArch[]);
+void imprimirListaDer(nodo *pt);
+nodo * buscarNodo(nodo *pt, int num);
 
-const char * generarRandom(int n);
-ListaDoble * generarLista(char nombre_file[]);
-ListaDoble * buscarEnLista(ListaDoble *pt, int num);
-int generarTxt(ListaDoble *pt);
+int main(int argc, char *argv[])
+{
+    double tiempo;
+    clock_t principio, fin;
+    nodo *inicio = NULL, *aux = NULL;
+    int num;
+    if (argc == 2){
+        int cantidad;
+        if(sscanf(argv[1], " %d", &cantidad) == 1)
+            generarTxtNums(cantidad);
+        else{
+            printf("Entrada incorrecta, saliendo del programa.\n");
+            exit(1);
+        }
+    }
 
-int main(int argc, char *argv[]){
-	int n;
-	char guardar;
-	char nombre_file[256];
-		
-	//Inicializar Random Seed
-	srand(Time())
+    principio = clock();
+    inicio = crearLista(inicio, "numeros.txt");
+    fin = clock();
+    tiempo = (double)(fin - principio) / CLOCKS_PER_SEC;
+    printf("Timepo tardado: %lf segundos\n", tiempo);
 
-	printf("Insertar Cantiadad de Números: ")
-	scanf(" %i", &n);
+    printf("Insertar Número a buscar en lista entre (0 y %i): ", RAND_MAX);
+    scanf(" %i", &num);
 
-	printf("\nCreando Archivo...\n");
-	strcpy(nombre_file, generarRandom(n));
-	printf("Listo.\n");
-	
-	
-			
-	
-	do{
-		printf("\nDesea guardar su información [s/n]: ");
-		scanf(" %c", &guardar);
+    principio = clock();
+    aux = buscarNodo(inicio, num);
+    fin = clock();
+    tiempo = (double)(fin - principio) / CLOCKS_PER_SEC;
+    printf("Timepo tardado: %lf segundos\n", tiempo);
+    if(aux == NULL)
+        printf("Nodo no encontrado en la lista.\n");
+    else
+        printf("Nodo en dirección %p, con valor: %i\n\tNodo Derecha: %i, Nodo Izquierda: %i", aux, aux->num, aux->der->num, aux->izq->num);
 
-		if (!((guardar == 's') || (guardar == 'n'))){
-			printf("Opción inválida, intentar de nuevo.\n");
-		}
-	}while(!((guardar == 's') || (guardar == 'n')));
-
-	if (guardar == 's'){
-		printf("\nGuardando Archivo...\n");
-		generarTxt(inicio);
-		printf("Listo.\n");
-	}
-
-	return 0;
+    return 0;
 }
-
 
