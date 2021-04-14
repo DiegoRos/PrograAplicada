@@ -75,15 +75,14 @@ typedef struct state_tab_s STATE_TAB;
  * los eventos (entradas) que recibe el programa *
  *************************************************/ 
 #define ENTRADA_0   0
-
+#define ENTRADA_1  -1
 
 
 /********************* ESTADOS ******************
  * En esta seccion se declarar como constantes	*
  * los estados de que consta el programa 	*
  ************************************************/ 
-#define ESTADO_0     0
-
+#define ESTADO_0	0
 
 
 
