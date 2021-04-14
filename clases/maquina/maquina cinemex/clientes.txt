@@ -1,0 +1,2 @@
+Pedro Perez	65.000000	1234
+Juan Lopez	500.000000	4321

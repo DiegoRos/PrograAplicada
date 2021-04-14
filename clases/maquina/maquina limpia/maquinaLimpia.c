@@ -22,7 +22,6 @@ char buf[BUFFER];
 void initialise(void);
 void getevent(void);
 
-
 /*************** FUNCION PRINCIPAL ***************/ 
 int main(int argc, char **argv)
 {
@@ -58,6 +57,15 @@ int main(int argc, char **argv)
 void initialise(void)
 {
     state = 0;
+
+    /* Mensaje de Inicio*/
+
+    system("clear");
+    printf("\nHola\n");
+
+    /* Alta de usuarios en el sistema*/
+   
+   return;
 }
 
 
@@ -69,86 +77,23 @@ void getevent(void)
 #ifdef DEBUG
     printf("wait event \n");
 #endif
-    gets(buf);
+    scanf("%s",buf);
          switch (buf[0])
              {
                  case 'T' :
                      event.etype=ENTRADA_0;
+		     strcpy(event.args,ptmp);
                      break;
-                 case 'D' :
-                     event.etype=ENTRADA_2;
-                     break;
-                 case 'X' :
-                     event.etype=ENTRADA_3;			
-                     break;
-                 case 'A' :
-                     event.etype=ENTRADA_5;			
-                     break;
-                 case 'B' :
-                     event.etype=ENTRADA_6;			
-                     break;
-                 case 'C' :
-                     event.etype=ENTRADA_7;			
-                     break;
-
-
 		     //NO BORRAR ESTE DEFAULT QUE YA ENVIA A TODA OTRA COSA A -1
 		default:
 		     event.etype=-1;
 		     break;
                      
              }//switch
+   return;
 }// getevent
  
 
 /* FUNCIONES DE IMPLEMENTACION */
 
-int imprime_c_h_p(void)
-{
- return 0;
-}
 
-int default_(void)
-{
-  return 0;
-}
-
-int subtotal_3D(void)
-{
-  return 0;
-}
-
-int subtotal_4X(void)
-{
-  return 0;
-}
-
-int mensaje_error_b(void)
-{
-  return 0;
-}
-
-int pre_impresion(void)
-{
-  return 0;
-}
-
-int mensaje_error_h(void)
-{
-  return 0;
-}
-
-int saldo(void)
-{
-  return 2;
-}
-
-int sin_saldo(void)
-{
-  return 0;
-}
-
-int imprime_b_s(void)
-{
-  return 0;
-}

@@ -1,5 +1,4 @@
-/****************************************************************
- *								*
+/***************************************************************								*
  * Archivo:	local.h						*
  * Descripcion: Archivo de encabezado para maquina de estados	*
  *		Aqui se definen todos los tipos de datos y 	*
@@ -13,6 +12,7 @@
  **************************************************/ 
 #define BUFFER        128
 #define L_EVENT_ARGS  21
+
 
 
 /****************** ESTRUCTURAS *****************
@@ -60,12 +60,14 @@ struct state_tab_s
 };
 typedef struct state_tab_s STATE_TAB;
 
+/* Datos definidos por el programador*/
+
 
 /********************* GLOBALES ***********************
  * En esta seccion se pueden declarar todas	      *
  * variables globales que se necesiten en el programa *
  ******************************************************/ 
-FILE *fp;
+
 
 
 /********************* EVENTOS *******************
@@ -73,14 +75,6 @@ FILE *fp;
  * los eventos (entradas) que recibe el programa *
  *************************************************/ 
 #define ENTRADA_0   0
-#define ENTRADA_1   -1
-#define ENTRADA_2   2
-#define ENTRADA_3   3
-#define ENTRADA_4   4
-#define ENTRADA_5   5
-#define ENTRADA_6   6
-#define ENTRADA_7   7
-#define ENTRADA_8   -1
 
 
 
@@ -89,8 +83,6 @@ FILE *fp;
  * los estados de que consta el programa 	*
  ************************************************/ 
 #define ESTADO_0     0
-#define ESTADO_1     1
-#define ESTADO_2     2
 
 
 
