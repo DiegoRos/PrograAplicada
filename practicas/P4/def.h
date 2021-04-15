@@ -8,4 +8,4 @@ struct elemento{
     struct elemento  *izq,*der;
 };
 
-typedef struct elemento nodo;
+typedef struct elemento Nodo;

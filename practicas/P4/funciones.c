@@ -29,15 +29,15 @@ void generarTxtNums(int n){
 }
 
 /*
-*	@brief: Función que agrega un nodo a la lista doble circular, si el valor es repetido se descarta.
+*	@brief: Función que agrega un Nodo a la lista doble circular, si el valor es repetido se descarta.
 *	@author: Equipo 3
 *	@param int val
-*	@param nodo *pt
+*	@param Nodo *pt
 *	@return noto *pt
 */
-nodo * pushLD(int val, nodo *pt){
-	nodo *nuevo, *aux = pt;
-	nuevo = (nodo *)malloc(sizeof(nodo));
+Nodo * pushLD(int val, Nodo *pt){
+	Nodo *nuevo, *aux = pt;
+	nuevo = (Nodo *)malloc(sizeof(Nodo));
     if(nuevo == NULL){
         printf("\n no hay memoria disponible");
         exit(1);
@@ -103,11 +103,11 @@ nodo * pushLD(int val, nodo *pt){
 /*
 *	@brief: Función que lee el archivo de números aleatorios y crea la lista doble
 *	@author: Equipo 3
-*	@param nodo *pt
+*	@param Nodo *pt
 *	@param char nomArch[]
-*	@return nodo *
+*	@return Nodo *
 */
-nodo *crearLista(nodo *pt, char nomArch[])
+Nodo *crearLista(Nodo *pt, char nomArch[])
 {
     FILE *fp;
     int numero, cont = 1;
@@ -130,12 +130,12 @@ nodo *crearLista(nodo *pt, char nomArch[])
 /*
 *	@brief: Función que imprime la lista doble ciruclar (solo se uso para depurar)
 *	@author: Equipo 3
-*	@param nodo *pt
+*	@param Nodo *pt
 *	@return void
 */
-void imprimirListaDer(nodo *pt)
+void imprimirListaDer(Nodo *pt)
 {
-    nodo *imprime;
+    Nodo *imprime;
     if(pt != NULL)
     {
         imprime = pt;
@@ -152,12 +152,12 @@ void imprimirListaDer(nodo *pt)
 /*
 *	@brief: Función que busca un número en la lista y regresa su posición en memoria o NULL si no lo encuentra
 *	@author: Equipo 3
-*	@param nodo *pt
+*	@param Nodo *pt
 *	@param int num
-*	@return nodo * 
+*	@return Nodo * 
 */
-nodo * buscarNodo(nodo *pt, int num){
-    nodo *aux = pt;
+Nodo * buscarNodo(Nodo *pt, int num){
+    Nodo *aux = pt;
     if(pt == NULL){
         return NULL;
     }

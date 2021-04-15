@@ -8,15 +8,15 @@
 #include "def.h"
 
 void generarTxtNums(int n);
-nodo *crearLista(nodo *pt, char nomArch[]);
-void imprimirListaDer(nodo *pt);
-nodo * buscarNodo(nodo *pt, int num);
+Nodo *crearLista(Nodo *pt, char nomArch[]);
+void imprimirListaDer(Nodo *pt);
+Nodo * buscarNodo(Nodo *pt, int num);
 
 int main(int argc, char *argv[])
 {
     double tiempo;
     clock_t principio, fin;
-    nodo *inicio = NULL, *aux = NULL;
+    Nodo *inicio = NULL, *aux = NULL;
     int num;
     if (argc == 2){
         int cantidad;
