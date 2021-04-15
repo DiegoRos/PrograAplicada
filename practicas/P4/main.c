@@ -1,3 +1,10 @@
+/*
+*	@file: main.c
+*	@brief: Contiene las funciones para generar n numeros aleatorios, guardarlos y colocarlos en una lista doble circular
+*	@author: Equipo 3
+*	@date: 16/04/2021
+*/
+
 #include "def.h"
 
 void generarTxtNums(int n);

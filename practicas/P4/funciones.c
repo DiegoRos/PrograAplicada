@@ -1,8 +1,20 @@
+/*
+*	@file: main.c
+*	@brief: Contiene las funciones para generar n numeros aleatorios, guardarlos y colocarlos en una lista doble circular
+*	@author: Equipo 3
+*	@date: 16/04/2021
+*/
+
 #include "def.h"
 
+/*
+*	@brief: Función que genera n números aleatorios
+*	@author: Equipo 3
+*	@param int n
+*	@return void
+*/
 void generarTxtNums(int n){
-    // srand((unsigned)time(NULL)); // Set random seed
-    srand(0);
+    srand((unsigned)time(NULL)); // Set random seed
     int i;
     FILE *fp;
     fp = fopen("numeros.txt", "w");
@@ -17,11 +29,11 @@ void generarTxtNums(int n){
 }
 
 /*
-*	@brief:
-*	@author:
-*	@param 
-*	@param
-*	@return
+*	@brief: Función que agrega un nodo a la lista doble circular, si el valor es repetido se descarta.
+*	@author: Equipo 3
+*	@param int val
+*	@param nodo *pt
+*	@return noto *pt
 */
 nodo * pushLD(int val, nodo *pt){
 	nodo *nuevo, *aux = pt;
@@ -88,7 +100,14 @@ nodo * pushLD(int val, nodo *pt){
 	return pt;
 }
 
-extern nodo *crearLista(nodo *pt, char nomArch[])
+/*
+*	@brief: Función que lee el archivo de números aleatorios y crea la lista doble
+*	@author: Equipo 3
+*	@param nodo *pt
+*	@param char nomArch[]
+*	@return nodo *
+*/
+nodo *crearLista(nodo *pt, char nomArch[])
 {
     FILE *fp;
     int numero, cont = 1;
@@ -108,7 +127,13 @@ extern nodo *crearLista(nodo *pt, char nomArch[])
     return pt;
 }
 
-extern void imprimirListaDer(nodo *pt)
+/*
+*	@brief: Función que imprime la lista doble ciruclar (solo se uso para depurar)
+*	@author: Equipo 3
+*	@param nodo *pt
+*	@return void
+*/
+void imprimirListaDer(nodo *pt)
 {
     nodo *imprime;
     if(pt != NULL)
@@ -124,6 +149,13 @@ extern void imprimirListaDer(nodo *pt)
     return;
 }
 
+/*
+*	@brief: Función que busca un número en la lista y regresa su posición en memoria o NULL si no lo encuentra
+*	@author: Equipo 3
+*	@param nodo *pt
+*	@param int num
+*	@return nodo * 
+*/
 nodo * buscarNodo(nodo *pt, int num){
     nodo *aux = pt;
     if(pt == NULL){
