@@ -59,9 +59,9 @@ void initialise(void)
     state = 0;
 
     /* Mensaje de Inicio*/
-
+	
     system("clear");
-    printf("\nHola\n");
+    printf("\nQuieres un chicle? Ingresa una moneda de $1.00\n");
 
     /* Alta de usuarios en el sistema*/
    
@@ -80,10 +80,10 @@ void getevent(void)
     scanf("%s",buf);
          switch (buf[0])
              {
-                 case 'T' :
-                     event.etype=ENTRADA_0;
-		     strcpy(event.args,ptmp);
-                     break;
+                 case 'M' :
+                    event.etype=ENTRADA_0;
+		    	 	strcpy(event.args,ptmp);
+                    break;
 		     //NO BORRAR ESTE DEFAULT QUE YA ENVIA A TODA OTRA COSA A -1
 		default:
 		     event.etype=-1;
@@ -96,4 +96,16 @@ void getevent(void)
 
 /* FUNCIONES DE IMPLEMENTACION */
 
+int liberarChicleAviso(void){
+	system("clear");
+	printf("Tu chicle ha sido dispendado, tómalo de la charola.\n");
+	printf("\nSi deseas otro chicle ingresa $1.00\n");
+	return 0;
+}
 
+int darMensajeError(void){
+	system("clear");
+
+	printf("Error ingresa una moneda de $1.00...\n");
+	return 0;
+}

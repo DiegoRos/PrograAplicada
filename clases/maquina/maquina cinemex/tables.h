@@ -39,21 +39,21 @@ int pre_carga(void);
 ACTION_TAB action_table[]={
         /*etype    accion    bandera   sigEdo. */    
     { ENTRADA_0,  imprime_c_h_p,   	-1,	ESTADO_1},
-    { ENTRADA_1,     default_,	-1,	ESTADO_0},
+    { ENTRADA_1,     default_,		-1,	ESTADO_0},
     { ENTRADA_2,     subtotal_3D,	-1,	ESTADO_2},
     { ENTRADA_3,     subtotal_4X,	-1,	ESTADO_2},    
-    { ENTRADA_4,   mensaje_error_b,	 -1,	ESTADO_1},
-    { ENTRADA_5,     pre_impresion,	0,	-1},
-    { ENTRADA_6,     pre_impresion,	0,	-1}, 
-    { ENTRADA_7,     pre_impresion,	0,	-1},
-    { ENTRADA_8,     mensaje_error_h,	-1,	2},               
+    { ENTRADA_4,   mensaje_error_b,	-1,	ESTADO_1},
+    { ENTRADA_5,     pre_impresion,	 0,	-1},
+    { ENTRADA_6,     pre_impresion,	 0,	-1}, 
+    { ENTRADA_7,     pre_impresion,	 0,	-1},
+    { ENTRADA_8,     mensaje_error_h,	-1,	ESTADO_2},               
 };
 
 /*************** TABLA AUXILIAR ***************/  
     AUX_TAB aux_table[]={        
-/*    accion       bandera           sigEdo */
-    { saldo,        0,          -1},
-    { pre_carga,        -0,          -1},
+/*    accion       bandera         	sigEdo */
+    { saldo,        0,          	-1},
+    { pre_carga,        -0,          -1}, //Esto no debe de ir, revisar
     { sin_saldo,        -1,          ESTADO_0},
     { imprime_b_s,	       -1,          ESTADO_0},
 };
