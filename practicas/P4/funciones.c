@@ -49,7 +49,10 @@ Nodo * pushLD(int val, Nodo *pt){
 		nuevo->der = nuevo;
 		pt = nuevo;
 	}
-    else if (pt->der == pt){
+    else if ((pt->der == pt)){
+        if (pt->num != val){
+            return pt;
+        }
         nuevo->izq = aux;
         nuevo->der = aux;
         aux->izq = nuevo;
@@ -57,6 +60,7 @@ Nodo * pushLD(int val, Nodo *pt){
         if (aux->num > val){
             pt = nuevo;
         }
+        
     }
 	else{
         while(aux->der != pt){
@@ -110,7 +114,7 @@ Nodo * pushLD(int val, Nodo *pt){
 Nodo *crearLista(Nodo *pt, char nomArch[])
 {
     FILE *fp;
-    int numero, cont = 1;
+    int numero;
 
     fp = fopen(nomArch, "r");
     if (fp == NULL)
