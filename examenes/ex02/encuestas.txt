@@ -5,3 +5,10 @@ Raúl Lagos	S	S	S	Leon
 Leonel Díaz	S	S	N	Puebla
 Persona Dos	S	S	N	Hidalgo
 Persona Tres	S	S	N	Cdmx
+Persona Cuatro	S	S	N	Leon
+Persona Cinco	S	S	N	Puebla
+Persona Seis	S	S	N	Leon
+Persona Siete	S	S	N	Cdmx
+Ana Perez	S	S	S	Oaxaca
+Anita Lopez	N	S	N	Oaxaca
+

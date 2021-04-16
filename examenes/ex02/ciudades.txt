@@ -1,5 +1,5 @@
-Cdmx	2
+Cdmx	3
+Leon	2
+Puebla	2
 Hidalgo	1
-Puebla	1
-Leon	0
 Oaxaca	0

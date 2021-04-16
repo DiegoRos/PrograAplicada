@@ -12,6 +12,8 @@
  **************************************************/ 
 #define BUFFER        128
 #define L_EVENT_ARGS  21
+#define True 1
+#define False 0
 
 
 
@@ -74,8 +76,10 @@ typedef struct state_tab_s STATE_TAB;
  * En esta seccion se declarar como constantes	 *
  * los eventos (entradas) que recibe el programa *
  *************************************************/ 
-#define ENTRADA_0   0
-#define ENTRADA_1  -1
+#define ENTRADA_0   -1
+#define ENTRADA_1 	1
+#define ENTRADA_2	-1
+#define ENTRADA_3	3
 
 
 /********************* ESTADOS ******************
@@ -83,7 +87,7 @@ typedef struct state_tab_s STATE_TAB;
  * los estados de que consta el programa 	*
  ************************************************/ 
 #define ESTADO_0	0
-
+#define ESTADO_1	1
 
 
 
