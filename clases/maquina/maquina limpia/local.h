@@ -63,12 +63,19 @@ struct state_tab_s
 typedef struct state_tab_s STATE_TAB;
 
 /* Datos definidos por el programador*/
-
+struct Cliente{
+	char nombre[40];
+	float saldo;
+	char num_cliente[10];
+};
+typedef struct Cliente ClienteChicles;
 
 /********************* GLOBALES ***********************
  * En esta seccion se pueden declarar todas	      *
  * variables globales que se necesiten en el programa *
  ******************************************************/ 
+ClienteChicles clientes_totales[2];
+ClienteChicles cliente_temp;
 
 
 

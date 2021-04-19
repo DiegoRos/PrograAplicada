@@ -19,7 +19,7 @@
  * ser de tipo entero y no deben recibir parametros	*
  ********************************************************/ 
 extern int preguntarColor(void);
-extern int darMensajeError(void);
+extern int indicarErrorMoneda(void);
 extern int preImprimirSolicitud(void);
 extern int indicarErrorColor(void);
 extern int revisarSaldo(void);
@@ -37,8 +37,8 @@ extern int indicarErrorSaldo(void);
 ACTION_TAB action_table[]={
 /*	etype		accion    			bandera	sigEdo. */
 	{ENTRADA_0,	indicarErrorMoneda,	-1, 	ESTADO_0},
-	{ENTRADA_1,	pregutnarColor,		-1,		ESTADO_1},
-	{ENTRADA_2, indicarErrorColor,	-1		ESTADO_1},
+	{ENTRADA_1,	preguntarColor,		-1,		ESTADO_1},
+	{ENTRADA_2, indicarErrorColor,	-1,		ESTADO_1},
 	{ENTRADA_3,	preImprimirSolicitud, 0,	-1},
 };
 
@@ -54,8 +54,8 @@ ACTION_TAB action_table[]={
 /*************** TABLA DE ESTADOS ***************/  
 STATE_TAB state_table[]={
 /*	estado		inicio	fin */
-	{ESTADO_0,	1,		0},
-	{ESTADO_1,	3,		2},
+	{ESTADO_0,	0,		1},
+	{ESTADO_1,	2,		3},
 };
 
 
