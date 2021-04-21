@@ -1,2 +1,2 @@
-Alberto López	A23B	10.00
-Luisa Arenas	MY93	10.00
+Alberto López	A23B	10.000000
+Luisa Arenas	MY93	10.000000
