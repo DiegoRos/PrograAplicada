@@ -113,12 +113,12 @@ int preguntarColor(void){
 	system("clear");
 	for(i = 0; i < 2; ++i){
 		if(strcmp(event.args, clientes_totales[i].num_cliente) == 0){
-			cliente_temp = clientes_totales[i];
+			cliente_temp = &clientes_totales[i];
 			break;
 		}
 	}
 	printf("\nChicles: 1 = Amarillo, 2 = Verde, 3 = Rojo\n");
-	printf("Hola %s, escoge un color de Chicle C:[1|2|3]", cliente_temp.nombre);	
+	printf("Hola %s, escoge un color de Chicle C:[1|2|3]", cliente_temp->nombre);
 	
 	return 0;
 }
@@ -152,13 +152,14 @@ int indicarErrorColor(void){
 
 	system("clear");
 	printf("\nChicles: 1 = Amarillo, 2 = Verde, 3 = Rojo\n");
-	printf("Hola %s, escoge un color de Chicle C:[1|2|3]", cliente_temp.nombre);	
+	printf("Hola %s, escoge un color de Chicle C:[1|2|3]", cliente_temp->nombre);	
+	system("clear");
 	return 0;
 }
 
 int revisarSaldo(void){
 	int flag_saldo = 0;
-	if(cliente_temp.saldo >= 1){//Alcanza
+	if(cliente_temp->saldo >= 1){//Alcanza
 		flag_saldo = 1; // Posición en arreglo de aux_table
 	}
 	else{
@@ -170,10 +171,10 @@ int revisarSaldo(void){
 int entregarChicleYActualizarSaldo(void){
 	FILE *fp;
 	int i;
-	cliente_temp.saldo -= 1;
+	cliente_temp->saldo -= 1;
 	
 	system("clear");
-	printf("\nToma tu chicle y tu nuevo saldo es: %f\n", cliente_temp.saldo);
+	printf("\nToma tu chicle y tu nuevo saldo es: %f\n", cliente_temp->saldo);
 	fp = fopen("clientes.txt", "w");
 	//Obviamente esto sería mejor con una lista o alguna otra estructura
 	for(i = 0; i < 2; ++i){

@@ -75,7 +75,7 @@ typedef struct Cliente ClienteChicles;
  * variables globales que se necesiten en el programa *
  ******************************************************/ 
 ClienteChicles clientes_totales[2];
-ClienteChicles cliente_temp;
+ClienteChicles *cliente_temp;
 
 
 
