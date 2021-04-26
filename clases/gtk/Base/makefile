@@ -1,0 +1,1 @@
+ventana.out: ventana.o 
