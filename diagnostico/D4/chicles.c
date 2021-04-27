@@ -25,8 +25,7 @@ void initialise(void);
 void getevent(void);
 
 /*************** FUNCION PRINCIPAL ***************/ 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv){
     int actx, auxx, outcome;
 
     initialise();
@@ -56,6 +55,11 @@ int main(int argc, char **argv)
 	} /* while(1) */
 }
 
+/*
+*	@brief: Sets the state of the machine to its base state.
+*	@author: Equipo 3
+*	@return int
+*/
 void initialise(void){
 	FILE *fp;
 	int i;
@@ -77,7 +81,11 @@ void initialise(void){
 	return;
 }
 
-
+/*
+*	@brief: Lectura de evento. M para entrar a las tarjetas y C para seleccionar color.
+*	@author: Equipo 3
+*	@return int
+*/
 void getevent(void)
 {
     char *ptmp;
@@ -108,6 +116,12 @@ void getevent(void)
  
 
 /* FUNCIONES DE IMPLEMENTACION */
+
+/*
+*	@brief: Función que imprime las opciones de colores de chicles
+*	@author: Equipo 3
+*	@return int
+*/
 int preguntarColor(void){
 	int i;
 	system("clear");
@@ -123,10 +137,14 @@ int preguntarColor(void){
 	return 0;
 }
 
-
+/*
+*	@brief: Función que imprime error de monedero y se espera antes de dar opción de trajeta.
+*	@author: Equipo 3
+*	@return int
+*/
 int indicarErrorMoneda(void){
 	system("clear");
-	printf("\nSe ingresÃ³ un monedero invÃ¡lido, intente de nuevo.\n");
+	printf("\nSe ingresó un monedero inválido, intente de nuevo.\n");
 	
 	sleep(2);
 	
@@ -135,19 +153,29 @@ int indicarErrorMoneda(void){
 	return 0;
 }
 
+/*
+*	@brief: Imprime color de chicle escogido.
+*	@author: Equipo 3
+*	@return int
+*/
 int preImprimirSolicitud(void){
 	int color;
 	sscanf(event.args, " %i", &color);
 	system("clear");
-	printf("\nUsted ha elejido el chicle de color: %s\n", (color == 1) ? "Amarillo" : ((color == 2) ? "Verde" : (color == 3 ? "Rojo": "Color no vÃ¡lido")));
+	printf("\nUsted ha elejido el chicle de color: %s\n", (color == 1) ? "Amarillo" : ((color == 2) ? "Verde" : (color == 3 ? "Rojo": "Color no válido")));
 	
 	sleep(2);
 	return 0;
 }
 
+/*
+*	@brief: Indica que no se dió opción de color válido
+*	@author: Equipo 3
+*	@return int
+*/
 int indicarErrorColor(void){
 	system("clear");
-	printf("\nEscoge un color vÃ¡lido\n");
+	printf("\nEscoge un color válido\n");
 	sleep(2);
 
 	system("clear");
@@ -157,6 +185,11 @@ int indicarErrorColor(void){
 	return 0;
 }
 
+/*
+*	@brief: Revisa saldo de usuario, si no hay sufuciente regresa a Estado_0, en el otro caso se cobra el chicle.
+*	@author: Equipo 3.
+*	@return int
+*/
 int revisarSaldo(void){
 	int flag_saldo = 0;
 	if(cliente_temp->saldo >= 1){//Alcanza
@@ -168,6 +201,11 @@ int revisarSaldo(void){
 	return flag_saldo;
 }
 
+/*
+*	@brief: Impresión de entrega de chicle y se actualiza el saldo de los usuarios.
+*	@author: Equipo 3
+*	@return int
+*/
 int entregarChicleYActualizarSaldo(void){
 	FILE *fp;
 	int i;
@@ -189,6 +227,11 @@ int entregarChicleYActualizarSaldo(void){
 	return 0;
 }
 
+/*
+*	@brief: Si no hay suficiente saldo en el monedero se corre esta función.
+*	@author: Equipo 3
+*	@return int
+*/
 int indicarErrorSaldo(void){
 	char esperar;
 	system("clear");
@@ -200,18 +243,14 @@ int indicarErrorSaldo(void){
 	return 0;
 }
 
-
-
+/*
+*	@brief: Se libera el chicle y se regresa a el ESTADO_0
+*	@author: Equipo 3
+*	@return int
+*/
 int liberarChicleAviso(void){
 	system("clear");
-	printf("Tu chicle ha sido dispendado, tÃ³malo de la charola.\n");
+	printf("Tu chicle ha sido dispendado, tómalo de la charola.\n");
 	printf("\nSi deseas otro chicle ingresa $1.00\n");
-	return 0;
-}
-
-int darMensajeError(void){
-	system("clear");
-
-	printf("Error ingresa una moneda de $1.00...\n");
 	return 0;
 }
