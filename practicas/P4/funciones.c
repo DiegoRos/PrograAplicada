@@ -23,7 +23,7 @@ void generarTxtNums(int n){
         exit(1);
     }
     for(i = 0; i < n; ++i){
-        fprintf(fp, "%d\n", rand());
+        fprintf(fp, "%i\n", rand());
     }
     fclose(fp);
 }
@@ -42,7 +42,6 @@ Nodo * pushLD(int val, Nodo *pt){
         printf("\n no hay memoria disponible");
         exit(1);
     }
-
 	nuevo->num = val;
 	if (pt == NULL){
 		nuevo->izq = nuevo;
@@ -50,7 +49,7 @@ Nodo * pushLD(int val, Nodo *pt){
 		pt = nuevo;
 	}
     else if ((pt->der == pt)){
-        if (pt->num != val){
+        if (pt->num == val){
             return pt;
         }
         nuevo->izq = aux;
@@ -124,7 +123,8 @@ Nodo *crearLista(Nodo *pt, char nomArch[])
     }
 
     while(fscanf(fp, "%i\n", &numero) == 1)
-    {
+  	{
+		printf("%d\n", numero);
         pt = pushLD(numero, pt);
     }
     fclose(fp);
@@ -167,6 +167,7 @@ Nodo * buscarNodo(Nodo *pt, int num){
     }
 
     do{
+		printf("%d\t%d", aux->num, num);
         if(aux->num == num){
             return aux;
         }

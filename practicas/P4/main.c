@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
     inicio = crearLista(inicio, "numeros.txt");
     fin = clock();
     tiempo = (double)(fin - principio) / CLOCKS_PER_SEC;
-    printf("Timepo tardado: %lf segundos\n", tiempo);
+    printf("Tiempo tardado: %lf segundos\n", tiempo);
 
     printf("Insertar Número a buscar en lista entre (0 y %i): ", RAND_MAX);
     scanf(" %i", &num);
@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
     if(aux == NULL)
         printf("Nodo no encontrado en la lista.\n");
     else
-        printf("Nodo en dirección %p, con valor: %i\n\tNodo Derecha: %i, Nodo Izquierda: %i", aux, aux->num, aux->der->num, aux->izq->num);
+        printf("Nodo en dirección %p, con valor: %i\n\tNodo Derecha: %i, Nodo Izquierda: %i\n", aux, aux->num, aux->der->num, aux->izq->num);
 
     return 0;
 }
