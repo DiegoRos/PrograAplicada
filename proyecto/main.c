@@ -10,7 +10,7 @@
 *	@date: 16/03/2021
 */
 
-#include "P3def.h"
+#include "PProyectodef.h"
 
 ListaDoble * readTxt(char file_name[]);
 int imprimirAlumno(Queue *pt);
