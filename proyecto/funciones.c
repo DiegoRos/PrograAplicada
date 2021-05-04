@@ -127,6 +127,8 @@ ListaDoble * colocarListaDoble(Alumno temp, ListaDoble *pt){
 			aux->mejor_alumno = temp;
 		}
 		aux->alumnos = enQueue(temp, aux->alumnos);
+		printf("%s\n", aux->alumnos->val.nombre);	
+		printf("%s\n", aux->alumnos->next->val.nombre);	
 	}
 	else{
 		ListaDoble *nuevo = (ListaDoble *)malloc(sizeof(ListaDoble));
@@ -149,8 +151,7 @@ ListaDoble * colocarListaDoble(Alumno temp, ListaDoble *pt){
 *	@param Alumno temp: Alumno a colocar
 *	@return ListaDoble *
 */
-nodo * insertarArbol(nodo *pt, Alumno temp){
-	
+nodo * insertarArbol(nodo *pt, Alumno temp){	
 	if (pt == NULL){
 		nodo *nuevo = (nodo *)malloc(sizeof(nodo));
 	
@@ -177,21 +178,48 @@ nodo * insertarArbol(nodo *pt, Alumno temp){
 *	@param char file_name[]: nombre de archivo
 *	@return ListaDoble *
 */
-extern ListaDoble * readTxt(char file_name[]){
+ListaDoble * readTxtLista(const char file_name[]){
 	ListaDoble *pt = NULL;
-	nodo *root = NULL;
-
 	Alumno temp; 
 
 	FILE *fp;
 	fp = fopen(file_name, "r");
+	if (fp == NULL){
+		printf("No se pude leer file.\n");
+		exit(1);
+	}
 	
 	while(fscanf(fp, "%i\t%[^\t]\t%[^\t]\t%f\n", &temp.num_cuenta, temp.nombre, temp.carrera, &temp.promedio) > 1){
 		pt = colocarListaDoble(temp, pt);
-		root = insertarArbol(root, temp);
 	}
 	fclose(fp);
 	return pt;
+}
+
+/*
+*	@brief: Función que lee file de estudiantes y los coloca en una lista doble.
+*	@author: Equipo 3
+*	@param char file_name[]: nombre de archivo
+*	@return ListaDoble *
+*/
+nodo * readTxtArbol(const char file_name[]){
+	nodo *root = NULL;
+	Alumno temp;
+	
+	FILE *fp;
+	fp = fopen(file_name, "r");
+
+	if (fp == NULL){
+		printf("No se pude leer file.\n");
+		exit(1);
+	}
+
+	while(fscanf(fp, "%i\t%[^\t]\t%[^\t]\t%f\n", &temp.num_cuenta, temp.nombre, temp.carrera, &temp.promedio) > 1){
+		root = insertarArbol(root, temp);
+	}
+	fclose(fp);
+
+	return root;
 }
 
 
@@ -201,7 +229,7 @@ extern ListaDoble * readTxt(char file_name[]){
 *	@param Queue *pt: Lista FIFO de alumnos a imprmir
 *	@return int
 */
-extern int imprimirCarrera(Queue *pt){
+int imprimirCarrera(Queue *pt){
 	Queue *aux = pt;
 	int i = 1;
 
@@ -209,7 +237,7 @@ extern int imprimirCarrera(Queue *pt){
 	else{
 		printf("\tLista de alumnos en carrera %s:\n", pt->val.carrera);
 		while (aux != NULL){
-			printf("\tAlumno %d:\n\t\tNo. de Cuenta: %i\n\t\tNombre: %s\n\t\tPromedio: %f\n", i, pt->val.num_cuenta, pt->val.nombre, pt->val.promedio);
+			printf("\tAlumno %d:\n\t\tNo. de Cuenta: %i\n\t\tNombre: %s\n\t\tPromedio: %f\n", i, aux->val.num_cuenta, aux->val.nombre, aux->val.promedio);
 			aux = aux->next;
 			++i;
 		}
@@ -224,7 +252,7 @@ extern int imprimirCarrera(Queue *pt){
 *	@param ListaDoble *pt: Lista doble contendieno a todas las carreras y estudiantes.
 *	@return int
 */
-extern int generarTxt(ListaDoble *pt){
+int generarTxt(ListaDoble *pt){
 	ListaDoble *aux = pt;
 	Queue *alumnos = pt->alumnos;
 	char nombre_file[] = "listas.txt";

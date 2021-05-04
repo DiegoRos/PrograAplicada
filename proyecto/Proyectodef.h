@@ -5,7 +5,6 @@
 
 #define True 1
 #define False 0
-static char *STUDENT_FILE = "alumnos.txt";
 
 typedef struct Persona{
 	int num_cuenta;
@@ -37,3 +36,8 @@ struct elemento
 };
 
 typedef struct elemento nodo;
+
+typedef struct Navegador{
+	ListaDoble *inicio, *aux_lista;
+	nodo *root, *aux_arbol;
+}Navegador;
