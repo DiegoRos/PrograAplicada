@@ -27,28 +27,70 @@ static GtkWidget * makeModulo4();
 
 
 void setViewMainMenu(){
+	gtk_widget_destroy(GTK_WIDGET(display_box));
+	gtk_main_quit();
+	gtk_init(NULL, NULL);
 	display_func = &makeMainMenu;
+	display_box = display_func();
+	
+	gtk_container_add(GTK_CONTAINER(window), display_box);	
+	gtk_widget_show_all(window);
+	gtk_signal_connect(GTK_OBJECT(window), "destroy", G_CALLBACK(gtk_main_quit), NULL);
+	gtk_main();
 
 	
 }
 
 void setViewModulo1(){
+	gtk_widget_destroy(GTK_WIDGET(display_box));
+	gtk_main_quit();
+	gtk_init(NULL, NULL);
 	display_func = &makeModulo1;
 	display_box = display_func();
 	
-	gtk_widget_show(display_box);
+	gtk_container_add(GTK_CONTAINER(window), display_box);	
+	gtk_widget_show_all(window);
+	gtk_signal_connect(GTK_OBJECT(window), "destroy", G_CALLBACK(gtk_main_quit), NULL);
+	gtk_main();
 }
 
 void setViewModulo2(){
-	display_func = &makeModulo1;
+	gtk_widget_destroy(GTK_WIDGET(display_box));
+	gtk_main_quit();
+	gtk_init(NULL, NULL);
+	display_func = &makeModulo2;
+	display_box = display_func();
+	
+	gtk_container_add(GTK_CONTAINER(window), display_box);	
+	gtk_widget_show_all(window);
+	gtk_signal_connect(GTK_OBJECT(window), "destroy", G_CALLBACK(gtk_main_quit), NULL);
+	gtk_main();
 }
 
 void setViewModulo3(){
-	display_func = &makeModulo1;
+	gtk_widget_destroy(GTK_WIDGET(display_box));
+	gtk_main_quit();
+	gtk_init(NULL, NULL);
+	display_func = &makeModulo3;
+	display_box = display_func();
+	
+	gtk_container_add(GTK_CONTAINER(window), display_box);	
+	gtk_widget_show_all(window);
+	gtk_signal_connect(GTK_OBJECT(window), "destroy", G_CALLBACK(gtk_main_quit), NULL);
+	gtk_main();
 }
 
 void setViewModulo4(){
-	display_func = &makeModulo1;
+	gtk_widget_destroy(GTK_WIDGET(display_box));
+	gtk_main_quit();
+	gtk_init(NULL, NULL);
+	display_func = &makeModulo4;
+	display_box = display_func();
+	
+	gtk_container_add(GTK_CONTAINER(window), display_box);	
+	gtk_widget_show_all(window);
+	gtk_signal_connect(GTK_OBJECT(window), "destroy", G_CALLBACK(gtk_main_quit), NULL);
+	gtk_main();
 }
 
 
@@ -77,7 +119,6 @@ static GtkWidget * makeModulo1(){
 	vbox = gtk_vbox_new(FALSE, 5);
 	gtk_box_pack_start_defaults(GTK_BOX(vbox), hbox);
 	gtk_box_pack_start_defaults(GTK_BOX(vbox), back);	
-	
 	return vbox;
 }
 
@@ -114,7 +155,7 @@ static GtkWidget * makeMainMenu(){
 	gtk_box_pack_start_defaults(GTK_BOX(vbox), boton_m2);
 	gtk_box_pack_start_defaults(GTK_BOX(vbox), boton_m3);
 	gtk_box_pack_start_defaults(GTK_BOX(vbox), boton_m4);
-		
+	printf("main\n");	
 
 	return vbox;
 }
@@ -134,7 +175,6 @@ int main(int argc, char *argv[]){
 	gtk_widget_show_all(window);
 	gtk_signal_connect(GTK_OBJECT(window), "destroy", G_CALLBACK(gtk_main_quit), NULL);
 	gtk_main();
-
 	return 0;
 }
 /*

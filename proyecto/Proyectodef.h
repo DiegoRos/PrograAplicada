@@ -5,6 +5,7 @@
 
 #define True 1
 #define False 0
+static char *STUDENT_FILE = "alumnos.txt";
 
 typedef struct Persona{
 	int num_cuenta;
