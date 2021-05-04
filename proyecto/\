@@ -34,7 +34,7 @@ void setViewMainMenu(){
 
 void setViewModulo1(){
 	display_func = &makeModulo1;
-	display_box = display_func();
+	display_box = display_func;
 	
 	gtk_widget_show(display_box);
 }
