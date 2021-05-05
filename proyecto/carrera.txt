@@ -1,0 +1,13 @@
+<span size='xx-large' weight='ultrabold'>Lista de alumnos en carrera Ingeniería Física:</span>
+	<span weight='bold'>Alumno 1:</span>
+		No. de Cuenta: 12343
+		Nombre: Diego Rosenberg
+		Promedio: 91.199997
+	<span weight='bold'>Alumno 2:</span>
+		No. de Cuenta: 53242
+		Nombre: Ricardo Persona
+		Promedio: 78.300003
+	<span weight='bold'>Alumno 3:</span>
+		No. de Cuenta: 50832
+		Nombre: Guillermo Gómez
+		Promedio: 99.000000

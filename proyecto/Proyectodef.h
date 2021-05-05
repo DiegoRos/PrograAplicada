@@ -41,3 +41,8 @@ typedef struct Navegador{
 	ListaDoble *inicio, *aux_lista;
 	nodo *root, *aux_arbol;
 }Navegador;
+
+typedef struct LabelNav{
+	Navegador *nav;
+	GtkWidget *label;
+}LabelNav;

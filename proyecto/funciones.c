@@ -127,8 +127,6 @@ ListaDoble * colocarListaDoble(Alumno temp, ListaDoble *pt){
 			aux->mejor_alumno = temp;
 		}
 		aux->alumnos = enQueue(temp, aux->alumnos);
-		printf("%s\n", aux->alumnos->val.nombre);	
-		printf("%s\n", aux->alumnos->next->val.nombre);	
 	}
 	else{
 		ListaDoble *nuevo = (ListaDoble *)malloc(sizeof(ListaDoble));
@@ -229,20 +227,24 @@ nodo * readTxtArbol(const char file_name[]){
 *	@param Queue *pt: Lista FIFO de alumnos a imprmir
 *	@return int
 */
-int imprimirCarrera(Queue *pt){
+int imprimirCarrera(const char *file_name, Queue *pt){
+	FILE *fp;
+	fp = fopen(file_name, "w");
+	
 	Queue *aux = pt;
 	int i = 1;
 
-	if (aux == NULL) printf("La lista está vacía.\n");
+	if (aux == NULL) fprintf(fp, "La lista está vacía.\n");
 	else{
-		printf("\tLista de alumnos en carrera %s:\n", pt->val.carrera);
+		fprintf(fp, "<span size='xx-large' weight='ultrabold'>Lista de alumnos en carrera %s:</span>\n", pt->val.carrera);
 		while (aux != NULL){
-			printf("\tAlumno %d:\n\t\tNo. de Cuenta: %i\n\t\tNombre: %s\n\t\tPromedio: %f\n", i, aux->val.num_cuenta, aux->val.nombre, aux->val.promedio);
+			fprintf(fp, "\t<span weight='bold'>Alumno %d:</span>\n\t\tNo. de Cuenta: %i\n\t\tNombre: %s\n\t\tPromedio: %f\n", i, aux->val.num_cuenta, aux->val.nombre, aux->val.promedio);
 			aux = aux->next;
 			++i;
 		}
 	}
 	
+	fclose(fp);
 	return 0;
 }
 
