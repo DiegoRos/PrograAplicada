@@ -81,6 +81,34 @@ ListaDoble *pushLD(ListaDoble *nuevo, ListaDoble *pt){
 }
 
 /*
+*	@brief: Borra un nodo de la lista doble
+*	@author: Equipo 3
+*	@param ListaDoble *nuevo: Nuevo elemento a agregar de la ListaDoble
+*	@param ListaDoble *pt: Lista doble existente o NULL
+*	@return ListaDoble *
+*/
+Navegador * popLD(Navegador *nav){
+	ListaDoble *borrar = nav->aux_lista;
+	if (nav->inicio == NULL) printf("La lista está vacía\n");
+	else if (nav->aux_lista == nav->aux_lista->next){
+		free(borrar);
+		nav->inicio = NULL;
+		nav->aux_lista = NULL;
+	}
+	else{
+		nav->aux_lista = nav->aux_lista->next;
+		borrar->prev->next = borrar->next;
+		borrar->next->prev = borrar->prev;
+
+		if (borrar == nav->inicio){
+			nav->inicio = nav->inicio->next;
+		}
+		free(borrar);
+	}
+	return nav;
+}
+
+/*
 *	@brief: Revisa si la carrera ya existe dentro de la lista doble
 *	@author: Equipo 3
 *	@param char carrera[]: String conteniendo nombre de carrera a revisar

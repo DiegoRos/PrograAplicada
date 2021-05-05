@@ -1,6 +1,3 @@
-Arquitectura	2	92.205002	Santiago Cuesta
-	6435223	Santiago Cuesta	97.199997
-	684243	Alejandra Apellido	87.209999
 Diseño	1	86.199997	Persona Otra
 	52131	Persona Otra	86.199997
 Ingeniería Alguna	1	100.000000	Alejandro Cuevas
