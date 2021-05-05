@@ -1,52 +1,51 @@
 /*
-*	@file: reporteAlumnos.c	
+*	@file: main.c	
 *	@brief: Cotine el código principal, puede abrir un archivo de n estudiantes
 *			organizarlos por carrera y colocar a cada estudiante en su carrera correspondiente.
-*			Como resultado se puede visualizar el mejor estudiante de cada carrera,
-*			cambiar de carrera y visualizar todos los estudiantes. Se puede imprimir
-*			un archivo final que contiene a todos los estudiantes (Nota: este no se 
-*			puede leer al volver a correr el código).
+*			También organiza los estudiantes en un árbol por número de cuenta.
+*			Todo esto se coloca en un display gráfico y se pueden hacer varias operaciones.
 *	@author: Equipo 3
-*	@date: 16/03/2021
+*	@date: 04/04/2021
 */
 
 #include "Proyectodef.h"
+// VARIABLES GLOBALES DE main.c
 const char STUDENT_FILE[] = "alumnos.txt";
 
 GtkWidget *window, *display_box;
 GtkWidget * (*display_func)(void);
+Navegador *nav;
 
 ListaDoble * readTxtLista(const char file_name[]);
 nodo * readTxtArbol(const char file_name[]);
 int imprimirAlumno(Queue *pt);
 int imprimirCarrera(Queue *pt);
 int generarTxt(ListaDoble *pt);
-static GtkWidget * makeMainMenu(Navegador *nav);
-static GtkWidget * makeModulo1(Navegador *nav);
-static GtkWidget * makeModulo2(Navegador *nav);
-static GtkWidget * makeModulo3(Navegador *nav);
-static GtkWidget * makeModulo4(Navegador *nav);
+static GtkWidget * makeMainMenu();
+static GtkWidget * makeModulo1();
+static GtkWidget * makeModulo2();
+static GtkWidget * makeModulo3();
+static GtkWidget * makeModulo4();
 
 
-void setViewMainMenu(Navegador *nav){
+void setViewMainMenu(){
 	gtk_widget_destroy(GTK_WIDGET(display_box));
 	gtk_main_quit();
 	gtk_init(NULL, NULL);
-	display_box = makeMainMenu(nav);
+	display_box = makeMainMenu(NULL);
 	
 	gtk_container_add(GTK_CONTAINER(window), display_box);	
 	gtk_widget_show_all(window);
 	gtk_signal_connect(GTK_OBJECT(window), "destroy", G_CALLBACK(gtk_main_quit), NULL);
 	gtk_main();
-
 	
 }
 
-void setViewModulo1(Navegador *nav){
+void setViewModulo1(){
 	gtk_widget_destroy(GTK_WIDGET(display_box));
 	gtk_main_quit();
-	gtk_init(NULL, NULL);
-	display_box = makeModulo1(nav);
+	//gtk_init(NULL, NULL);
+	display_box = makeModulo1(NULL);
 	
 	imprimirCarrera(nav->inicio->alumnos);
 
@@ -56,11 +55,11 @@ void setViewModulo1(Navegador *nav){
 	gtk_main();
 }
 
-void setViewModulo2(Navegador *nav){
+void setViewModulo2(){
 	gtk_widget_destroy(GTK_WIDGET(display_box));
 	gtk_main_quit();
 	gtk_init(NULL, NULL);
-	display_box = makeModulo2(nav);
+	display_box = makeModulo2(NULL);
 	
 	gtk_container_add(GTK_CONTAINER(window), display_box);	
 	gtk_widget_show_all(window);
@@ -68,11 +67,11 @@ void setViewModulo2(Navegador *nav){
 	gtk_main();
 }
 
-void setViewModulo3(Navegador *nav){
+void setViewModulo3(){
 	gtk_widget_destroy(GTK_WIDGET(display_box));
 	gtk_main_quit();
 	gtk_init(NULL, NULL);
-	display_box = makeModulo3(nav);
+	display_box = makeModulo3(NULL);
 	
 	gtk_container_add(GTK_CONTAINER(window), display_box);	
 	gtk_widget_show_all(window);
@@ -80,11 +79,11 @@ void setViewModulo3(Navegador *nav){
 	gtk_main();
 }
 
-void setViewModulo4(Navegador *nav){
+void setViewModulo4(){
 	gtk_widget_destroy(GTK_WIDGET(display_box));
 	gtk_main_quit();
 	gtk_init(NULL, NULL);
-	display_box = makeModulo4(nav);
+	display_box = makeModulo4(NULL);
 	
 	gtk_container_add(GTK_CONTAINER(window), display_box);	
 	gtk_widget_show_all(window);
@@ -94,8 +93,8 @@ void setViewModulo4(Navegador *nav){
 
 
 
-static GtkWidget * makeModulo1(Navegador *nav){
-	GtkWidget *boton_izq, *boton_der, *texto_carrera, *back;
+static GtkWidget * makeModulo1(GtkButton *button){
+	GtkWidget *boton_izq, *boton_der, *imprimir, *texto_carrera, *back;
 	GtkWidget *hbox, *vbox;
 
 	texto_carrera = gtk_label_new(NULL);
@@ -104,11 +103,12 @@ static GtkWidget * makeModulo1(Navegador *nav){
 	
 	boton_izq = gtk_button_new_with_label("Izq");
 	boton_der = gtk_button_new_with_label("Der");
+	imprimir = gtk_button_new_with_label("Imprimir Listado \nAlumnos");
 	back = gtk_button_new_with_label("BACK");
 	
 	//gtk_signal_connect(GTK_OBJECT(boton_izq), "clicked", NULL, NULL); 
 	//gtk_signal_connect(GTK_OBJECT(boton_der), "clicked", NULL, NULL); 
-	gtk_signal_connect(GTK_OBJECT(back), "clicked", GTK_SIGNAL_FUNC(setViewMainMenu), nav); 
+	gtk_signal_connect(GTK_OBJECT(back), "clicked", GTK_SIGNAL_FUNC(setViewMainMenu), NULL); 
 
 	hbox = gtk_hbox_new(FALSE, 5);
 	gtk_box_pack_start_defaults(GTK_BOX(hbox), boton_izq);
@@ -117,27 +117,28 @@ static GtkWidget * makeModulo1(Navegador *nav){
 	
 	vbox = gtk_vbox_new(FALSE, 5);
 	gtk_box_pack_start_defaults(GTK_BOX(vbox), hbox);
+	gtk_box_pack_start_defaults(GTK_BOX(vbox), imprimir);
 	gtk_box_pack_start_defaults(GTK_BOX(vbox), back);	
 	return vbox;
 }
 
-static GtkWidget * makeModulo2(Navegador *nav){
+static GtkWidget * makeModulo2(GtkButton *button){
 
 }
 
-static GtkWidget * makeModulo3(Navegador *nav){
+static GtkWidget * makeModulo3(GtkButton *button){
 
 }
 
-static GtkWidget * makeModulo4(Navegador *nav){
+static GtkWidget * makeModulo4(GtkButton *button){
 
 }
 
-static GtkWidget * makeMainMenu(Navegador *nav){
+static GtkWidget * makeMainMenu(GtkButton *button){
 	GtkWidget *boton_m1, *boton_m2, *boton_m3, *boton_m4, *label, *vbox;
 	
 	
-	imprimirCarrera(nav->inicio->alumnos);
+	//imprimirCarrera(nav->inicio->alumnos);
 
 	label = gtk_label_new(NULL);
 	gtk_label_set_markup(GTK_LABEL(label), "<span size='xx-large' weight='ultrabold'> Escoge la Opción Deseada.</span>");
@@ -148,8 +149,8 @@ static GtkWidget * makeMainMenu(Navegador *nav){
 	boton_m3 = gtk_button_new_with_label("Dar de Baja Carreara");
 	boton_m4 = gtk_button_new_with_label("Navegación Mejores Alumnos");
 
-	gtk_signal_connect(GTK_OBJECT(boton_m1), "clicked", GTK_SIGNAL_FUNC(setViewModulo1), nav);
-	gtk_signal_connect(GTK_OBJECT(boton_m2), "clicked", GTK_SIGNAL_FUNC(setViewModulo2), nav);
+	gtk_signal_connect(GTK_OBJECT(boton_m1), "clicked", GTK_SIGNAL_FUNC(setViewModulo1), NULL);
+	gtk_signal_connect(GTK_OBJECT(boton_m2), "clicked", GTK_SIGNAL_FUNC(setViewModulo2), NULL);
 	
 	vbox = gtk_vbox_new(TRUE, 5);
 	gtk_box_pack_start_defaults(GTK_BOX(vbox), label);
@@ -162,7 +163,7 @@ static GtkWidget * makeMainMenu(Navegador *nav){
 }
 
 int main(int argc, char *argv[]){
-	Navegador *nav = (Navegador *)malloc(sizeof(Navegador));
+	nav = (Navegador *)malloc(sizeof(Navegador));
 
 	nav->inicio = readTxtLista(STUDENT_FILE);
 	nav->aux_lista = nav->inicio;
@@ -176,13 +177,7 @@ int main(int argc, char *argv[]){
 	gtk_container_set_border_width(GTK_CONTAINER(window), 10);
 	
 	gtk_init(NULL, NULL);
-	display_box = makeMainMenu(nav);
-	
-	gtk_container_add(GTK_CONTAINER(window), display_box);	
-	gtk_widget_show_all(window);
-	gtk_signal_connect(GTK_OBJECT(window), "destroy", G_CALLBACK(gtk_main_quit), NULL);
-	gtk_main();
-
+	setViewMainMenu();	
 	return 0;
 }
 /*
