@@ -277,6 +277,35 @@ int imprimirCarrera(const char *file_name, Queue *pt){
 }
 
 /*
+*	@brief: Busca y regresa un estudiante dentro de un árbol binario.
+*	@author: Equipo 3
+*	@param nodo *root
+*	@return nodo *
+*/
+nodo * buscarAlumno{Arbol *root, int num_cuenta{
+	if(root == NULL)
+		return NULL;
+	
+	if(root->alumno.num_cuenta == num_cuenta){
+		return root;
+	}
+
+	if (pt->alumno.num_cuenta < num_cuenta){
+		nodo *aux = buscarAlumno(root->der);
+		if(aux)
+			return aux; // Ya no hay necesidad de buscar más
+	}
+	else{
+		nodo *aux = buscarAlumno(root->izq);
+		if(aux)
+			return aux; // Ya no hay necesidad de buscar más
+	}
+		
+	
+}
+
+
+/*
 *	@brief: Función que genera archivo de texto de los estudiantes final.
 *	@author: Equipo 3
 *	@param ListaDoble *pt: Lista doble contendieno a todas las carreras y estudiantes.

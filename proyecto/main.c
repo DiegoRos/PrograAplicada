@@ -14,22 +14,40 @@ const char STUDENT_FILE[] = "alumnos.txt";
 
 GtkWidget *window, *display_box;
 
+/************** Modulo 1 *******************/
 extern ListaDoble * readTxtLista(const char file_name[]);
 extern nodo * readTxtArbol(const char file_name[]);
 extern int imprimirAlumno(Queue *pt);
 extern int imprimirCarrera(const char *file_name, Queue *pt);
-extern Navegador * popLD(Navegador *nav);
-extern int generarTxt(Navegador *nav);
-static GtkWidget * makeMainMenu(Navegador *nav);
+
 static GtkWidget * makeModulo1(Navegador *nav);
-static GtkWidget * makeModulo2(Navegador *nav);
-static GtkWidget * makeModulo3(Navegador *nav);
-static GtkWidget * makeModulo4(Navegador *nav);
-void setViewMainMenu(GtkButton *button, Navegador *nav);
 void setViewModulo1(GtkButton *button, Navegador *nav);
+
+
+/************** Modulo 2 *******************/
+extern nodo * buscarAlumno{Arbol *root, int num_cuenta;
+
+static GtkWidget * makeModulo2(Navegador *nav);
 void setViewModulo2(GtkButton *button, Navegador *nav);
-void setViewModulo3(GtkButton *button, Navegador *nav);
+
+
+/************** Modulo 3 *******************/
+extern Navegador * popLD(Navegador *nav);
+
+
+/************** Modulo 4 *******************/
+
+
+static GtkWidget * makeModulo4(Navegador *nav);
 void setViewModulo4(GtkButton *button, Navegador *nav);
+
+
+
+/************** General *******************/
+extern int generarTxt(Navegador *nav);
+
+static GtkWidget * makeMainMenu(Navegador *nav);
+void setViewMainMenu(GtkButton *button, Navegador *nav);
 void closeTheApp(GtkWidget *window, Navegador *nav);
 
 int main(int argc, char *argv[]){
@@ -251,7 +269,17 @@ void setViewModulo2(GtkButton *button, Navegador *nav){
 }
 
 static GtkWidget * makeModulo2(Navegador *nav){
+	GtkWidget *label_cuenta, *num_cuenta, *buscar, *alumno;
 
+	label_cuenta = gtk_label_new(NULL);
+	gtk_label_set_markup(GTK_LABEL(label_cuenta), "<span weight='bold'>Introducir Número de Cuenta</span>");
+
+	num_cuenta = gtk_entry_new();
+	buscar = gtk_button_new_with_label("Buscar")
+	alumno = gtk_label_new("Escribir número de cuenta en caja \ny presionar Buscar para encontrar alumno.\n");
+
+	g_signal_connect(GTK_OBJECT(buscar), "clicked", GTK_SIGNAL_FUNC(buscarAlumno))
+	
 }
 
 /******************* FUNCIONES MÓDULO 4 *******************/
