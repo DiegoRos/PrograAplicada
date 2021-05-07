@@ -1,5 +1,1 @@
-<span size='xx-large' weight='ultrabold'>Lista de alumnos en carrera Ingeniería Alguna:</span>
-	<span weight='bold'>Alumno 1:</span>
-		No. de Cuenta: 53242
-		Nombre: Alejandro Cuevas
-		Promedio: 100.000000
+La lista está vacía.

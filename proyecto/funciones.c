@@ -282,23 +282,27 @@ int imprimirCarrera(const char *file_name, Queue *pt){
 *	@param ListaDoble *pt: Lista doble contendieno a todas las carreras y estudiantes.
 *	@return int
 */
-int generarTxt(ListaDoble *pt){
+int generarTxt(Navegador *nav){
+	ListaDoble *pt = nav->inicio;
 	ListaDoble *aux = pt;
-	Queue *alumnos = pt->alumnos;
 	char nombre_file[] = "listas.txt";
 	FILE *fp;
-
 	fp = fopen(nombre_file, "w");
-	do{
-		fprintf(fp, "%s\t%d\t%f\t%s\n", aux->carrera, aux->num_alumnos, aux->promedio,aux->mejor_alumno.nombre);
-		while(alumnos != NULL){
-			fprintf(fp, "\t%i\t%s\t%f\n", alumnos->val.num_cuenta, alumnos->val.nombre, alumnos->val.promedio);
-			alumnos = alumnos->next;
-		}
-		aux = aux->next;
-		alumnos = aux->alumnos;
-	}while(aux != pt);
-	
+	if (pt){
+		Queue *alumnos = pt->alumnos;
+		do{
+			fprintf(fp, "%s\t%d\t%f\t%s\n", aux->carrera, aux->num_alumnos, aux->promedio,aux->mejor_alumno.nombre);
+			while(alumnos != NULL){
+				fprintf(fp, "\t%i\t%s\t%f\n", alumnos->val.num_cuenta, alumnos->val.nombre, alumnos->val.promedio);
+				alumnos = alumnos->next;
+			}
+			aux = aux->next;
+			alumnos = aux->alumnos;
+		}while(aux != pt);
+	}
+	else{
+		fprintf(fp,"No quedan carreras en la lista.\n");
+	}
 	fclose(fp);	
 
 	return 0;

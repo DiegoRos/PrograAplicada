@@ -1,8 +1,1 @@
-Diseño	1	86.199997	Persona Otra
-	52131	Persona Otra	86.199997
-Ingeniería Alguna	1	100.000000	Alejandro Cuevas
-	53242	Alejandro Cuevas	100.000000
-Ingeniería Física	3	89.500000	Guillermo Gómez
-	12343	Diego Rosenberg	91.199997
-	53242	Ricardo Persona	78.300003
-	50832	Guillermo Gómez	99.000000
+No quedan carreras en la lista.

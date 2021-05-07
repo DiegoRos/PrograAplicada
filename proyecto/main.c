@@ -19,7 +19,7 @@ extern nodo * readTxtArbol(const char file_name[]);
 extern int imprimirAlumno(Queue *pt);
 extern int imprimirCarrera(const char *file_name, Queue *pt);
 extern Navegador * popLD(Navegador *nav);
-extern int generarTxt(ListaDoble *pt);
+extern int generarTxt(Navegador *nav);
 static GtkWidget * makeMainMenu(Navegador *nav);
 static GtkWidget * makeModulo1(Navegador *nav);
 static GtkWidget * makeModulo2(Navegador *nav);
@@ -67,24 +67,23 @@ void setViewMainMenu(GtkButton *button, Navegador *nav){
 }
 
 static GtkWidget * makeMainMenu(Navegador *nav){
-	GtkWidget *boton_m1, *boton_m2, *boton_m3, *boton_m4, *label, *vbox;
+	GtkWidget *boton_m1, *boton_m2, *boton_m4, *label, *vbox;
 	label = gtk_label_new(NULL);
 	gtk_label_set_markup(GTK_LABEL(label), "<span size='xx-large' weight='ultrabold'> Escoge la Opción Deseada.</span>");
 
 
 	boton_m1 = gtk_button_new_with_label("Visualizar Carreras");
 	boton_m2 = gtk_button_new_with_label("Buscar Alumno");
-	boton_m3 = gtk_button_new_with_label("Dar de Baja Carreara");
 	boton_m4 = gtk_button_new_with_label("Navegación Mejores Alumnos");
 
 	gtk_signal_connect(GTK_OBJECT(boton_m1), "clicked", GTK_SIGNAL_FUNC(setViewModulo1), nav);
 	gtk_signal_connect(GTK_OBJECT(boton_m2), "clicked", GTK_SIGNAL_FUNC(setViewModulo2), nav);
+	gtk_signal_connect(GTK_OBJECT(boton_m4), "clicked", GTK_SIGNAL_FUNC(setViewModulo4), nav);
 	
 	vbox = gtk_vbox_new(TRUE, 5);
 	gtk_box_pack_start_defaults(GTK_BOX(vbox), label);
 	gtk_box_pack_start_defaults(GTK_BOX(vbox), boton_m1);
 	gtk_box_pack_start_defaults(GTK_BOX(vbox), boton_m2);
-	gtk_box_pack_start_defaults(GTK_BOX(vbox), boton_m3);
 	gtk_box_pack_start_defaults(GTK_BOX(vbox), boton_m4);
 
 	return vbox;
@@ -110,25 +109,37 @@ void setViewModulo1(GtkButton *button, Navegador *nav){
 
 void cambiarCarreraSiguiente(GtkButton *button, LabelNav *pt){
 	char buffer[400];
-	pt->nav->aux_lista = pt->nav->aux_lista->next;	
-	sprintf(buffer,"<span size='xx-large' weight='ultrabold'>Carrera: %s</span>\n<span weight='bold'>Número de Alumnos:</span> %i\n<span weight='bold'>Promedio de Carrera:</span> %f\n<span weight='bold'>Mejor Alumno:</span> %s, Promedio: %f\n", pt->nav->aux_lista->carrera, pt->nav->aux_lista->num_alumnos, pt->nav->aux_lista->promedio, pt->nav->aux_lista->mejor_alumno.nombre, pt->nav->aux_lista->mejor_alumno.promedio);
-	printf("%s\n", buffer);
+	if (pt->nav->aux_lista){
+		pt->nav->aux_lista = pt->nav->aux_lista->prev;	
+		sprintf(buffer,"<span size='xx-large' weight='ultrabold'>Carrera: %s</span>\n<span weight='bold'>Número de Alumnos:</span> %i\n<span weight='bold'>Promedio de Carrera:</span> %f\n<span weight='bold'>Mejor Alumno:</span> %s, Promedio: %f\n", pt->nav->aux_lista->carrera, pt->nav->aux_lista->num_alumnos, pt->nav->aux_lista->promedio, pt->nav->aux_lista->mejor_alumno.nombre, pt->nav->aux_lista->mejor_alumno.promedio);
+	}
+	else{
+		sprintf(buffer, "<span size='xx-large' weight='ultrabold'>No hay carreras\nen la lista.</span>");
+	}
 
 	gtk_label_set_markup(GTK_LABEL(pt->label), buffer);
 }
 
 void cambiarCarreraPrevia(GtkButton *button, LabelNav *pt){
 	char buffer[400];
-	pt->nav->aux_lista = pt->nav->aux_lista->prev;	
-	sprintf(buffer,"<span size='xx-large' weight='ultrabold'>Carrera: %s</span>\n<span weight='bold'>Número de Alumnos:</span> %i\n<span weight='bold'>Promedio de Carrera:</span> %f\n<span weight='bold'>Mejor Alumno:</span> %s, Promedio: %f\n", pt->nav->aux_lista->carrera, pt->nav->aux_lista->num_alumnos, pt->nav->aux_lista->promedio, pt->nav->aux_lista->mejor_alumno.nombre, pt->nav->aux_lista->mejor_alumno.promedio);
-
+	if (pt->nav->aux_lista){
+		pt->nav->aux_lista = pt->nav->aux_lista->prev;	
+		sprintf(buffer,"<span size='xx-large' weight='ultrabold'>Carrera: %s</span>\n<span weight='bold'>Número de Alumnos:</span> %i\n<span weight='bold'>Promedio de Carrera:</span> %f\n<span weight='bold'>Mejor Alumno:</span> %s, Promedio: %f\n", pt->nav->aux_lista->carrera, pt->nav->aux_lista->num_alumnos, pt->nav->aux_lista->promedio, pt->nav->aux_lista->mejor_alumno.nombre, pt->nav->aux_lista->mejor_alumno.promedio);
+	}
+	else{
+		sprintf(buffer, "<span size='xx-large' weight='ultrabold'>No hay carreras\nen la lista.</span>");
+	}
 	gtk_label_set_markup(GTK_LABEL(pt->label), buffer);
 }
 
 void verListaDeAlumnos(GtkButton *button, Navegador *nav){
 	char *alumnos_file = "carrera.txt";
 	
-	imprimirCarrera(alumnos_file, nav->aux_lista->alumnos);	
+	if (nav->aux_lista)
+		imprimirCarrera(alumnos_file, nav->aux_lista->alumnos);
+	else	
+		imprimirCarrera(alumnos_file, NULL);
+
 	GtkWidget *window_lista, *label_view;
 	gchar *file_buffer;
 	GError *error;
@@ -159,21 +170,21 @@ void verListaDeAlumnos(GtkButton *button, Navegador *nav){
 }
 
 void borrarNodoCarrera(GtkButton *button, LabelNav *pt){	
-	pt->nav = popLD(pt->nav);	
+	pt->nav = popLD(pt->nav);
 	char buffer[400];
 
-	if (pt->nav){
+	if (pt->nav->aux_lista){
 		sprintf(buffer,"<span size='xx-large' weight='ultrabold'>Carrera: %s</span>\n<span weight='bold'>Número de Alumnos:</span> %i\n<span weight='bold'>Promedio de Carrera:</span> %f\n<span weight='bold'>Mejor Alumno:</span> %s, Promedio: %f\n", pt->nav->aux_lista->carrera, pt->nav->aux_lista->num_alumnos, pt->nav->aux_lista->promedio, pt->nav->aux_lista->mejor_alumno.nombre, pt->nav->aux_lista->mejor_alumno.promedio);
 	}
 	else{	
-		sprintf(buffer, "No hay carreras en el archivo de texto.\n");
+		sprintf(buffer, "<span size='xx-large' weight='ultrabold'>No hay carreras en el archivo de texto.</span>\n");
 	}
 
 	gtk_label_set_markup(GTK_LABEL(pt->label), buffer);
 }
 
 void backMainModule1(GtkButton * button, Navegador *nav){
-	generarTxt(nav->inicio);
+	printf("Aqui\n");
 	setViewMainMenu(button, nav);	
 }
 
@@ -201,7 +212,6 @@ static GtkWidget * makeModulo1(Navegador *nav){
 	back = gtk_button_new_with_label("BACK");
 	
 	pt->label = texto_carrera;
-	//gtk_signal_connect(GTK_OBJECT(boton_izq), "clicked", NULL, NULL); 
 	gtk_signal_connect(GTK_OBJECT(boton_izq), "clicked", GTK_SIGNAL_FUNC(cambiarCarreraPrevia), pt); 
 	gtk_signal_connect(GTK_OBJECT(boton_der), "clicked", GTK_SIGNAL_FUNC(cambiarCarreraSiguiente), pt); 
 	gtk_signal_connect(GTK_OBJECT(boton_imprimir), "clicked", GTK_SIGNAL_FUNC(verListaDeAlumnos), nav);
@@ -263,69 +273,31 @@ static GtkWidget * makeModulo4(Navegador *nav){
 
 }
 
-/*
-int mainOriginal(int argc, char *argv[]){
-	if (argc != 2){
-		printf("Número incorrecto de entradas\n");
-		exit(1);
-	}
-
-	ListaDoble *inicio = NULL, *aux = NULL;
-	char opcion, guardar;
-
-	inicio = readTxt(argv[1]);
-	aux = inicio;
-
-	do{
-		if (aux != NULL){
-			printf("Estás en %s:\n\tTiene %d alumnos\n\tUn promedio general de %f\n\tY el mejor alumno/a es: %s.\n", aux->carrera, aux->num_alumnos, aux->promedio, aux->mejor_alumno.nombre);
-		}
-
-		printf("\n*************************************\n");
-		printf("Opciones:\n\t[i]zquierda\n\t[d]erecha\n\t[m]ostar lista entera\n\t[s]alir");
-		printf("\n*************************************\n");
-		scanf(" %c", &opcion);
-
-		switch(opcion){
-			case 'i':
-				aux = aux->prev;	
-				break;
-
-			case 'd':
-				aux = aux->next;
-				break;
-
-			case 'm':
-				printf("\n");
-				imprimirCarrera(aux->alumnos);
-				printf("\n");
-				break;
-
-			case 's':
-				printf("Saliendo...\n");
-				break;
-
-			default:
-				printf("\nOpción Invalida, porfavor intentar de nuevo.\n");
-				break;
-		}
-	}while(opcion != 's');	
+/******************* Cerrar Aplicación con Request *******************/
+void closeTheApp(GtkWidget *window, WindowDestroy *pt){
+	GtkWidget *dialog, *hbox, *yes_button, *no_button;
 	
-	do{
-		printf("\nDesea guardar su información [s/n]: ");
-		scanf(" %c", &guardar);
+	yes_button = gtk_button_new_with_label("Si");
+	no_button = gtk_button_new_with_label("No");
 
-		if (!((guardar == 's') || (guardar == 'n'))){
-			printf("Opción inválida, intentar de nuevo.\n");
-		}
-	}while(!((guardar == 's') || (guardar == 'n')));
+	gtk_signal_connect(GTK_OBJECT(yes_button), "clicked", GTK_SIGNAL_FUNC(generarTxt(pt->nav)), pt); 
+	gtk_signal_connect(GTK_OBJECT(no_button), "clicked", G_CALLBACK(gtk_main_quit), NULL); 
+	
+	hbox = gtk_hbox_new(TRUE, 2);
 
-	if (guardar == 's'){
-		printf("\nGuardando Archivo...\n");
-		generarTxt(inicio);
-		printf("Listo.\n");
+	gtk_box_pack_start_defaults(GTK(hbox), yes_button);
+	gtk_box_pack_start_defaults(GTK(hbox), no_button);
+	
+	
+	dialog = gtk_dialog_new_with_buttons("Salir", GTK_WINDOW(window), GTK_DIALOG_DESTROY_WITH_PARENT, _("_Si"), GTK_RESPONSE_ACCEPT, _("No"), GTK_RESPONSE_REJECT, NULL);
+	printf("Aqui 2\n");
+	int result = gtk_dialog_run(dialog);
+	switch(result){
+		case GTK_RESPONSE_ACCEPT:
+			generarTxt(pt->nav);
+			break;
+		default:
+			break;
 	}
-
-	return 0;
+	gtk_widget_destroy(dialog);
 }
-*/
