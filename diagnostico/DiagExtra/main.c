@@ -17,11 +17,13 @@ typedef struct Stack{
 	struct Stack *next;
 }Stack;
 
-Stack *s = NULL;
+int imprimirStack(Stack *s);
+Stack *s;
 
 //nodo *inicio;
 int main(int argc, char *argv[])
 {
+	s = NULL;
     datOp datosIn;
     /*0. Declaración de variables */
     GtkWidget *window, *vbox, *hbox, *labelOp1, *labelOperador, *labelOp2, *boton;
@@ -40,11 +42,9 @@ int main(int argc, char *argv[])
     datosIn.operador = gtk_entry_new();
     datosIn.labelResultado = gtk_label_new("Aquí va el resultado :)");
     /*3. Registro de los Callbacks */
-    g_signal_connect(GTK_OBJECT(window), "destroy", GTK_SIGNAL_FUNC(closeTheApp),
-    NULL);
-    g_signal_connect(GTK_OBJECT(boton), "clicked", GTK_SIGNAL_FUNC
-    (mostrarResultado), &datosIn);
-:
+    g_signal_connect(GTK_OBJECT(window), "destroy", GTK_SIGNAL_FUNC(closeTheApp), NULL);
+    g_signal_connect(GTK_OBJECT(boton), "clicked", GTK_SIGNAL_FUNC(mostrarResultado), &datosIn);
+
     /* 4. Define jerarquía de instancias (pack the widgets)*/
     hbox = gtk_vbox_new(FALSE, 5);
     gtk_box_pack_start_defaults(GTK_BOX(hbox), labelOp1);
@@ -78,37 +78,6 @@ void mostrarResultado(GtkWidget *boton, gpointer estructura)
     gtk_label_set_text(GTK_LABEL(pt->labelResultado),res);
     return;
 }
-float calcularResultado(char op1[], char operador[], char op2[])
-{
-    float operador1, operador2, resultado=0.0;
-    char operacion = operador[0];
-    char string_operacion[100];
-
-    sscanf(op1, "%f", &operador1);
-    sscanf(op2, "%f", &operador2);
-    
-    if (operador == '+'){
-        resultado = operador1 + operador2;
-        sprinf(string_operacion, "Suma: %f + %f = %f", operador1, operador2, resultado);
-        push(string_operacion, s);
-    }
-    else if (operador == '-'){
-        resultado = operador1 - operador2;
-        sprinf(string_operacion, "Resta: %f - %f = %f", operador1, operador2, resultado);
-        push(string_operacion, s);
-    }
-    else if (operador == 'x'){
-        resultado = operador1 * operador2;
-        sprinf(string_operacion, "Multiplica: %f x %f = %f", operador1, operador2, resultado);
-        push(string_operacion, s);
-    }
-    else if (operador == '/'){
-        resultado = operador1/operador2;
-        sprinf(string_operacion, "Divide: %f / %f = %f", operador1, operador2, resultado);
-        push(string_operacion, s);
-    }
-        
-}
 
 Stack * push(char *operacion, struct Stack *s){
 	Stack *aux = (Stack *)malloc(sizeof(Stack));
@@ -128,9 +97,43 @@ int imprimirStack(Stack *s){
 	return 0;
 }
 
+float calcularResultado(char op1[], char operador[], char op2[])
+{
+    float operador1, operador2, resultado=0.0;
+    char operacion = operador[0];
+    char string_operacion[100];
+
+    sscanf(op1, "%f", &operador1);
+    sscanf(op2, "%f", &operador2);
+    
+    if (operacion == '+'){
+        resultado = operador1 + operador2;
+        sprintf(string_operacion, "Suma: %f + %f = %f", operador1, operador2, resultado);
+	    s = push(string_operacion, s);
+    }
+    else if (operacion == '-'){
+        resultado = operador1 - operador2;
+        sprintf(string_operacion, "Resta: %f - %f = %f", operador1, operador2, resultado);
+        s = push(string_operacion, s);
+    }
+    else if (operacion == 'x'){
+        resultado = operador1 * operador2;
+        sprintf(string_operacion, "Multiplica: %f x %f = %f", operador1, operador2, resultado);
+        s = push(string_operacion, s);
+    }
+    else if (operacion == '/'){
+        resultado = operador1/operador2;
+        sprintf(string_operacion, "Divide: %f / %f = %f", operador1, operador2, resultado);
+        s = push(string_operacion, s);
+    }
+        
+	return resultado;
+}
+
+
 
 void closeTheApp(GtkWidget *window, gpointer estructura){
-    imprimirStack();
+    imprimirStack(s);
     gtk_main_quit();
     return;
 }

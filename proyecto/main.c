@@ -30,6 +30,7 @@ void setViewModulo1(GtkButton *button, Navegador *nav);
 void setViewModulo2(GtkButton *button, Navegador *nav);
 void setViewModulo3(GtkButton *button, Navegador *nav);
 void setViewModulo4(GtkButton *button, Navegador *nav);
+void closeTheApp(GtkWidget *window, Navegador *nav);
 
 int main(int argc, char *argv[]){
 	Navegador *nav = (Navegador *)malloc(sizeof(Navegador));
@@ -61,7 +62,7 @@ void setViewMainMenu(GtkButton *button, Navegador *nav){
 	
 	gtk_container_add(GTK_CONTAINER(window), display_box);	
 	gtk_widget_show_all(window);
-	gtk_signal_connect(GTK_OBJECT(window), "destroy", G_CALLBACK(gtk_main_quit), NULL);
+	gtk_signal_connect(GTK_OBJECT(window), "destroy", G_CALLBACK(closeTheApp), nav);
 	gtk_main();
 	
 }
@@ -103,7 +104,7 @@ void setViewModulo1(GtkButton *button, Navegador *nav){
 	
 	gtk_container_add(GTK_CONTAINER(window), display_box);	
 	gtk_widget_show_all(window);
-	gtk_signal_connect(GTK_OBJECT(window), "destroy", G_CALLBACK(gtk_main_quit), NULL);
+	gtk_signal_connect(GTK_OBJECT(window), "destroy", G_CALLBACK(closeTheApp), nav);
 	gtk_main();
 }
 
@@ -245,7 +246,7 @@ void setViewModulo2(GtkButton *button, Navegador *nav){
 	
 	gtk_container_add(GTK_CONTAINER(window), display_box);	
 	gtk_widget_show_all(window);
-	gtk_signal_connect(GTK_OBJECT(window), "destroy", G_CALLBACK(gtk_main_quit), NULL);
+	gtk_signal_connect(GTK_OBJECT(window), "destroy", G_CALLBACK(closeTheApp), nav);
 	gtk_main();
 }
 
@@ -265,7 +266,7 @@ void setViewModulo4(GtkButton *button, Navegador *nav){
 	
 	gtk_container_add(GTK_CONTAINER(window), display_box);	
 	gtk_widget_show_all(window);
-	gtk_signal_connect(GTK_OBJECT(window), "destroy", G_CALLBACK(gtk_main_quit), NULL);
+	gtk_signal_connect(GTK_OBJECT(window), "destroy", G_CALLBACK(closeTheApp), nav);
 	gtk_main();
 }
 
@@ -274,30 +275,22 @@ static GtkWidget * makeModulo4(Navegador *nav){
 }
 
 /******************* Cerrar Aplicación con Request *******************/
-void closeTheApp(GtkWidget *window, WindowDestroy *pt){
-	GtkWidget *dialog, *hbox, *yes_button, *no_button;
-	
-	yes_button = gtk_button_new_with_label("Si");
-	no_button = gtk_button_new_with_label("No");
 
-	gtk_signal_connect(GTK_OBJECT(yes_button), "clicked", GTK_SIGNAL_FUNC(generarTxt(pt->nav)), pt); 
-	gtk_signal_connect(GTK_OBJECT(no_button), "clicked", G_CALLBACK(gtk_main_quit), NULL); 
-	
-	hbox = gtk_hbox_new(TRUE, 2);
+void closeTheApp(GtkWidget *window, Navegador *nav){
+	GtkWidget *dialog;
 
-	gtk_box_pack_start_defaults(GTK(hbox), yes_button);
-	gtk_box_pack_start_defaults(GTK(hbox), no_button);
-	
-	
-	dialog = gtk_dialog_new_with_buttons("Salir", GTK_WINDOW(window), GTK_DIALOG_DESTROY_WITH_PARENT, _("_Si"), GTK_RESPONSE_ACCEPT, _("No"), GTK_RESPONSE_REJECT, NULL);
-	printf("Aqui 2\n");
-	int result = gtk_dialog_run(dialog);
+
+	dialog = gtk_message_dialog_new(GTK_WINDOW(window), GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_INFO, GTK_BUTTONS_YES_NO, NULL);
+	gtk_message_dialog_set_markup(GTK_MESSAGE_DIALOG(dialog), "<span weight='bold'>Desea guardar los cambios?</span>");
+	gint result = gtk_dialog_run(GTK_DIALOG(dialog));
 	switch(result){
-		case GTK_RESPONSE_ACCEPT:
-			generarTxt(pt->nav);
+		case GTK_RESPONSE_YES:
+			generarTxt(nav);
 			break;
 		default:
 			break;
 	}
 	gtk_widget_destroy(dialog);
+	gtk_main_quit();
 }
+

@@ -285,15 +285,14 @@ int imprimirCarrera(const char *file_name, Queue *pt){
 int generarTxt(Navegador *nav){
 	ListaDoble *pt = nav->inicio;
 	ListaDoble *aux = pt;
-	char nombre_file[] = "listas.txt";
+	char nombre_file[] = "alumnos2.txt";
 	FILE *fp;
 	fp = fopen(nombre_file, "w");
 	if (pt){
 		Queue *alumnos = pt->alumnos;
 		do{
-			fprintf(fp, "%s\t%d\t%f\t%s\n", aux->carrera, aux->num_alumnos, aux->promedio,aux->mejor_alumno.nombre);
 			while(alumnos != NULL){
-				fprintf(fp, "\t%i\t%s\t%f\n", alumnos->val.num_cuenta, alumnos->val.nombre, alumnos->val.promedio);
+				fprintf(fp, "%i\t%s\t%s\t%f\n", alumnos->val.num_cuenta, alumnos->val.nombre, alumnos->val.carrera, alumnos->val.promedio);
 				alumnos = alumnos->next;
 			}
 			aux = aux->next;

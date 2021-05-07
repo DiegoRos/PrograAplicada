@@ -47,7 +47,3 @@ typedef struct LabelNav{
 	GtkWidget *label;
 }LabelNav;
 
-typedef struct WindowDestroy{
-	Navegador *nav;
-	GtkWidget *window;
-}WindowDestroy;
