@@ -5,3 +5,4 @@
 53242	Ricardo Persona	Ingeniería Física	78.3
 684243	Alejandra Apellido	Arquitectura	87.21
 50832	Guillermo Gómez	Ingeniería Física	99.0
+23285	Ana Ferrer	Ingeniería Física	100.0

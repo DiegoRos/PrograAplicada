@@ -47,3 +47,8 @@ typedef struct LabelNav{
 	GtkWidget *label;
 }LabelNav;
 
+typedef struct EntryLabelNav{
+	Navegador *nav;
+	GtkWidget *label;
+	GtkWidget *entry;
+}EntryLabelNav;

@@ -282,7 +282,7 @@ int imprimirCarrera(const char *file_name, Queue *pt){
 *	@param nodo *root
 *	@return nodo *
 */
-nodo * buscarAlumno{Arbol *root, int num_cuenta{
+nodo * buscarNodo(nodo *root, int num_cuenta){
 	if(root == NULL)
 		return NULL;
 	
@@ -290,13 +290,13 @@ nodo * buscarAlumno{Arbol *root, int num_cuenta{
 		return root;
 	}
 
-	if (pt->alumno.num_cuenta < num_cuenta){
-		nodo *aux = buscarAlumno(root->der);
+	if (root->alumno.num_cuenta < num_cuenta){
+		nodo *aux = buscarNodo(root->der, num_cuenta);
 		if(aux)
 			return aux; // Ya no hay necesidad de buscar más
 	}
 	else{
-		nodo *aux = buscarAlumno(root->izq);
+		nodo *aux = buscarNodo(root->izq, num_cuenta);
 		if(aux)
 			return aux; // Ya no hay necesidad de buscar más
 	}

@@ -25,7 +25,7 @@ void setViewModulo1(GtkButton *button, Navegador *nav);
 
 
 /************** Modulo 2 *******************/
-extern nodo * buscarAlumno{Arbol *root, int num_cuenta;
+extern nodo * buscarNodo(nodo *root, int num_cuenta);
 
 static GtkWidget * makeModulo2(Navegador *nav);
 void setViewModulo2(GtkButton *button, Navegador *nav);
@@ -64,7 +64,7 @@ int main(int argc, char *argv[]){
 	gtk_window_set_default_size(GTK_WINDOW(window), 500, 500);
 	gtk_container_set_border_width(GTK_CONTAINER(window), 10);
 	
-	gtk_init(&argc, &argv);
+	gtk_init(NULL, NULL);
 	setViewMainMenu(NULL, nav);	
 	return 0;
 }
@@ -129,7 +129,7 @@ void setViewModulo1(GtkButton *button, Navegador *nav){
 void cambiarCarreraSiguiente(GtkButton *button, LabelNav *pt){
 	char buffer[400];
 	if (pt->nav->aux_lista){
-		pt->nav->aux_lista = pt->nav->aux_lista->prev;	
+		pt->nav->aux_lista = pt->nav->aux_lista->next;	
 		sprintf(buffer,"<span size='xx-large' weight='ultrabold'>Carrera: %s</span>\n<span weight='bold'>Número de Alumnos:</span> %i\n<span weight='bold'>Promedio de Carrera:</span> %f\n<span weight='bold'>Mejor Alumno:</span> %s, Promedio: %f\n", pt->nav->aux_lista->carrera, pt->nav->aux_lista->num_alumnos, pt->nav->aux_lista->promedio, pt->nav->aux_lista->mejor_alumno.nombre, pt->nav->aux_lista->mejor_alumno.promedio);
 	}
 	else{
@@ -268,18 +268,47 @@ void setViewModulo2(GtkButton *button, Navegador *nav){
 	gtk_main();
 }
 
+void buscarAlumno(GtkButton *boton, EntryLabelNav *pt){
+	int num_cuenta;
+	char buffer[500];
+	
+	sscanf(gtk_entry_get_text(GTK_ENTRY(pt->entry)), "%i", &num_cuenta);
+	
+	nodo *aux = buscarNodo(pt->nav->root, num_cuenta);
+	if (aux){
+		sprintf(buffer,"<span size='x-large' weight='ultrabold'>Alumno: %s</span>\n<span weight='bold'>Número de Cuenta:</span> %i\n<span weight='bold'>Carreara:</span>%s\n<span weight='bold'>Promedio:</span>%f", aux->alumno.nombre, aux->alumno.num_cuenta, aux->alumno.carrera, aux->alumno.promedio);
+	}
+	else{
+		sprintf(buffer, "<span size='x-large'>No se encontró el estudiante, intentar de nuevo\n:(</span>");
+	}
+	printf("%s", buffer);
+	gtk_label_set_markup(GTK_LABEL(pt->label), buffer);
+	
+}
+
 static GtkWidget * makeModulo2(Navegador *nav){
-	GtkWidget *label_cuenta, *num_cuenta, *buscar, *alumno;
+	EntryLabelNav *pt = (EntryLabelNav *)malloc(sizeof(EntryLabelNav));
+	GtkWidget *label_cuenta, *num_cuenta, *buscar, *alumno, *vbox;
 
 	label_cuenta = gtk_label_new(NULL);
 	gtk_label_set_markup(GTK_LABEL(label_cuenta), "<span weight='bold'>Introducir Número de Cuenta</span>");
 
 	num_cuenta = gtk_entry_new();
-	buscar = gtk_button_new_with_label("Buscar")
+	buscar = gtk_button_new_with_label("Buscar");
 	alumno = gtk_label_new("Escribir número de cuenta en caja \ny presionar Buscar para encontrar alumno.\n");
-
-	g_signal_connect(GTK_OBJECT(buscar), "clicked", GTK_SIGNAL_FUNC(buscarAlumno))
 	
+	pt->nav = nav;
+	pt->label = alumno;
+	pt->entry = num_cuenta;
+	gtk_signal_connect(GTK_OBJECT(buscar), "clicked", GTK_SIGNAL_FUNC(buscarAlumno), pt); 
+	
+	vbox = gtk_vbox_new(FALSE, 3);
+	gtk_box_pack_start_defaults(GTK_BOX(vbox), label_cuenta);
+	gtk_box_pack_start_defaults(GTK_BOX(vbox), num_cuenta);
+	gtk_box_pack_start_defaults(GTK_BOX(vbox), buscar);
+	gtk_box_pack_start_defaults(GTK_BOX(vbox), alumno);
+
+	return vbox;
 }
 
 /******************* FUNCIONES MÓDULO 4 *******************/
@@ -318,7 +347,7 @@ void closeTheApp(GtkWidget *window, Navegador *nav){
 		default:
 			break;
 	}
-	gtk_widget_destroy(dialog);
 	gtk_main_quit();
+	gtk_widget_destroy(dialog);
 }
 
