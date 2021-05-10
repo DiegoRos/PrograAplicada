@@ -1,8 +1,8 @@
-12343	Diego Rosenberg	Ingeniería Física	91.2
-53242	Alejandro Cuevas	Ingeniería Alguna	100
-6435223	Santiago Cuesta	Arquitectura	97.2
-52131	Persona Otra	Diseño	86.2
-53242	Ricardo Persona	Ingeniería Física	78.3
-684243	Alejandra Apellido	Arquitectura	87.21
-50832	Guillermo Gómez	Ingeniería Física	99.0
-23285	Ana Ferrer	Ingeniería Física	100.0
+6435223	Santiago Cuesta	Arquitectura	97.199997
+684243	Alejandra Apellido	Arquitectura	87.209999
+53242	Alejandro Cuevas	Ingeniería Alguna	100.000000
+53242	Miguel TPM	Ingeniería Biomédica	50.532001
+12343	Diego Rosenberg	Ingeniería Física	91.199997
+53241	Ricardo Persona	Ingeniería Física	78.300003
+50832	Guillermo Gómez	Ingeniería Física	99.000000
+23285	Ana Ferrer	Ingeniería Física	100.000000

@@ -36,7 +36,7 @@ extern Navegador * popLD(Navegador *nav);
 
 
 /************** Modulo 4 *******************/
-
+extern int buscarLDPromedio(char *nombre_file, float promedio, Navegador *nav);
 
 static GtkWidget * makeModulo4(Navegador *nav);
 void setViewModulo4(GtkButton *button, Navegador *nav);
@@ -61,17 +61,25 @@ int main(int argc, char *argv[]){
 
 	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_title(GTK_WINDOW(window), "Proyecto Final");
-	gtk_window_set_default_size(GTK_WINDOW(window), 500, 500);
+	gtk_window_set_default_size(GTK_WINDOW(window), 600, 600);
 	gtk_container_set_border_width(GTK_CONTAINER(window), 10);
 	
 	gtk_init(NULL, NULL);
+	gtk_signal_connect(GTK_OBJECT(window), "destroy", G_CALLBACK(closeTheApp), nav);
 	setViewMainMenu(NULL, nav);	
+	gtk_main();
 	return 0;
 }
 
+/*
+*	@brief: Hace que la vista de la pantalla sea el menu principal
+*	@author: Equipo 3
+*	@param GtkButton *button: Boton presionado para entrar
+*	@param Navegador *nav: Navegador con lista doble y arbol
+*	@return void
+*/
 void setViewMainMenu(GtkButton *button, Navegador *nav){
 	gtk_widget_destroy(GTK_WIDGET(display_box));
-	gtk_main_quit();
 
 	nav->aux_lista = nav->inicio;
 	nav->aux_arbol = nav->root;
@@ -80,11 +88,17 @@ void setViewMainMenu(GtkButton *button, Navegador *nav){
 	
 	gtk_container_add(GTK_CONTAINER(window), display_box);	
 	gtk_widget_show_all(window);
-	gtk_signal_connect(GTK_OBJECT(window), "destroy", G_CALLBACK(closeTheApp), nav);
-	gtk_main();
 	
 }
 
+
+/*
+*	@brief: Hace que la vista de la pantalla sea el menu principal
+*	@author: Equipo 3
+*	@param GtkButton *button: Boton presionado para entrar
+*	@param Navegador *nav: Navegador con lista doble y arbol
+*	@return void
+*/
 static GtkWidget * makeMainMenu(Navegador *nav){
 	GtkWidget *boton_m1, *boton_m2, *boton_m4, *label, *vbox;
 	label = gtk_label_new(NULL);
@@ -111,9 +125,15 @@ static GtkWidget * makeMainMenu(Navegador *nav){
 /******************* FUNCIONES MÓDULO 1 y 3 *******************/
 /******************* Manipulación  Listas Estudiantes *******************/
 
+/*
+*	@brief: Hace que la vista de la pantalla sea el menu principal
+*	@author: Equipo 3
+*	@param GtkButton *button: Boton presionado para entrar
+*	@param Navegador *nav: Navegador con lista doble y arbol
+*	@return void
+*/
 void setViewModulo1(GtkButton *button, Navegador *nav){
 	gtk_widget_destroy(GTK_WIDGET(display_box));
-	gtk_main_quit();
 
 	nav->aux_lista = nav->inicio;
 	nav->aux_arbol = nav->root;
@@ -122,10 +142,15 @@ void setViewModulo1(GtkButton *button, Navegador *nav){
 	
 	gtk_container_add(GTK_CONTAINER(window), display_box);	
 	gtk_widget_show_all(window);
-	gtk_signal_connect(GTK_OBJECT(window), "destroy", G_CALLBACK(closeTheApp), nav);
-	gtk_main();
 }
 
+/*
+*	@brief: Hace que la vista de la pantalla sea el menu principal
+*	@author: Equipo 3
+*	@param GtkButton *button: Boton presionado para entrar
+*	@param Navegador *nav: Navegador con lista doble y arbol
+*	@return void
+*/
 void cambiarCarreraSiguiente(GtkButton *button, LabelNav *pt){
 	char buffer[400];
 	if (pt->nav->aux_lista){
@@ -139,6 +164,13 @@ void cambiarCarreraSiguiente(GtkButton *button, LabelNav *pt){
 	gtk_label_set_markup(GTK_LABEL(pt->label), buffer);
 }
 
+/*
+*	@brief: Hace que la vista de la pantalla sea el menu principal
+*	@author: Equipo 3
+*	@param GtkButton *button: Boton presionado para entrar
+*	@param Navegador *nav: Navegador con lista doble y arbol
+*	@return void
+*/
 void cambiarCarreraPrevia(GtkButton *button, LabelNav *pt){
 	char buffer[400];
 	if (pt->nav->aux_lista){
@@ -151,6 +183,13 @@ void cambiarCarreraPrevia(GtkButton *button, LabelNav *pt){
 	gtk_label_set_markup(GTK_LABEL(pt->label), buffer);
 }
 
+/*
+*	@brief: Hace que la vista de la pantalla sea el menu principal
+*	@author: Equipo 3
+*	@param GtkButton *button: Boton presionado para entrar
+*	@param Navegador *nav: Navegador con lista doble y arbol
+*	@return void
+*/
 void verListaDeAlumnos(GtkButton *button, Navegador *nav){
 	char *alumnos_file = "carrera.txt";
 	
@@ -188,6 +227,13 @@ void verListaDeAlumnos(GtkButton *button, Navegador *nav){
 	
 }
 
+/*
+*	@brief: Hace que la vista de la pantalla sea el menu principal
+*	@author: Equipo 3
+*	@param GtkButton *button: Boton presionado para entrar
+*	@param Navegador *nav: Navegador con lista doble y arbol
+*	@return void
+*/
 void borrarNodoCarrera(GtkButton *button, LabelNav *pt){	
 	pt->nav = popLD(pt->nav);
 	char buffer[400];
@@ -196,17 +242,19 @@ void borrarNodoCarrera(GtkButton *button, LabelNav *pt){
 		sprintf(buffer,"<span size='xx-large' weight='ultrabold'>Carrera: %s</span>\n<span weight='bold'>Número de Alumnos:</span> %i\n<span weight='bold'>Promedio de Carrera:</span> %f\n<span weight='bold'>Mejor Alumno:</span> %s, Promedio: %f\n", pt->nav->aux_lista->carrera, pt->nav->aux_lista->num_alumnos, pt->nav->aux_lista->promedio, pt->nav->aux_lista->mejor_alumno.nombre, pt->nav->aux_lista->mejor_alumno.promedio);
 	}
 	else{	
-		sprintf(buffer, "<span size='xx-large' weight='ultrabold'>No hay carreras en el archivo de texto.</span>\n");
+		sprintf(buffer, "<span size='xx-large' weight='ultrabold'>No hay carreras\nen la lista.</span>");
 	}
 
 	gtk_label_set_markup(GTK_LABEL(pt->label), buffer);
 }
 
-void backMainModule1(GtkButton * button, Navegador *nav){
-	printf("Aqui\n");
-	setViewMainMenu(button, nav);	
-}
-
+/*
+*	@brief: Hace que la vista de la pantalla sea el menu principal
+*	@author: Equipo 3
+*	@param GtkButton *button: Boton presionado para entrar
+*	@param Navegador *nav: Navegador con lista doble y arbol
+*	@return void
+*/
 static GtkWidget * makeModulo1(Navegador *nav){
 	GtkWidget *boton_izq, *boton_der, *boton_imprimir, *texto_carrera, *boton_borrar, *back;
 	GtkWidget *hbox, *vbox;
@@ -218,7 +266,7 @@ static GtkWidget * makeModulo1(Navegador *nav){
 		sprintf(buffer,"<span size='xx-large' weight='ultrabold'>Carrera: %s</span>\n<span weight='bold'>Número de Alumnos:</span> %i\n<span weight='bold'>Promedio de Carrera:</span> %f\n<span weight='bold'>Mejor Alumno:</span> %s, Promedio: %f\n", nav->aux_lista->carrera, nav->aux_lista->num_alumnos, nav->aux_lista->promedio, nav->aux_lista->mejor_alumno.nombre, nav->aux_lista->mejor_alumno.promedio);
 	}
 	else{
-		sprintf(buffer, "No hay carreras en el archivo de texto.\n");
+		sprintf(buffer, "<span size='xx-large' weight='ultrabold'>No hay carreras\nen la lista.</span>");
 	}
 	texto_carrera = gtk_label_new(NULL);
 	//Falta agregar variable para que se imprima bien la info.
@@ -235,7 +283,7 @@ static GtkWidget * makeModulo1(Navegador *nav){
 	gtk_signal_connect(GTK_OBJECT(boton_der), "clicked", GTK_SIGNAL_FUNC(cambiarCarreraSiguiente), pt); 
 	gtk_signal_connect(GTK_OBJECT(boton_imprimir), "clicked", GTK_SIGNAL_FUNC(verListaDeAlumnos), nav);
 	gtk_signal_connect(GTK_OBJECT(boton_borrar), "clicked", GTK_SIGNAL_FUNC(borrarNodoCarrera), pt);
-	gtk_signal_connect(GTK_OBJECT(back), "clicked", GTK_SIGNAL_FUNC(backMainModule1), nav); 
+	gtk_signal_connect(GTK_OBJECT(back), "clicked", GTK_SIGNAL_FUNC(setViewMainMenu), nav); 
 
 	hbox = gtk_hbox_new(FALSE, 5);
 	gtk_box_pack_start_defaults(GTK_BOX(hbox), boton_izq);
@@ -253,9 +301,15 @@ static GtkWidget * makeModulo1(Navegador *nav){
 
 
 /******************* FUNCIONES MÓDULO 2 *******************/
+/*
+*	@brief: Hace que la vista de la pantalla sea el menu principal
+*	@author: Equipo 3
+*	@param GtkButton *button: Boton presionado para entrar
+*	@param Navegador *nav: Navegador con lista doble y arbol
+*	@return void
+*/
 void setViewModulo2(GtkButton *button, Navegador *nav){
 	gtk_widget_destroy(GTK_WIDGET(display_box));
-	gtk_main_quit();
 
 	nav->aux_lista = nav->inicio;
 	nav->aux_arbol = nav->root;
@@ -264,10 +318,15 @@ void setViewModulo2(GtkButton *button, Navegador *nav){
 	
 	gtk_container_add(GTK_CONTAINER(window), display_box);	
 	gtk_widget_show_all(window);
-	gtk_signal_connect(GTK_OBJECT(window), "destroy", G_CALLBACK(closeTheApp), nav);
-	gtk_main();
 }
 
+/*
+*	@brief: Hace que la vista de la pantalla sea el menu principal
+*	@author: Equipo 3
+*	@param GtkButton *button: Boton presionado para entrar
+*	@param Navegador *nav: Navegador con lista doble y arbol
+*	@return void
+*/
 void buscarAlumno(GtkButton *boton, EntryLabelNav *pt){
 	int num_cuenta;
 	char buffer[500];
@@ -281,14 +340,21 @@ void buscarAlumno(GtkButton *boton, EntryLabelNav *pt){
 	else{
 		sprintf(buffer, "<span size='x-large'>No se encontró el estudiante, intentar de nuevo\n:(</span>");
 	}
-	printf("%s", buffer);
+
 	gtk_label_set_markup(GTK_LABEL(pt->label), buffer);
 	
 }
 
+/*
+*	@brief: Hace que la vista de la pantalla sea el menu principal
+*	@author: Equipo 3
+*	@param GtkButton *button: Boton presionado para entrar
+*	@param Navegador *nav: Navegador con lista doble y arbol
+*	@return void
+*/
 static GtkWidget * makeModulo2(Navegador *nav){
 	EntryLabelNav *pt = (EntryLabelNav *)malloc(sizeof(EntryLabelNav));
-	GtkWidget *label_cuenta, *num_cuenta, *buscar, *alumno, *vbox;
+	GtkWidget *label_cuenta, *num_cuenta, *buscar, *alumno, *back, *vbox;
 
 	label_cuenta = gtk_label_new(NULL);
 	gtk_label_set_markup(GTK_LABEL(label_cuenta), "<span weight='bold'>Introducir Número de Cuenta</span>");
@@ -296,25 +362,33 @@ static GtkWidget * makeModulo2(Navegador *nav){
 	num_cuenta = gtk_entry_new();
 	buscar = gtk_button_new_with_label("Buscar");
 	alumno = gtk_label_new("Escribir número de cuenta en caja \ny presionar Buscar para encontrar alumno.\n");
-	
+	back = gtk_button_new_with_label("BACK");
+
 	pt->nav = nav;
 	pt->label = alumno;
 	pt->entry = num_cuenta;
 	gtk_signal_connect(GTK_OBJECT(buscar), "clicked", GTK_SIGNAL_FUNC(buscarAlumno), pt); 
+	gtk_signal_connect(GTK_OBJECT(back), "clicked", GTK_SIGNAL_FUNC(setViewMainMenu), nav); 
 	
 	vbox = gtk_vbox_new(FALSE, 3);
 	gtk_box_pack_start_defaults(GTK_BOX(vbox), label_cuenta);
 	gtk_box_pack_start_defaults(GTK_BOX(vbox), num_cuenta);
 	gtk_box_pack_start_defaults(GTK_BOX(vbox), buscar);
 	gtk_box_pack_start_defaults(GTK_BOX(vbox), alumno);
-
+	gtk_box_pack_start_defaults(GTK_BOX(vbox), back);	
 	return vbox;
 }
 
 /******************* FUNCIONES MÓDULO 4 *******************/
+/*
+*	@brief: Hace que la vista de la pantalla sea el menu principal
+*	@author: Equipo 3
+*	@param GtkButton *button: Boton presionado para entrar
+*	@param Navegador *nav: Navegador con lista doble y arbol
+*	@return void
+*/
 void setViewModulo4(GtkButton *button, Navegador *nav){
 	gtk_widget_destroy(GTK_WIDGET(display_box));
-	gtk_main_quit();
 
 	nav->aux_lista = nav->inicio;
 	nav->aux_arbol = nav->root;
@@ -323,19 +397,83 @@ void setViewModulo4(GtkButton *button, Navegador *nav){
 	
 	gtk_container_add(GTK_CONTAINER(window), display_box);	
 	gtk_widget_show_all(window);
-	gtk_signal_connect(GTK_OBJECT(window), "destroy", G_CALLBACK(closeTheApp), nav);
-	gtk_main();
 }
 
-static GtkWidget * makeModulo4(Navegador *nav){
+/*
+*	@brief: Hace que la vista de la pantalla sea el menu principal
+*	@author: Equipo 3
+*	@param GtkButton *button: Boton presionado para entrar
+*	@param Navegador *nav: Navegador con lista doble y arbol
+*	@return void
+*/
+void buscarPromedio(GtkButton *boton, EntryLabelNav *pt){
+	float promedio;
+	char *promedios_file = "alumnosModulo4.txt";
+	gchar *file_buffer;
+	GError *error;
+	gboolean read_file_status;
+	if(sscanf(gtk_entry_get_text(GTK_ENTRY(pt->entry)), "%f", &promedio) == 1){
+		buscarLDPromedio(promedios_file, promedio, pt->nav);
 
+		read_file_status = g_file_get_contents(promedios_file, &file_buffer, NULL, &error);
+		if (read_file_status == FALSE){
+			g_error("Error opening file: %s\n", error && error->message ? error->message : "No detail");
+			return;
+		}	
+		gtk_label_set_markup(GTK_LABEL(pt->label), file_buffer);
+	}
+	else{
+		gtk_label_set_markup(GTK_LABEL(pt->label), "<span size='xx-large' weight='ultrabold'>Entrada no válida.\nIntentar de nuevo.\n</span>");
+	}
+
+}
+
+/*
+*	@brief: Hace que la vista de la pantalla sea el menu principal
+*	@author: Equipo 3
+*	@param GtkButton *button: Boton presionado para entrar
+*	@param Navegador *nav: Navegador con lista doble y arbol
+*	@return void
+*/
+static GtkWidget * makeModulo4(Navegador *nav){
+	GtkWidget *vbox, *label1, *entrada, *boton_buscar, *label_display, *back;
+	EntryLabelNav *pt = (EntryLabelNav *)malloc(sizeof(EntryLabelNav));
+	
+	label1 = gtk_label_new(NULL);
+	gtk_label_set_markup(GTK_LABEL(label1), "<span weight='ultrabold' size='x-large'>Introduzca un promedio</span>");
+	
+	entrada = gtk_entry_new();
+	boton_buscar = gtk_button_new_with_label("Buscar");
+	label_display = gtk_label_new("Escribir promeido a buscar,\n y presionar el botón de buscar.\n");
+	back = gtk_button_new_with_label("Back");
+
+	pt->nav = nav;
+	pt->label = label_display;
+	pt->entry = entrada;
+	gtk_signal_connect(GTK_OBJECT(boton_buscar), "clicked", GTK_SIGNAL_FUNC(buscarPromedio), pt);
+	gtk_signal_connect(GTK_OBJECT(back), "clicked", GTK_SIGNAL_FUNC(setViewMainMenu), nav); 
+
+	vbox = gtk_vbox_new(FALSE, 5);
+	gtk_box_pack_start_defaults(GTK_BOX(vbox),label1);
+	gtk_box_pack_start_defaults(GTK_BOX(vbox),entrada);
+	gtk_box_pack_start_defaults(GTK_BOX(vbox),boton_buscar);
+	gtk_box_pack_start_defaults(GTK_BOX(vbox),label_display);
+	gtk_box_pack_start_defaults(GTK_BOX(vbox),back);	
+	
+	return vbox;
 }
 
 /******************* Cerrar Aplicación con Request *******************/
 
+/*
+*	@brief: Cierra la aplicación y muestra opción para cambiar
+*	@author: Equipo 3
+*	@param GtkButton *window: Boton presionado para entrar
+*	@param Navegador *nav: Navegador con lista doble y arbol
+*	@return void
+*/
 void closeTheApp(GtkWidget *window, Navegador *nav){
 	GtkWidget *dialog;
-
 
 	dialog = gtk_message_dialog_new(GTK_WINDOW(window), GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_INFO, GTK_BUTTONS_YES_NO, NULL);
 	gtk_message_dialog_set_markup(GTK_MESSAGE_DIALOG(dialog), "<span weight='bold'>Desea guardar los cambios?</span>");
@@ -347,7 +485,7 @@ void closeTheApp(GtkWidget *window, Navegador *nav){
 		default:
 			break;
 	}
-	gtk_main_quit();
 	gtk_widget_destroy(dialog);
+	gtk_main_quit();
 }
 

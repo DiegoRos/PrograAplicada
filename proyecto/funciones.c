@@ -65,13 +65,15 @@ ListaDoble *pushLD(ListaDoble *nuevo, ListaDoble *pt){
 	else{
 		while(strcmp(nuevo->carrera, aux->carrera) > 0){
 			aux = aux->next;
+			if (aux == pt)
+				break;
 		}
 		nuevo->next = aux;
 		nuevo->prev = aux->prev;
 		aux->prev->next = nuevo;
 		aux->prev = nuevo;
 
-		if(aux == pt){
+		if((aux == pt) && (strcmp(nuevo->carrera, aux->carrera) < 0)){
 			pt = nuevo;
 		}
 	}
@@ -171,6 +173,30 @@ ListaDoble * colocarListaDoble(Alumno temp, ListaDoble *pt){
 }
 
 /*
+*	@brief: Función que lee file de estudiantes y los coloca en una lista doble.
+*	@author: Equipo 3
+*	@param char file_name[]: nombre de archivo
+*	@return ListaDoble *
+*/
+ListaDoble * readTxtLista(const char file_name[]){
+	ListaDoble *pt = NULL;
+	Alumno temp; 
+
+	FILE *fp;
+	fp = fopen(file_name, "r");
+	if (fp == NULL){
+		printf("No se pude leer file.\n");
+		exit(1);
+	}
+	
+	while(fscanf(fp, "%i\t%[^\t]\t%[^\t]\t%f\n", &temp.num_cuenta, temp.nombre, temp.carrera, &temp.promedio) > 1){
+		pt = colocarListaDoble(temp, pt);
+	}
+	fclose(fp);
+	return pt;
+}
+
+/*
 *	@brief: Función que coloca a un alumno dentro de un árbol binario ordenado por número de cuenta.
 *	@author: Equipo 3
 *	@param nodo *pt: Arbol existente o nulls
@@ -194,31 +220,6 @@ nodo * insertarArbol(nodo *pt, Alumno temp){
 		pt->izq = insertarArbol(pt->izq, temp);	
 	}
 
-	return pt;
-}
-
-
-/*
-*	@brief: Función que lee file de estudiantes y los coloca en una lista doble.
-*	@author: Equipo 3
-*	@param char file_name[]: nombre de archivo
-*	@return ListaDoble *
-*/
-ListaDoble * readTxtLista(const char file_name[]){
-	ListaDoble *pt = NULL;
-	Alumno temp; 
-
-	FILE *fp;
-	fp = fopen(file_name, "r");
-	if (fp == NULL){
-		printf("No se pude leer file.\n");
-		exit(1);
-	}
-	
-	while(fscanf(fp, "%i\t%[^\t]\t%[^\t]\t%f\n", &temp.num_cuenta, temp.nombre, temp.carrera, &temp.promedio) > 1){
-		pt = colocarListaDoble(temp, pt);
-	}
-	fclose(fp);
 	return pt;
 }
 
@@ -264,9 +265,9 @@ int imprimirCarrera(const char *file_name, Queue *pt){
 
 	if (aux == NULL) fprintf(fp, "La lista está vacía.\n");
 	else{
-		fprintf(fp, "<span size='xx-large' weight='ultrabold'>Lista de alumnos en carrera %s:</span>\n", pt->val.carrera);
+		fprintf(fp, "<span size='xx-large' weight='ultrabold'>Lista de alumnos en carrera %s:</span>\n\n", pt->val.carrera);
 		while (aux != NULL){
-			fprintf(fp, "\t<span weight='bold'>Alumno %d:</span>\n\t\tNo. de Cuenta: %i\n\t\tNombre: %s\n\t\tPromedio: %f\n", i, aux->val.num_cuenta, aux->val.nombre, aux->val.promedio);
+			fprintf(fp, "<span weight='bold'>Alumno %d:</span>\n\tNo. de Cuenta: %i\n\tNombre: %s\n\tPromedio: %f\n", i, aux->val.num_cuenta, aux->val.nombre, aux->val.promedio);
 			aux = aux->next;
 			++i;
 		}
@@ -283,6 +284,7 @@ int imprimirCarrera(const char *file_name, Queue *pt){
 *	@return nodo *
 */
 nodo * buscarNodo(nodo *root, int num_cuenta){
+	nodo *aux =  NULL;
 	if(root == NULL)
 		return NULL;
 	
@@ -291,17 +293,17 @@ nodo * buscarNodo(nodo *root, int num_cuenta){
 	}
 
 	if (root->alumno.num_cuenta < num_cuenta){
-		nodo *aux = buscarNodo(root->der, num_cuenta);
+		aux = buscarNodo(root->der, num_cuenta);
 		if(aux)
 			return aux; // Ya no hay necesidad de buscar más
 	}
 	else{
-		nodo *aux = buscarNodo(root->izq, num_cuenta);
+		aux = buscarNodo(root->izq, num_cuenta);
 		if(aux)
 			return aux; // Ya no hay necesidad de buscar más
 	}
 		
-	
+	return aux;
 }
 
 
@@ -314,7 +316,7 @@ nodo * buscarNodo(nodo *root, int num_cuenta){
 int generarTxt(Navegador *nav){
 	ListaDoble *pt = nav->inicio;
 	ListaDoble *aux = pt;
-	char nombre_file[] = "alumnos2.txt";
+	char nombre_file[] = "alumnos.txt";
 	FILE *fp;
 	fp = fopen(nombre_file, "w");
 	if (pt){
@@ -328,10 +330,44 @@ int generarTxt(Navegador *nav){
 			alumnos = aux->alumnos;
 		}while(aux != pt);
 	}
-	else{
-		fprintf(fp,"No quedan carreras en la lista.\n");
-	}
 	fclose(fp);	
+
+	return 0;
+}
+
+
+/*
+*	@brief: Función que genera archivo de texto de los mejores alumnos con cierto promedio.
+*	@author: Equipo 3
+*	@param char *nombre_file: nombre de archivo 
+*	@param float promedio: promedio mínimo 
+*	@param Navegador *nav: Navegador con lista doble
+*	@return int
+*/
+int buscarLDPromedio(char *nombre_file, float promedio, Navegador *nav){
+	ListaDoble *pt = nav->inicio;
+	ListaDoble *aux = pt;
+	int cont = 0;
+	FILE *fp;
+	fp = fopen(nombre_file, "w");
+
+	if (pt){
+		do{
+			if (aux->mejor_alumno.promedio >= promedio){
+				fprintf(fp, "<span weight='ultrabold'>Nombre:</span> %s\n\t<span weight='bold'>Número de Cuenta:</span> %i\n\t<span weight='bold'>Carrera:</span> %s\n\t<span weight='bold'>Promedio:</span> %f\n\n", aux->mejor_alumno.nombre, aux->mejor_alumno.num_cuenta, aux->mejor_alumno.carrera, aux->mejor_alumno.promedio);
+				++cont;
+			}
+			aux = aux->next;
+		}while(aux != pt);
+	}
+	else{
+		fprintf(fp,"<span weight='ultrabold'>No hay carreras en la lista</span>\n");
+	}
+
+	if (cont == 0){	
+		fprintf(fp,"<span weight='ultrabold'>No hay ningún mejor \nestudiante con ese promedio</span>\n");
+	}
+	fclose(fp);
 
 	return 0;
 }
