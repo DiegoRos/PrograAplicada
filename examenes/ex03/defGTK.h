@@ -1,5 +1,9 @@
 #include <gtk/gtk.h>
 #include <string.h>
+#include <ctype.h>
+
+#define True 1
+#define False 0
 
 struct elemento{
     char nombre[40];
