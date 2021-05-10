@@ -74,7 +74,7 @@ void popLista(GtkWidget *boton, base *pt){
 *	@return void
 */
 extern void modulo1(GtkWidget *boton, base *pt){
-	gtk_button_ser_label(GTK_BITTON(boton), "Abdiel Cuevas");
+	gtk_button_set_label(GTK_BUTTON(boton), "Abdiel Cuevas");
 
 	nodo *aux; 
 	int contadorMayuscula = 0;
@@ -90,7 +90,7 @@ extern void modulo1(GtkWidget *boton, base *pt){
   	}
 	else{
 		while(aux != NULL){
-			if(isupper(aux->nombre[0]) == 1){
+			if(isupper(aux->nombre[0])){
 				contadorMayuscula++;
 			}
 
@@ -99,12 +99,13 @@ extern void modulo1(GtkWidget *boton, base *pt){
 			}
 
 	
-			aux -> next;
+			aux = aux->next;
 	}
 
 	sprintf(buffer, "Con Mayusculas: %i, Mayores de 20: %i", contadorMayuscula, contadorEdad);
 	gtk_label_set_text(GTK_LABEL(pt->label3),buffer);
  }
+	printf("\n");
  return;
 }
 
@@ -148,6 +149,7 @@ extern void modulo2(GtkWidget *boton, base *pt){
 	
     sprintf(buffer, "Total de vocales modificadas: %i", num_modificadas);
     gtk_label_set_text(GTK_LABEL(pt->label3), buffer);
+	printf("\n");
 }
 
 Arbol * insertar(Arbol *pt, nodo *s){
@@ -155,8 +157,8 @@ Arbol * insertar(Arbol *pt, nodo *s){
 	if (pt == NULL){
 		Arbol *nuevo = (Arbol *)malloc(sizeof(Arbol));
 	
-		strcpy(nuevo->nombre, s->edad);
-		nuevo->edad = s->edad
+		strcpy(nuevo->nombre, s->nombre);
+		nuevo->edad = s->edad;
 		nuevo->left = NULL;
 		nuevo->right = NULL;
 		return nuevo;
@@ -180,6 +182,22 @@ void recorrer(Arbol *pt){
 	recorrer(pt->right);
 }
 
+int masPequeno(Arbol *root){
+	Arbol *aux = root;
+	while(aux->left != NULL)
+		aux = aux->left;
+	
+	return aux->edad;
+}
+
+int masGrande(Arbol *root){
+	Arbol *aux = root;
+	while(aux->right != NULL)
+		aux = aux->right;
+	
+	return aux->edad;
+}
+
 /*
 *	@brief: Esta función
 *	@author: Equipo 3
@@ -190,10 +208,21 @@ void recorrer(Arbol *pt){
 extern void modulo3(GtkWidget *boton, base *pt){
 	Arbol *root = NULL;
 	nodo *aux = pt->ref;
+	char buffer[50];
 	gtk_button_set_label(GTK_BUTTON(boton), "Santiago Cuesta");
+	if(pt->ref == NULL){
+		gtk_label_set_text(GTK_LABEL(pt->label3),"No hay nada");
+	}
+	else{
+		while(aux != NULL){
+			root = insertar(root, aux);
+			aux = aux->next;
+		}
+		recorrer(root);
+		sprintf(buffer, "Edad Menor: %i Edad Mayor: %i", masPequeno(root), masGrande(root));
 
-	//Loop sobre la lista
-
-	// Funcion recorrer
-  
+    	gtk_label_set_text(GTK_LABEL(pt->label3), buffer);
+	}
+	printf("\n");
+	return;
 }
