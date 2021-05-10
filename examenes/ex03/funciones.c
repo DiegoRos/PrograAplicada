@@ -74,7 +74,38 @@ void popLista(GtkWidget *boton, base *pt){
 *	@return void
 */
 extern void modulo1(GtkWidget *boton, base *pt){
+	gtk_button_ser_label(GTK_BITTON(boton), "Abdiel Cuevas");
 
+	nodo *aux; 
+	int contadorMayuscula = 0;
+	int contadorEdad = 0;
+	char buffer[50];
+  
+	aux = pt->ref; 
+	
+
+
+	if(aux == NULL){
+		gtk_label_set_text(GTK_LABEL(pt->label3),"No hay nada");
+  	}
+	else{
+		while(aux != NULL){
+			if(isupper(aux->nombre[0]) == 1){
+				contadorMayuscula++;
+			}
+
+			if(aux->edad > 20){
+				contadorEdad++;
+			}
+
+	
+			aux -> next;
+	}
+
+	sprintf(buffer, "Con Mayusculas: %i, Mayores de 20: %i", contadorMayuscula, contadorEdad);
+	gtk_label_set_text(GTK_LABEL(pt->label3),buffer);
+ }
+ return;
 }
 
 /*
@@ -119,6 +150,36 @@ extern void modulo2(GtkWidget *boton, base *pt){
     gtk_label_set_text(GTK_LABEL(pt->label3), buffer);
 }
 
+Arbol * insertar(Arbol *pt, nodo *s){
+	
+	if (pt == NULL){
+		Arbol *nuevo = (Arbol *)malloc(sizeof(Arbol));
+	
+		strcpy(nuevo->nombre, s->edad);
+		nuevo->edad = s->edad
+		nuevo->left = NULL;
+		nuevo->right = NULL;
+		return nuevo;
+	}
+
+	if (pt->edad < s->edad){
+		pt->right = insertar(pt->right, s);
+	}
+	else{
+		pt->left = insertar(pt->left, s);	
+	}
+
+	return pt;
+}
+
+void recorrer(Arbol *pt){
+	if(pt == NULL) return;
+
+	recorrer(pt->left);
+	printf("Nombre: %s Edad %i\n", pt->nombre, pt->edad);
+	recorrer(pt->right);
+}
+
 /*
 *	@brief: Esta función
 *	@author: Equipo 3
@@ -127,5 +188,12 @@ extern void modulo2(GtkWidget *boton, base *pt){
 *	@return void
 */
 extern void modulo3(GtkWidget *boton, base *pt){
+	Arbol *root = NULL;
+	nodo *aux = pt->ref;
+	gtk_button_set_label(GTK_BUTTON(boton), "Santiago Cuesta");
+
+	//Loop sobre la lista
+
+	// Funcion recorrer
   
 }

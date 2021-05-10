@@ -7,7 +7,7 @@
 
 struct elemento{
     char nombre[40];
-    int  edad;
+    int edad;
     struct elemento *next;
 };
 typedef struct elemento nodo;
@@ -24,3 +24,10 @@ struct datos
       nodo *ref;
      };
 typedef struct datos base;
+
+
+typedef struct Arbol{
+	char nombre[40];
+    int edad;
+	struct Arbol *left, *right;
+}Arbol;
