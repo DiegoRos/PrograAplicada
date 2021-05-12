@@ -359,14 +359,15 @@ int buscarLDPromedio(char *nombre_file, float promedio, Navegador *nav){
 			}
 			aux = aux->next;
 		}while(aux != pt);
+
+		if (cont == 0){	
+			fprintf(fp,"<span weight='ultrabold'>No hay ningún mejor \nestudiante con ese promedio</span>\n");
+	}
 	}
 	else{
 		fprintf(fp,"<span weight='ultrabold'>No hay carreras en la lista</span>\n");
 	}
 
-	if (cont == 0){	
-		fprintf(fp,"<span weight='ultrabold'>No hay ningún mejor \nestudiante con ese promedio</span>\n");
-	}
 	fclose(fp);
 
 	return 0;

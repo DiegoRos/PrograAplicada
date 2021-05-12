@@ -64,7 +64,7 @@ int main(int argc, char *argv[]){
 	gtk_window_set_default_size(GTK_WINDOW(window), 600, 600);
 	gtk_container_set_border_width(GTK_CONTAINER(window), 10);
 	
-	gtk_init(NULL, NULL);
+	gtk_init(&argc, &argv);
 	gtk_signal_connect(GTK_OBJECT(window), "destroy", G_CALLBACK(closeTheApp), nav);
 	setViewMainMenu(NULL, nav);	
 	gtk_main();
@@ -93,7 +93,7 @@ void setViewMainMenu(GtkButton *button, Navegador *nav){
 
 
 /*
-*	@brief: Hace que la vista de la pantalla sea el menu principal
+*	@brief: Crea los objetos de GTK que salen en la pantalla del menu principal
 *	@author: Equipo 3
 *	@param GtkButton *button: Boton presionado para entrar
 *	@param Navegador *nav: Navegador con lista doble y arbol
@@ -126,7 +126,7 @@ static GtkWidget * makeMainMenu(Navegador *nav){
 /******************* Manipulación  Listas Estudiantes *******************/
 
 /*
-*	@brief: Hace que la vista de la pantalla sea el menu principal
+*	@brief: Hace que lo que se vea en pantalla sea el módulo 1 y 3
 *	@author: Equipo 3
 *	@param GtkButton *button: Boton presionado para entrar
 *	@param Navegador *nav: Navegador con lista doble y arbol
@@ -145,10 +145,10 @@ void setViewModulo1(GtkButton *button, Navegador *nav){
 }
 
 /*
-*	@brief: Hace que la vista de la pantalla sea el menu principal
+*	@brief: Cambia la carrera vista en la pantalla a la siguiente
 *	@author: Equipo 3
 *	@param GtkButton *button: Boton presionado para entrar
-*	@param Navegador *nav: Navegador con lista doble y arbol
+*	@param Navegador *pt: Navegador con lista doble, arbol y label a cambiar
 *	@return void
 */
 void cambiarCarreraSiguiente(GtkButton *button, LabelNav *pt){
@@ -165,10 +165,10 @@ void cambiarCarreraSiguiente(GtkButton *button, LabelNav *pt){
 }
 
 /*
-*	@brief: Hace que la vista de la pantalla sea el menu principal
+*	@brief: Cambia la carrera vista en la pantalla a la previa
 *	@author: Equipo 3
 *	@param GtkButton *button: Boton presionado para entrar
-*	@param Navegador *nav: Navegador con lista doble y arbol
+*	@param Navegador *pt: Navegador con lista doble, arbol y label a cambiar
 *	@return void
 */
 void cambiarCarreraPrevia(GtkButton *button, LabelNav *pt){
@@ -184,7 +184,7 @@ void cambiarCarreraPrevia(GtkButton *button, LabelNav *pt){
 }
 
 /*
-*	@brief: Hace que la vista de la pantalla sea el menu principal
+*	@brief: Hace una nueva pantalla con el listado de alumnos
 *	@author: Equipo 3
 *	@param GtkButton *button: Boton presionado para entrar
 *	@param Navegador *nav: Navegador con lista doble y arbol
@@ -199,9 +199,9 @@ void verListaDeAlumnos(GtkButton *button, Navegador *nav){
 		imprimirCarrera(alumnos_file, NULL);
 
 	GtkWidget *window_lista, *label_view;
-	gchar *file_buffer;
-	GError *error;
-	gboolean read_file_status;
+	gchar *file_buffer; // String
+	GError *error; // Tipo especial de GTK para errores
+	gboolean read_file_status; // Booleano
 
 	label_view = gtk_label_new(NULL);
 
@@ -228,10 +228,10 @@ void verListaDeAlumnos(GtkButton *button, Navegador *nav){
 }
 
 /*
-*	@brief: Hace que la vista de la pantalla sea el menu principal
+*	@brief: Borra una carrera
 *	@author: Equipo 3
 *	@param GtkButton *button: Boton presionado para entrar
-*	@param Navegador *nav: Navegador con lista doble y arbol
+*	@param LabelNav *pt: Navegador con lista doble, arbol y label a cambiar
 *	@return void
 */
 void borrarNodoCarrera(GtkButton *button, LabelNav *pt){	
@@ -249,7 +249,7 @@ void borrarNodoCarrera(GtkButton *button, LabelNav *pt){
 }
 
 /*
-*	@brief: Hace que la vista de la pantalla sea el menu principal
+*	@brief: Hace que la vista de la pantalla sea el módulo 1 y módulo 3
 *	@author: Equipo 3
 *	@param GtkButton *button: Boton presionado para entrar
 *	@param Navegador *nav: Navegador con lista doble y arbol
@@ -269,7 +269,6 @@ static GtkWidget * makeModulo1(Navegador *nav){
 		sprintf(buffer, "<span size='xx-large' weight='ultrabold'>No hay carreras\nen la lista.</span>");
 	}
 	texto_carrera = gtk_label_new(NULL);
-	//Falta agregar variable para que se imprima bien la info.
 	gtk_label_set_markup(GTK_LABEL(texto_carrera), buffer);
 	
 	boton_izq = gtk_button_new_with_label("Previa");
@@ -302,7 +301,7 @@ static GtkWidget * makeModulo1(Navegador *nav){
 
 /******************* FUNCIONES MÓDULO 2 *******************/
 /*
-*	@brief: Hace que la vista de la pantalla sea el menu principal
+*	@brief: Hace que la vista de la pantalla sea el módulo 2
 *	@author: Equipo 3
 *	@param GtkButton *button: Boton presionado para entrar
 *	@param Navegador *nav: Navegador con lista doble y arbol
@@ -346,7 +345,7 @@ void buscarAlumno(GtkButton *boton, EntryLabelNav *pt){
 }
 
 /*
-*	@brief: Hace que la vista de la pantalla sea el menu principal
+*	@brief: Crea los objetos de GTK para el módulo 2.
 *	@author: Equipo 3
 *	@param GtkButton *button: Boton presionado para entrar
 *	@param Navegador *nav: Navegador con lista doble y arbol
@@ -381,7 +380,7 @@ static GtkWidget * makeModulo2(Navegador *nav){
 
 /******************* FUNCIONES MÓDULO 4 *******************/
 /*
-*	@brief: Hace que la vista de la pantalla sea el menu principal
+*	@brief: Hace que la vista de la pantalla sea el módulo 4
 *	@author: Equipo 3
 *	@param GtkButton *button: Boton presionado para entrar
 *	@param Navegador *nav: Navegador con lista doble y arbol
@@ -400,7 +399,7 @@ void setViewModulo4(GtkButton *button, Navegador *nav){
 }
 
 /*
-*	@brief: Hace que la vista de la pantalla sea el menu principal
+*	@brief: Busca dentro de los mejores alumnos arriba de cierto promedio y los imprime a pantalla
 *	@author: Equipo 3
 *	@param GtkButton *button: Boton presionado para entrar
 *	@param Navegador *nav: Navegador con lista doble y arbol
@@ -429,7 +428,7 @@ void buscarPromedio(GtkButton *boton, EntryLabelNav *pt){
 }
 
 /*
-*	@brief: Hace que la vista de la pantalla sea el menu principal
+*	@brief: Crea los objetos de GTK para ver el módulo 4
 *	@author: Equipo 3
 *	@param GtkButton *button: Boton presionado para entrar
 *	@param Navegador *nav: Navegador con lista doble y arbol
